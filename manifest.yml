@@ -1,0 +1,7 @@
+---
+applications:
+- name: api.supermarket.in
+  buildpack: java_buildpack
+  memory: 1G
+  instances: 1
+  path: target/supermarketapp-0.0.1-SNAPSHOT.jar
