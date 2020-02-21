@@ -10,7 +10,7 @@ import com.chainsys.supermarketapp.exception.ErrorConstants;
 public class ConnectionUtil {
 
 	private ConnectionUtil() {
-		//default constructor
+	
 	}
 	public static Connection getConnection() throws DbException {
 		try {
@@ -20,8 +20,8 @@ public class ConnectionUtil {
 		}
 		Connection con;
 		try {
-			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","oracle");
-			//con = DriverManager.getConnection("jdbc:oracle:thin:@13.235.147.120:1521:XE", "gowtham", "gowtham");
+			//con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","oracle");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@13.235.147.120:1521:XE", "gowtham", "gowtham");
 		} catch (SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_CON);
 		}

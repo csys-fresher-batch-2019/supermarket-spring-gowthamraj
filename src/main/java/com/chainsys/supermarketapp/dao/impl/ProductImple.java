@@ -29,6 +29,7 @@ public class ProductImple implements ProductDAO {
 		ps.executeUpdate();
 	}
 	catch(SQLException e) {
+		e.printStackTrace();
 		throw new DbException(ErrorConstants.INVALID_ADD);
 	}
 	}

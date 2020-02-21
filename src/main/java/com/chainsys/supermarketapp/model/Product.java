@@ -4,8 +4,15 @@ public class Product {
 	private int pid;
 	private String productname;
 	private int price;
+	private int active;
 	
 	 
+	public int getActive() {
+		return active;
+	}
+	public void setActive(int active) {
+		this.active = active;
+	}
 	public int getPid() {
 		return pid;
 	}
@@ -26,6 +33,6 @@ public class Product {
 	}
 	@Override
 	public String toString() {
-		return "Product [productid=" + pid + ", productname=" + productname + ", price=" + price + "]";
+		return "Product [pid=" + pid + ", productname=" + productname + ", price=" + price + ", active=" + active + "]";
 	}
 }

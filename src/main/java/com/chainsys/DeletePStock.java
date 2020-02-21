@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.chainsys.supermarketapp.dao.impl.ProductStockImple;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.model.ProductStock;
-@WebServlet("/DeletePStock")
+
 public class DeletePStock extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
