@@ -3,7 +3,7 @@ deploy:
   provider: heroku
   app: supermarketapp-gowtham
   api_key:
-    secure: "e8859334-e1d5-4019-8797-40087bf651a5"
+    secure: "011242fb-40a4-4981-b1cf-03eea5b46b27"
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
