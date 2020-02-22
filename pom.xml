@@ -12,6 +12,7 @@
 	<artifactId>supermarketapp</artifactId>
 	<version>1.0.0</version>
 	<name>supermarketapp</name>
+	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
