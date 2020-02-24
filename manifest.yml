@@ -5,6 +5,3 @@ applications:
   memory: 1G
   instances: 1
   path: target/supermarketapp-1.0.0-SNAPSHOT.war
-script:
-  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
