@@ -105,6 +105,7 @@ public class ProductStockImple implements ProductStockDAO {
 			ps.setInt(2, productstock.getProductno());
 			ps.executeUpdate();
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DbException(ErrorConstants.INVALID_UPDATE);
 		}
 	}

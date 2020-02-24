@@ -36,10 +36,10 @@ List<OrderItem> list = boi.viewBillItems(cus);
 <table >
 		<tr>
 			
-			<th>Customer Number</th>
+			<th>Bill Number</th>
+			<th>Product ID</th>
+			<th>Quantity</th>
 			<th>Price</th>
-			<th>Status</th>
-			<th>OrderDate</th>
 		</tr>	
 		
 		

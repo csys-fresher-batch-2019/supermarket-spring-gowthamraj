@@ -19,7 +19,7 @@
 		%>
 		<center>Welcome  <%=username%> ( <a href="LogoutServlet">Logout</a> )</center><br/> <br/><br/>
 	<pre>		
-Enter the Employee Number	<input type=""text"" name="eno" placeholder="Employee Number" required autofocus/><br></br>
+Enter the Employee Name	<input type=""text"" name="eno" placeholder="Employee Name" required autofocus/><br></br>
 Enter the Date-Of-Birth		<input type="date" name="dob" placeholder="Date-of-birth" required autofocus/><br></br>
 Enter the Date-Of-Joining	<input type="date" name="doj" placeholder="Date-of-joining" required autofocus/><br></br>
 Enter the Address         	<input type="text" name="add" placeholder="Address" required autofocus/><br></br>

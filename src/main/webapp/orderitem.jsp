@@ -59,6 +59,13 @@ Enter the Customer No *: <input type="number" name="cusnum" required autofocus/>
 					%>
 				</tbody>
 			</table> <br>
+			<%
+String order = (String) request.getAttribute("ORDER_DETAILS");
+
+%>
+			<%if(order!= null)
+				%>
+				<%=order %>
 		<pre>
 		<button type="submit">Submit</button>
 		<a href="report.jsp">Back</a>

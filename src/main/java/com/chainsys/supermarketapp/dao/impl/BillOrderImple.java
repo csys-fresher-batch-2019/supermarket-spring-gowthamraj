@@ -34,6 +34,33 @@ public class BillOrderImple implements BillOrderDAO {
 		}
 		return orderID;
 	}
+		
+		public boolean productQuantityValidate(Order billorder) throws DbException {
+		boolean stockavailable = true;
+			List<OrderItem> items = billorder.getItems();
+			for (OrderItem orderItem : items) {
+				String sql = "select quantity from product_stock where product_no=?";
+				try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);
+					) {
+					pst.setInt(1, orderItem.getProductId());
+				
+					pst.executeQuery();
+				try(ResultSet rs = pst.executeQuery();){
+				if(rs.next()) {
+				int  a=rs.getInt("quantity");
+				if (orderItem.getQuantity()>a)
+				{
+					stockavailable= false;
+				}
+				}
+				}
+				}catch(SQLException e) {
+					e.printStackTrace();
+					throw new DbException(ErrorConstants.INVALID_ADD);
+				}	
+			}
+			return stockavailable;
+		}
 
 	@Override
 	public int addBillOrder(Order billorder) throws DbException {
@@ -64,7 +91,7 @@ public class BillOrderImple implements BillOrderDAO {
 			}
 		}
 		catch(SQLException e) {
-			
+			e.printStackTrace();
 			throw new DbException(ErrorConstants.INVALID_ADD);
 		}
 		return orderId;
@@ -119,6 +146,8 @@ public class BillOrderImple implements BillOrderDAO {
 		}
 		}
 		catch(SQLException e) {
+			e.printStackTrace();
+
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 				}
 		return list;

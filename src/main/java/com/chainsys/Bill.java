@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +17,7 @@ import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.util.Logger;
-
+@WebServlet("/Bill")
 public class Bill extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = Logger.getInstance();
@@ -52,6 +53,7 @@ public class Bill extends HttpServlet {
 				
 				//add amount to total
 				totalAmount = totalAmount + tprice;
+			int a=item.getProductId();
 			}
 			
 			order.setTotalAmount(totalAmount);
@@ -59,6 +61,10 @@ public class Bill extends HttpServlet {
 			order.setStatus("ORDERED");
 			
 			BillOrderImple boi = new BillOrderImple();
+			boolean a=boi.productQuantityValidate(order);
+			System.out.println(a);
+			if(a)
+			{
 			int orderId = boi.addBillOrder(order);
 			order.setOrderId(orderId);
 			
@@ -66,17 +72,22 @@ public class Bill extends HttpServlet {
 
 			RequestDispatcher dispatcher1 = request.getRequestDispatcher("BillReceipt.jsp");
 			dispatcher1.forward(request, response);
+			}else
+			{
+				
 			
+				request.setAttribute("ORDER_DETAILS", "Sufficient quantity not available for this product");
+
+		
+				RequestDispatcher dispatcher2 = request.getRequestDispatcher("orderitem.jsp");
+				dispatcher2.forward(request, response);
+			}
 		} catch (DbException e) {
 			e.printStackTrace();
-			log.error(e);
+			
 			RequestDispatcher dispatcher2 = request.getRequestDispatcher("orderitem.jsp");
 			dispatcher2.forward(request, response);
 		}
-		
-
-		
-		
 	}
 
 }

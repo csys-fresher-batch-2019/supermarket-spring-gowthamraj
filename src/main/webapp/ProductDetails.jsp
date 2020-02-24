@@ -27,7 +27,7 @@
 
 <%		 
 	ProductImple pi = new ProductImple();
- 	List<Product> list = pi.displayproductAvailable();
+ 	List<Product> list = pi.displayproduct();
  	 %>
  			<table >
 				<thead>
@@ -36,6 +36,7 @@
 						<th>Product Id</th>
 						<th>Product Name</th>
 						<th>Price</th>
+						<th>Active</th>
 						
 					</tr>
 				</thead>
@@ -49,7 +50,7 @@
 						<td><%=p.getPid()%></td>
 						<td><%=p.getProductname()%></td>
 						<td>Rs.<%=p.getPrice()%></td>
-						
+						<td><%=p.getActive() %>
 					</tr>
 					<%
 						}

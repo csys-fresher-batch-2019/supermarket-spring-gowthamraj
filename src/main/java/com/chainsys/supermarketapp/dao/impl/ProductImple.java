@@ -46,7 +46,7 @@ public class ProductImple implements ProductDAO {
 	}
 	@Override
 	public List<Product> displayproduct() throws DbException {
-		String sql="select product_id,product_name,price from product";
+		String sql="select product_id,product_name,price,active from product";
 		List<Product> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();Statement st1 =con.createStatement();
 				ResultSet rs=st1.executeQuery(sql);) {
@@ -56,6 +56,7 @@ public class ProductImple implements ProductDAO {
 			p.setProductname(rs.getString("product_name"));
 			p.setPrice(rs.getInt("price"));
 			p.setPid(rs.getInt("product_id"));
+			p.setActive(rs.getInt("active"));
 			list.add(p);
 		}
 		}
