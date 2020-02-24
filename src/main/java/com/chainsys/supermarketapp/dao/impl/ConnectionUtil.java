@@ -3,6 +3,7 @@ package com.chainsys.supermarketapp.dao.impl;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.TimeZone;
 
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
@@ -20,9 +21,11 @@ public class ConnectionUtil {
 		}
 		Connection con;
 		try {
+			TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kolkata"));
 			//con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","oracle");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@13.235.147.120:1521:XE", "gowtham", "gowtham");
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DbException(ErrorConstants.INVALID_CON);
 		}
 		return con;

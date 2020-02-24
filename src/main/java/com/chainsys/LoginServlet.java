@@ -29,9 +29,11 @@ public class LoginServlet extends HttpServlet {
 		Login log1 = null;
 		try {
 			log1 = login.check(log);
+			System.out.println("Login :" + log1);
 			
 		} catch (Exception e) {
-			
+		e.printStackTrace();
+		System.out.println("Exception :" + e.getMessage());
 		}
 		
 		PrintWriter out = response.getWriter();
