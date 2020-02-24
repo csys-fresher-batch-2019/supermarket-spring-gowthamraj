@@ -4,4 +4,4 @@ applications:
   buildpack: java_buildpack
   memory: 1G
   instances: 1
-  path: target/supermarketapp-0.0.1-SNAPSHOT.war
+  path: target/supermarketapp-1.0.0-SNAPSHOT.war
