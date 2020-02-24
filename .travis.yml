@@ -1,9 +1,12 @@
 language: java
 deploy:
-  provider: heroku
-  app: supermarketapp-gowtham
-  api_key:
-    secure: "011242fb-40a4-4981-b1cf-03eea5b46b27"
+  provider: cloudfoundry
+  username: gowthamjerry1509@gmail.com
+  password: Gowtham@1509
+  api: https://api.run.pivotal.io
+  organization: supermarket
+  space: development
+  manifest: manifest.yml
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
