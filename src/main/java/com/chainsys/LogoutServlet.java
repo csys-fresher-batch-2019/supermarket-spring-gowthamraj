@@ -14,6 +14,7 @@ public class LogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		session.invalidate();
 		session.removeAttribute("LOGGED_IN_USER_ID");	
 		session.invalidate();
 		session.setMaxInactiveInterval(60);
