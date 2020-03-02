@@ -16,7 +16,7 @@ import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.ProductStock;
 
 public class ProductStockImple implements ProductStockDAO {
-
+	
 	public boolean isProductExists(int productno) throws DbException {
 		boolean exists = false;
 		String sql1 = "select product_no from product_stock where product_no=?";
@@ -34,80 +34,88 @@ public class ProductStockImple implements ProductStockDAO {
 		return exists;
 	}
 
-	public boolean getStockProductNo(int productNo) throws DbException
-	{
+	public boolean getStockProductNo(int productNo) throws DbException {
 		boolean exists = false;
-		//String sql="select product_id FROM product p where product_id in ( select  product_no from product_stock pk where pk.product_no=?)";
-		String sql="select  product_no from product_stock pk where pk.product_no=?";
-		
+		// String sql="select product_id FROM product p where product_id in ( select
+		// product_no from product_stock pk where pk.product_no=?)";
+		String sql = "select  product_no from product_stock pk where pk.product_no=?";
+
 		try (Connection con = ConnectionUtil.getConnection();
 				PreparedStatement ps = con.prepareStatement(sql);
 				ResultSet rs = ps.executeQuery();) {
 			if (rs.next()) {
 				exists = true;
 			}
-	}catch (Exception e) {
-		throw new DbException(ErrorConstants.INVALID_DELETE);
-	}
+		} catch (Exception e) {
+			throw new DbException(ErrorConstants.INVALID_DELETE);
+		}
 		return exists;
 	}
 
 	@Override
-	public void addProductStock(ProductStock productstock) throws DbException {
+	public int addProductStock(ProductStock productstock) throws DbException {
 
 		String sql = "insert into product_stock (stock_id,product_no,quantity,product_arrival,expery_date)\r\n"
 				+ "values(pro_no.nextval,?,?,?,?)";
+		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, productstock.getProductno());
 			ps.setInt(2, productstock.getQuantity());
 			ps.setDate(3, Date.valueOf(productstock.getProductarrival()));
 			ps.setDate(4, Date.valueOf(productstock.getExperydate()));
 
-			ps.executeUpdate();
+			rows = ps.executeUpdate();
 
 		} catch (SQLException e) {
-			
+
 			throw new DbException(ErrorConstants.INVALID_ADD);
 
 		}
+		return rows;
 	}
 
 	@Override
-	public void deleteProductStock(ProductStock productstock) throws DbException {
+	public int deleteProductStock(ProductStock productstock) throws DbException {
 		String sql = "delete from product_stock where product_no=?";
+		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, productstock.getProductno());
-			ps.executeUpdate();
+			rows = ps.executeUpdate();
 		} catch (Exception e) {
 			throw new DbException(ErrorConstants.INVALID_DELETE);
 		}
+		return rows;
 	}
 
 	@Override
-	public void updateProductStock(ProductStock productstock) throws DbException {
+	public int updateProductStock(ProductStock productstock) throws DbException {
 
 		String sql = "update product_stock set quantity=quantity + ? where product_no=?";
+		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, productstock.getQuantity());
 			ps.setInt(2, productstock.getProductno());
-			ps.executeUpdate();
+			rows = ps.executeUpdate();
 		} catch (Exception e) {
 			throw new DbException(ErrorConstants.INVALID_UPDATE);
 		}
+		return rows;
 	}
 
 	@Override
-	public void updateProductStock1(ProductStock productstock) throws DbException {
+	public int updateProductStock1(ProductStock productstock) throws DbException {
 
 		String sql = "update product_stock set quantity=quantity- ? where product_no=?";
+		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, productstock.getQuantity());
 			ps.setInt(2, productstock.getProductno());
-			ps.executeUpdate();
+			rows = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DbException(ErrorConstants.INVALID_UPDATE);
 		}
+		return rows;
 	}
 
 	@Override

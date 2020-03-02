@@ -7,6 +7,6 @@ import com.chainsys.supermarketapp.model.Login;
 @Repository
 public interface LoginDAO {
 	
-	void add(Login login) throws DbException;
+	int add(Login login) throws DbException;
 	public Login check(Login login) throws DbException;
 }

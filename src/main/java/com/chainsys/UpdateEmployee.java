@@ -12,28 +12,26 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 
 import com.chainsys.supermarketapp.dao.impl.EmployeeImpl;
-import com.chainsys.supermarketapp.dao.impl.ProductStockImple;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.model.Employee;
-import com.chainsys.supermarketapp.model.ProductStock;
+
 @WebServlet("/UpdateEmployee")
 @Service
 public class UpdateEmployee extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	
-		String ename=request.getParameter("en");
-		String add=request.getParameter("ea");
-		EmployeeImpl ei=new EmployeeImpl();
-		Employee em=new Employee();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String ename = request.getParameter("en");
+		String add = request.getParameter("ea");
+		EmployeeImpl ei = new EmployeeImpl();
+		Employee em = new Employee();
 		em.setEmployeename(ename);
 		em.setAddress(add);
-		
-		
+
 		try {
-		ei.updateEmployeeDetils(em);
+			ei.updateEmployeeDetils(em);
 			request.setAttribute("updateproduct", "Update Employee Details Suucesfully");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateEmployee.jsp");
@@ -44,8 +42,6 @@ public class UpdateEmployee extends HttpServlet {
 			e.printStackTrace();
 		}
 
-
 	}
-
 
 }

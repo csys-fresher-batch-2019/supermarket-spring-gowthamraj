@@ -7,9 +7,9 @@ import com.chainsys.supermarketapp.model.CustomerCard;
 @Repository
 public interface CustomerCardDAO
 {
-public void addCustomerCard(CustomerCard customercard) throws DbException;
-public void deleteCustomerCard(CustomerCard customercard)throws DbException;
+public int addCustomerCard(CustomerCard customercard) throws DbException;
+public int deleteCustomerCard(CustomerCard customercard)throws DbException;
 public void displayCustomerCard(CustomerCard customercard)throws DbException;
-public void updateCustomerCard(CustomerCard customercard)throws DbException;
+public int updateCustomerCard(CustomerCard customercard)throws DbException;
 
 }

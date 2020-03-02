@@ -1,10 +1,13 @@
 package com.chainsys.supermarketapp.client;
 //import citipe.servicelayer.*;
 
-import com.chainsys.supermarketapp.util.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 
 public class Payment {
-	private static final Logger log = Logger.getInstance();
+	 private static final Logger logger = LoggerFactory.getLogger(Payment.class);
 	private static final Long COMPANY_MOBILE_NO = 6789012340L; //use your registered wallet mobileno
 	public static boolean pay(Long mobileNo , int pin, int amount) {
 	
@@ -14,7 +17,7 @@ public class Payment {
 			//status = userService.walletTransfer(mobileNo, COMPANY_MOBILE_NO, pin, amount);
 			System.out.println(status);
 		} catch (Exception e) {
-			log.error(e);
+			logger.error(e.getMessage());
 			status = false;
 		}
         return status;
