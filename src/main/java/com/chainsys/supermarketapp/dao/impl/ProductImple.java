@@ -20,18 +20,20 @@ public class ProductImple implements ProductDAO {
 	private static final boolean NULL = false;
 
 	@Override
-	public void addproductDetails(Product product)throws DbException {
+	public int addproductDetails(Product product)throws DbException {
 		String sql = "insert into product (product_id,product_name,price) values(pro_id.nextval,?,?)";
+		int rows = 0;
 		try (Connection con =ConnectionUtil. getConnection();PreparedStatement ps=con.prepareStatement(sql);){
 		log.getInput(sql);
 		ps.setString(1,product.getProductname() );
 		ps.setInt(2,product.getPrice());
-		ps.executeUpdate();
+		rows=ps.executeUpdate();
 	}
 	catch(SQLException e) {
 		e.printStackTrace();
 		throw new DbException(ErrorConstants.INVALID_ADD);
 	}
+		return rows;
 	}
 	@Override
 	public void deleteproductDetails(Product product) throws DbException {

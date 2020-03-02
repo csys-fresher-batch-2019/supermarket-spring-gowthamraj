@@ -3,10 +3,12 @@ package com.chainsys.supermarketapp.dao;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.Product;
-
+@Repository
 public interface CaseDAO {
 	public int employeeCount() throws DbException;
 	public int totalIncome(OrderItem bills)throws DbException;

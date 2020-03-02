@@ -13,12 +13,12 @@ public class ErrorConstants {
 	= "insertion not establish";
 
 	public static final String INVALID_UPDATE
-	= "insertion not establish";
+	= "update not establish";
 
 	public static final String INVALID_DELETE
-	= "insertion not establish";
+	= "delete not establish";
 	public static final String INVALID_SELECT
-	= "insertion not establish";
+	= "select not establish";
 	
 
 }

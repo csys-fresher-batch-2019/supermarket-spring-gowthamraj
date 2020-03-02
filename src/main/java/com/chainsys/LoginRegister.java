@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Service;
+
 import com.chainsys.supermarketapp.dao.impl.LoginImple;
 import com.chainsys.supermarketapp.model.Login;
 @WebServlet("/LoginRegister")
+@Service
 public class LoginRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

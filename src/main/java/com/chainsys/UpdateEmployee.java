@@ -9,12 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Service;
+
 import com.chainsys.supermarketapp.dao.impl.EmployeeImpl;
 import com.chainsys.supermarketapp.dao.impl.ProductStockImple;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.model.ProductStock;
 @WebServlet("/UpdateEmployee")
+@Service
 public class UpdateEmployee extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

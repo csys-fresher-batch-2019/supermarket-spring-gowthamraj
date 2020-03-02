@@ -1,7 +1,8 @@
 package com.chainsys.supermarketapp.util;
 
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class Logger {
 	public static Logger getInstance()
 	{

@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Service;
+
 import com.chainsys.supermarketapp.dao.impl.ProductImple;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.model.Product;
 @WebServlet("/DeleteProduct")
+@Service
 public class DeleteProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

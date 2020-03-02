@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Service;
+
 import com.chainsys.supermarketapp.dao.impl.CaseImple;
 import com.chainsys.supermarketapp.exception.DbException;
 @WebServlet("/IncomeByDate")
+@Service
 public class IncomeByDate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
