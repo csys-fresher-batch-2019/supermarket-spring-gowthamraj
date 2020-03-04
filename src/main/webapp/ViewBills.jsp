@@ -1,8 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<%@  page import="com.chainsys.supermarketapp.dao.impl.BillOrderImple"%>
-<%@  page import="com.chainsys.supermarketapp.model.Order"%>
 <%@  page import=" java.util.*"%>
 <%@  page import="javax.servlet.*" %>
 <html>
@@ -12,22 +11,15 @@
 <body >
 
 
-<%
-BillOrderImple boi = new BillOrderImple();
-List<Order> list = boi.displayBillOrder();
- 	
-%>
  <pre>							
 						
 						
 						<center>	<font color="red"><h1>GK Super Market</h1></font></center></pre>
-						<%
-			String username = (String) session.getAttribute("LOGGED_IN_USER_ID");
-			if (username == null) {
-				response.sendRedirect("Login.jsp");
-			}
-		%>
-		<center>Welcome  <%=username%> ( <a href="LogoutServlet">Logout</a> )</center><br/> <br/><br/>
+						<c:if test="${empty sessionScope.LOGGED_IN_USER_ID}">
+				    <c:redirect url = "Login.jsp"/>
+				    </c:if>
+			
+		<center>Welcome  ${LOGGED_IN_USER_ID} ( <a href="LogoutServlet">Logout</a> )</center><br/> <br/><br/>
 						
 		
 <table >
@@ -42,25 +34,18 @@ List<Order> list = boi.displayBillOrder();
 		
 		<tbody>
 
-		
-		<%
-		for (Order pr : list) {
-		%>
-		<tr>
-		
-	
-		
-		<td><a href= "ViewBillItem.jsp?customer_no=<%=pr.getOrderId() %>"><%=pr.getOrderId() %></a></td>
-		<td><%=pr.getCustomerno() %></td>
-		<td>Rs.<%=pr.getTotalAmount() %></td>
-		<td><%=pr.getStatus() %></td>
-		<td><%=pr.getOrderedDate() %></td>
-		</tr>
+<c:forEach items="${View}" var="user">
+   
+	 	<tr>	
+		<td><a href= "BillItems?customer_no= ${user}.orderId>"> ${user.orderId}</a></td>
+		<td>${user.customerno}</td>
+		<td>Rs.${user.totalAmount}</td>
+		<td>${user.status}</td>
+		<td>${user.orderedDate}</td>
+	</tr>
+</c:forEach>	
 	</tbody>
 	
-	<%
-	}
-		%>
 	</table> 
 	
 <pre><center><a href="report.jsp">Back</a></center></pre>

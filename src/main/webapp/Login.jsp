@@ -18,7 +18,7 @@
 
 					Enter the PassWord    <Input type="password" name="pword" pattern=".{5,}"  placeholder ="Five or more characters" required autofocus/><br/>
 								<Input type="submit" value="login">
-								<a href ="NewUserRegistration.jsp"> goto registration</a>
+								<a href ="NewUserRegistration.jsp"> Sign-in..</a>
 								
 </pre>			
 

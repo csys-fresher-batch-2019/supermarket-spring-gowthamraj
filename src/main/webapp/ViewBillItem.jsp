@@ -1,10 +1,11 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@  page import="com.chainsys.supermarketapp.dao.impl.BillOrderImple"%>
+	pageEncoding="ISO-8859-1"%>
+<%@  page import="com.chainsys.supermarketapp.dao.impl.BillOrderImple"%>
 <%@  page import="com.chainsys.supermarketapp.model.OrderItem"%>
 <%@  page import=" java.util.*"%>
-<%@  page import="javax.servlet.*" %>
-    
+<%@  page import="javax.servlet.*"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,56 +14,52 @@
 </head>
 <body>
 
+	<pre>							
+						<center>	<font color="red"><h1>GK Super Market</h1></font>
+		</center>
+	</pre>
+	<c:if test="${empty sessionScope.LOGGED_IN_USER_ID}">
+		<c:redirect url="Login.jsp" />
+	</c:if>
 
-<%
-int cus=Integer.parseInt(request.getParameter("customer_no"));
-BillOrderImple boi = new BillOrderImple();
-List<OrderItem> list = boi.viewBillItems(cus);
- 	
-%>
- <pre>							
-						
-						
-						<center>	<font color="red"><h1>GK Super Market</h1></font></center></pre>
-						<%
-			String username = (String) session.getAttribute("LOGGED_IN_USER_ID");
-			if (username == null) {
-				response.sendRedirect("Login.jsp");
-			}
-		%>
-		<center>Welcome  <%=username%> ( <a href="LogoutServlet">Logout</a> )</center><br/> <br/><br/>
-						
-		
-<table >
+	<center>
+		Welcome ${ LOGGED_IN_USER_ID} ( <a href="LogoutServlet">Logout</a> )
+	</center>
+	<br />
+	<br />
+	<br />
+
+
+	<table>
 		<tr>
-			
+
 			<th>Bill Number</th>
 			<th>Product ID</th>
 			<th>Quantity</th>
 			<th>Price</th>
-		</tr>	
-		
-		
+		</tr>
+
+
 		<tbody>
 
-		
-		<%
-		for (OrderItem pr : list) {
-		%>
-		<tr>
-		
-		<td><%=	pr.getOrderId() %></td>
-		<td><%=pr.getProductId() %></td>
-		<td><%=pr.getQuantity() %></td>
-		<td>Rs.<%=pr.getTotalAmount() %></td>
-		</tr>
-	</tbody>
-	
-	<%
-	}
-		%>
-	</table> 
-	<pre><center><a href="ViewBills.jsp">Back</a></center></pre>
+	<c:forEach items="${billitem}" var="user">
+			
+			<tr>
+
+				<td>${user.orderId}</td>
+				<td>${user.productId}</td>
+				<td>${user.quantity}</td>
+				<td>Rs.${user.totalAmount}</td>
+			</tr>
+</c:forEach>
+		</tbody>
+
+	</table>
+	<pre>
+		<cen>
+			<a href="ViewBills.jsp">Back</a>
+		</center>
+	</pre>
 
 
 </body>

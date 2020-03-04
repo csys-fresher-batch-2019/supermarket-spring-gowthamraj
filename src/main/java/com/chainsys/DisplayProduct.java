@@ -1,5 +1,6 @@
 package com.chainsys;
 
+
 import java.io.IOException;
 import java.util.List;
 
@@ -9,28 +10,29 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.chainsys.supermarketapp.dao.BillOrderDAO;
+
+import com.chainsys.supermarketapp.dao.ProductDAO;
 import com.chainsys.supermarketapp.daofactory.DAOFactory;
 import com.chainsys.supermarketapp.exception.DbException;
-import com.chainsys.supermarketapp.model.Order;
+import com.chainsys.supermarketapp.model.Product;
 
-@WebServlet("/ViewBills")
-public class ViewBills extends HttpServlet {
+@WebServlet("/DisplayProduct")
+public class DisplayProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ProductDAO dao = DAOFactory.getProductDAO();
 		
-		BillOrderDAO boi =DAOFactory.getBillOrderDAO();
 		try {
-			List<Order> list = boi.displayBillOrder();
-			System.out.println(list.size());
-			request.setAttribute("View", list);
-			RequestDispatcher dis=request.getRequestDispatcher("ViewBills.jsp");
+			List<Product> list= dao.displayproductAvailable();
+			request.setAttribute("order", list);
+			RequestDispatcher dis = request.getRequestDispatcher("orderitem.jsp");
 			dis.forward(request, response);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
-		 	
-		
-	
+
 	}
+
 }

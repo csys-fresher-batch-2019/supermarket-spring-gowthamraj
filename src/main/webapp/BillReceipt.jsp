@@ -1,5 +1,4 @@
-<%@page import="com.chainsys.supermarketapp.model.OrderItem"%>
-<%@page import="com.chainsys.supermarketapp.model.Order"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE>
@@ -22,15 +21,13 @@ td{
 <form action="BillPayment">
 <center><h1>* Gk SuperMarket *</h1></center>
 <center><h2>* Bills *</h2></center>
+${ORDER_DETAILS}
 
-<%
-Order order = (Order) request.getAttribute("ORDER_DETAILS");
-//out.println(order);
-%>
 
 
 <table>
 <thead>
+<tr>
 <th>ProductID </th>
 <th>Quantity</th>
 <th>price</th>
@@ -39,17 +36,17 @@ Order order = (Order) request.getAttribute("ORDER_DETAILS");
 </thead>
 
 <tbody>
-<%
-for(OrderItem item: order.getItems()){
-%>
+
+
+<c:forEach items="${ORDER_DETAILS.items}" var="item">
 <tr>
-<td><%=item.getProductId() %>  </td>
-<td><%=item.getQuantity()%></td>
-<td>Rs.<%=item.getTotalAmount() %></td>
-<td><%= item.getStatus() %></td>
+<td>${item.productId}  </td>
+<td>${item.quantity}</td>
+<td>Rs.${item.totalAmount }</td>
+<td>${item.status}</td>
 
 </tr>
-<%} %>
+</c:forEach>
 </tbody>
 </table>
 </br>
@@ -63,10 +60,10 @@ for(OrderItem item: order.getItems()){
 </thead>
 <tbody>
 <tr>
-<td> <%= order.getOrderId() %> </td>
-<td><%=order.getCustomerno() %>  </td>
-<td> Rs.<%=order.getTotalAmount()%> </td>
-<td>  <%=order.getOrderedDate()%></td>
+<td>${ORDER_DETAILS.orderId} </td>
+<td>${ORDER_DETAILS.customerno}</td>
+<td>Rs.${ORDER_DETAILS.totalAmount} </td>
+<td>${ORDER_DETAILS.orderedDate}</td>
 
 </tr>
 </tbody>

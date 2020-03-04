@@ -51,7 +51,7 @@ public class LoginRegister extends HttpServlet {
 		out.println(inserted);
 
 		if (alreadyRegistered) {
-			request.setAttribute("Error-message", "username Already Exist");
+			request.setAttribute("errmessage", "username Already Exist");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("NewUserRegistration.jsp");
 			dispatcher.forward(request, response);
 		} else if (inserted) {

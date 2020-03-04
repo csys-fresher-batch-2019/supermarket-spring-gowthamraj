@@ -16,7 +16,7 @@ import com.chainsys.supermarketapp.dao.impl.ProductStockImple;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.model.ProductStock;
 @WebServlet("/AddProductStock")
-@Service
+
 public class AddProductStock extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,7 +45,7 @@ public class AddProductStock extends HttpServlet {
 				try {
 					psi.addProductStock(ps);
 					
-					request.setAttribute("AddStock", "Adding Stock Details Suucesfully");
+					request.setAttribute("addstock", "Adding Stock Details Suucesfully");
 
 					RequestDispatcher dispatcher = request.getRequestDispatcher("AddProductStock.jsp");
 					dispatcher.forward(request, response);
@@ -53,20 +53,15 @@ public class AddProductStock extends HttpServlet {
 				} catch (DbException e) {
 					e.printStackTrace();
 				}
-				
-				request.setAttribute("AddStock", "Adding Stock Details Suucesfully");
-
-				RequestDispatcher dispatcher = request.getRequestDispatcher("AddProductStock.jsp");
-				dispatcher.forward(request, response);
-			}
-			else
+			}	else
 			{
-				request.setAttribute("AddStock", "INVALID EXPERY DATE");
+				request.setAttribute("addstock", "INVALID EXPERY DATE");
 
 				RequestDispatcher dispatcher = request.getRequestDispatcher("AddProductStock.jsp");
 				dispatcher.forward(request, response);
 			}
 
 		}
-
 }
+
+

@@ -9,28 +9,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.chainsys.supermarketapp.dao.BillOrderDAO;
-import com.chainsys.supermarketapp.daofactory.DAOFactory;
-import com.chainsys.supermarketapp.exception.DbException;
-import com.chainsys.supermarketapp.model.Order;
 
-@WebServlet("/ViewBills")
-public class ViewBills extends HttpServlet {
+import com.chainsys.supermarketapp.dao.impl.ProductStockImple;
+import com.chainsys.supermarketapp.exception.DbException;
+import com.chainsys.supermarketapp.model.ProductStock;
+
+@WebServlet("/ProductStockView")
+public class ProductStockView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		BillOrderDAO boi =DAOFactory.getBillOrderDAO();
+
+		ProductStockImple psi = new ProductStockImple();
 		try {
-			List<Order> list = boi.displayBillOrder();
-			System.out.println(list.size());
-			request.setAttribute("View", list);
-			RequestDispatcher dis=request.getRequestDispatcher("ViewBills.jsp");
+			List<ProductStock> list = psi.displayProductStock();
+			request.setAttribute("order", list);
+			RequestDispatcher dis = request.getRequestDispatcher("ProductStockView.jsp");
 			dis.forward(request, response);
+
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
-		 	
-		
-	
 	}
+
 }

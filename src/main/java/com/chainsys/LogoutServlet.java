@@ -18,9 +18,6 @@ public class LogoutServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		session.invalidate();
-		session.removeAttribute("LOGGED_IN_USER_ID");	
-		session.invalidate();
-		session.setMaxInactiveInterval(60);
 		response.sendRedirect("Login.jsp");
 
 	}

@@ -1,5 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,31 +9,35 @@
 </head>
 <body>
 
-<form action="DeletePStock">
-<pre>
+	<form action="DeletePStock">
+		<pre>
 	
-						<center>	<font color="red"><h1>GK Super Market</h1></font></center></pre>
-						<%
-			String username = (String) session.getAttribute("LOGGED_IN_USER_ID");
-			if (username == null) {
-				response.sendRedirect("Login.jsp");
-			}
-		%>
-		<center>Welcome  <%=username%> ( <a href="LogoutServlet">Logout</a> )</center><br/> <br/><br/>
-			<center>
-Enter the Product Id			<input type="number" name="pno" placeholder="Product ID" required autofocus/><br><br>
-				<input type="submit" value="Delete Stock">
-				<a href="ProductStock.jsp">Back</a>
-				<%
-String  order = (String) request.getAttribute("updateproduct");
-%><%if(order != null) {%>
+						<center>	<font color="red"><h1>GK Super Market</h1></font>
+			</center>
+		</pre>
+		<c:if test="${empty sessionScope.LOGGED_IN_USER_ID}">
+			<c:redirect url="Login.jsp" />
+		</c:if>
 
-	<h2><%=order %></h2>
-<%} %>			
-				
+		<center>
+			Welcome ${ LOGGED_IN_USER_ID} ( <a href="LogoutServlet">Logout</a> )
+		</center>
+		<br /> <br />
+		<br />
+		<center>
+			Enter the Product Id <input type="number" name="pno"
+				placeholder="Product ID" required autofocus /><br>
+			<br> <input type="submit" value="Delete Stock"> <a
+				href="ProductStock.jsp">Back</a>
 
-</center>
-</form>
+
+			<c:if test="${not empty updateproduct}">
+				<h2>${updateproduct}</h2>
+			</c:if>
+
+
+		</center>
+	</form>
 
 </body>
 </html>
