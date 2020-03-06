@@ -36,9 +36,10 @@
 
 <c:forEach items="${View}" var="user">
    
-	 	<tr>	
-		<td><a href= "BillItems ? customer_no= ${user.orderId}>"> ${user.orderId}</a></td>
-		<td>${user.customerno}</td>
+	 	<tr>
+       
+		<td><a href= "BillItem?customer_no=${user.orderId}">${user.orderId}</a></td>
+		 <td>${user.customerno}</td>
 		<td>Rs.${user.totalAmount}</td>
 		<td>${user.status}</td>
 		<td>${user.orderedDate}</td>
