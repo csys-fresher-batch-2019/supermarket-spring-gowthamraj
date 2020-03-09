@@ -2,6 +2,7 @@ package com.chainsys.supermarketapp.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,9 @@ import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.model.Login;
 import com.chainsys.supermarketapp.model.Order;
+import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.Product;
-import com.chainsys.supermarketapp.model.ProductStock;
+
 
 @Controller
 @RestController
@@ -35,7 +37,6 @@ public class SuperMarketAppController {
 	ProductDAO pd = DAOFactory.getProductDAO();
 	BillOrderDAO bo = DAOFactory.getBillOrderDAO();
 	ProductStockDAO ps = DAOFactory.getProductStockDAO();
-	ProductImple pi = new ProductImple();
 
 	@GetMapping("/addloginregister")
 	public Messagedto addloginregister(@RequestParam("username") String username,
@@ -109,92 +110,34 @@ public class SuperMarketAppController {
 		return msg;
 	}
 
-	@GetMapping("/displayProductStock")
-	public List<ProductStock> displayProductStock() throws DbException {
-		List<ProductStock> pro = ps.displayProductStock();
-		return pro;
-	}
-	/*
-	 * @PostMapping("/addproductstock") public Messagedto
-	 * addproductstock(@RequestParam("productno") int
-	 * productno, @RequestParam("stockid") int stockid,@RequestParam("quantity") int
-	 * quantity,
-	 * 
-	 * @RequestParam("productarrival") String
-	 * productarrival, @RequestParam("experydate") String experydate) throws
-	 * DbException {
-	 * 
-	 * Messagedto msg = new Messagedto(); ProductStock p = new ProductStock();
-	 * p.setProductno(productno); p.setStockid(stockid); p.setQuantity(quantity);
-	 * Date a=Date.valueOf(productarrival);
-	 * 
-	 * p.setProductarrival1(a); Date a1=Date.valueOf(experydate);
-	 * p.setExperydate1(a1);
-	 * 
-	 * 
-	 * int v = ps.addProductStock(p); if (v == 1) {
-	 * msg.setInfoMessage("Added succesfully"); } else {
-	 * msg.setErrorMessage("Added Failed"); } return msg; }
-	 */
-
-	@GetMapping("/updateproductstock")
-	public Messagedto updateproductstock(@RequestParam("productno") int productno,
-			@RequestParam("quantity") int quantity) throws DbException {
-
-		Messagedto msg = new Messagedto();
-		ProductStock p = new ProductStock();
-		p.setProductno(productno);
-		p.setQuantity(quantity);
-		int v = ps.updateProductStock(p);
-		if (v == 1) {
-			msg.setInfoMessage("updated succesfully");
-		} else {
-			msg.setErrorMessage("updated Failed");
-		}
-		return msg;
-
-	}
-
-	@GetMapping("/deleteproductstock")
-	public Messagedto deleteproductstock(@RequestParam("productno") int productno) throws DbException {
-
-		Messagedto msg = new Messagedto();
-		ProductStock p = new ProductStock();
-		p.setProductno(productno);
-
-		int v = ps.deleteProductStock(p);
-		if (v == 1) {
-			msg.setInfoMessage("updated succesfully");
-		} else {
-			msg.setErrorMessage("updated Failed");
-		}
-		return msg;
-
-	}
-
+	
 	@GetMapping("/employeeview")
 	public List<Employee> displayEmployeeDetils() throws DbException {
 		List<Employee> emp = em.displayEmployeeDetils();
 		return emp;
 	}
 
-	/*
-	 * @GetMapping("/addemployee") public Messagedto
-	 * addemployee(@RequestParam("employeeid") int employeeid,
-	 * 
-	 * @RequestParam("dob") String dob,
-	 * 
-	 * @RequestParam("doj") String doj,
-	 * 
-	 * @RequestParam("address") String address) throws DbException {
-	 * 
-	 * Messagedto msg = new Messagedto(); Employee ee=new Employee();
-	 * ee.setEmployeeid(employeeid); LocalDate a=LocalDate.parse(dob); ee.setDob(a);
-	 * LocalDate a1=LocalDate.parse(doj); ee.setDoj(a1); ee.setAddress(address); int
-	 * v=em.addEmployeeDetils(ee); if (v == 1) {
-	 * msg.setInfoMessage("Employee Added succesfully"); } else {
-	 * msg.setErrorMessage("Employee Added Failed"); } return msg; }
-	 */
+	@GetMapping("/addemployee")
+	public Messagedto addemployee(@RequestParam("employeename") String employeename, @RequestParam("dob") String dob,
+			@RequestParam("doj") String doj, @RequestParam("address") String address) throws DbException {
+
+		Messagedto msg = new Messagedto();
+		Employee ee = new Employee();
+		ee.setEmployeename(employeename);
+		LocalDate a = LocalDate.parse(dob);
+		ee.setDob(a);
+		LocalDate a1 = LocalDate.parse(doj);
+		ee.setDoj(a1);
+		ee.setAddress(address);
+		int v = em.addEmployeeDetils(ee);
+		if (v == 1) {
+			msg.setInfoMessage("Employee Added succesfully");
+		} else {
+			msg.setErrorMessage("Employee Added Failed");
+		}
+		return msg;
+	}
+
 	@PostMapping("/updateemployee")
 	public Messagedto updateemployee(@RequestParam("employeename") String employeename,
 			@RequestParam("address") String address) throws DbException {
@@ -233,42 +176,40 @@ public class SuperMarketAppController {
 
 	}
 
-	@GetMapping("/addBillOrder")
-	public Messagedto addBillOrder(@RequestParam("orderId") int orderId, @RequestParam("customerno") int customerno,
+	@GetMapping("/updateBillOrderbyamount")
+	public Messagedto updateBillOrderbyamount(@RequestParam("customerno") int customerno,
 			@RequestParam("totalAmount") int totalAmount) throws DbException {
 		Messagedto msg = new Messagedto();
 		Order oo = new Order();
-		oo.setOrderId(orderId);
 		oo.setCustomerno(customerno);
 		oo.setTotalAmount(totalAmount);
-		int v = bo.addBillOrder(oo);
+		int v = bo.updateBillOrder(oo);
 		if (v == 1) {
-			msg.setInfoMessage("delete employee succesfully");
+			msg.setInfoMessage("Update bills details succesfully");
 		} else {
-			msg.setErrorMessage("deleted failure");
+			msg.setErrorMessage("updated failed");
 		}
 		return msg;
 	}
 
-	@GetMapping("/updateBillOrderbyamount")
-		public Messagedto updateBillOrderbyamount(@RequestParam("customerno") int customerno,
-				@RequestParam("totalAmount") int totalAmount) throws DbException
-		{
-			Messagedto msg=new Messagedto();
-			Order oo=new Order();
-			oo.setCustomerno(customerno);
-			oo.setTotalAmount(totalAmount);
-			int v= bo.updateBillOrder(oo);
-			if(v==1)
-			{
-				msg.setInfoMessage("Update bills details succesfully");
-			}else
-			{
-				msg.setErrorMessage("updated failed");
-			}
-			return msg;		
+	@GetMapping("/updateBillOrderbystatus")
+	public Messagedto updateBillOrderbystatus(@RequestParam("cusno") int cusno,
+			@RequestParam("totalAmount") int totalAmount) throws DbException {
+		Messagedto msg = new Messagedto();
+		int v = bo.updateBillStatus(cusno);
+		if (v == 1) {
+			msg.setInfoMessage("Update bills details succesfully");
+		} else {
+			msg.setErrorMessage("updated failed");
 		}
-	
+		return msg;
+	}
 
+	@GetMapping("/viewBillItems")
+	public List<OrderItem> viewBillItems(@RequestParam("billNo") int billNo) throws DbException {
 
+		List<OrderItem> list = bo.viewBillItems(billNo);
+		return list;
+
+	}
 }
