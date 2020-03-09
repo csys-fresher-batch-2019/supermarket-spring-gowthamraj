@@ -10,10 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
-
-import com.chainsys.supermarketapp.dao.impl.ProductImple;
-import com.chainsys.supermarketapp.exception.DbException;
+import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.Product;
+import com.chainsys.supermarketapp.service.ProductService;
 @WebServlet("/DeleteProduct")
 @Service
 public class DeleteProduct extends HttpServlet {
@@ -21,7 +20,7 @@ public class DeleteProduct extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		ProductImple pi=new ProductImple();
+		ProductService pi=new ProductService();
 		Product p=new Product();
 		
 		int d=Integer.parseInt(request.getParameter("pid"));
@@ -33,7 +32,7 @@ public class DeleteProduct extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("DeleteProduct.jsp");
 			dispatcher.forward(request, response);
 
-		} catch (DbException e) {
+		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
 		

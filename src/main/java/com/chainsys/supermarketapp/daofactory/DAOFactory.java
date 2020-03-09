@@ -3,12 +3,14 @@ package com.chainsys.supermarketapp.daofactory;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.supermarketapp.dao.BillOrderDAO;
+import com.chainsys.supermarketapp.dao.CaseDAO;
 import com.chainsys.supermarketapp.dao.CustomerCardDAO;
 import com.chainsys.supermarketapp.dao.EmployeeDAO;
 import com.chainsys.supermarketapp.dao.LoginDAO;
 import com.chainsys.supermarketapp.dao.ProductDAO;
 import com.chainsys.supermarketapp.dao.ProductStockDAO;
 import com.chainsys.supermarketapp.dao.impl.BillOrderImple;
+import com.chainsys.supermarketapp.dao.impl.CaseImple;
 import com.chainsys.supermarketapp.dao.impl.CustomerCardImpl;
 import com.chainsys.supermarketapp.dao.impl.EmployeeImpl;
 import com.chainsys.supermarketapp.dao.impl.LoginImple;
@@ -17,6 +19,12 @@ import com.chainsys.supermarketapp.dao.impl.ProductStockImple;
 
 @Repository
 public class DAOFactory {
+	
+	public static CaseDAO getCaseDAO()
+	{
+		return new CaseImple();
+		
+	}
 
 	public static LoginDAO getLoginDAO()
 	{

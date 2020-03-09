@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
-
-import com.chainsys.supermarketapp.dao.impl.ProductImple;
-import com.chainsys.supermarketapp.exception.DbException;
+import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.Product;
+import com.chainsys.supermarketapp.service.ProductService;
+
 @WebServlet("/AddProduct")
 @Service
 public class AddProduct extends HttpServlet {
@@ -21,23 +21,23 @@ public class AddProduct extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ProductImple pi=new ProductImple();
+		ProductService pi=new ProductService();
 		String pn=request.getParameter("pno");
 		int price=Integer.parseInt(request.getParameter("pri"));
 		Product p=new Product();
 			p.setProductname(pn);
 			p.setPrice(price);
 			
-			try {
-				pi.addproductDetails(p);
-				request.setAttribute("addproduct", "Adding Product Suucesfully");
-
-				RequestDispatcher dispatcher = request.getRequestDispatcher("AddProduct.jsp");
-				dispatcher.forward(request, response);
-			} catch (DbException e) {
-				e.printStackTrace();
-			}
 			
-		}
+					try {
+						pi.save(p);
+						request.setAttribute("addproduct", "Adding Product Suucesfully");
 
+						RequestDispatcher dispatcher = request.getRequestDispatcher("AddProduct.jsp");
+						dispatcher.forward(request, response);
+					} catch (ServiceException e) {
+					}
+				
+
+}
 }

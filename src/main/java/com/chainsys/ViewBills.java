@@ -21,7 +21,7 @@ public class ViewBills extends HttpServlet {
 		
 		BillOrderDAO boi =DAOFactory.getBillOrderDAO();
 		try {
-			List<Order> list = boi.displayBillOrder();
+			List<Order> list = boi.findAll();
 			System.out.println(list.size());
 			request.setAttribute("View", list);
 			RequestDispatcher dis=request.getRequestDispatcher("ViewBills.jsp");

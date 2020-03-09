@@ -17,6 +17,7 @@ import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.ProductStock;
+import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
 public class BillOrderImple implements BillOrderDAO {
 
@@ -37,33 +38,10 @@ public class BillOrderImple implements BillOrderDAO {
 		return orderID;
 	}
 
-	public boolean productQuantityValidate(Order billorder) throws DbException {
-		boolean stockavailable = true;
-		List<OrderItem> items = billorder.getItems();
-		for (OrderItem orderItem : items) {
-			String sql = "select quantity from product_stock where product_no=?";
-			try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
-				pst.setInt(1, orderItem.getProductId());
-
-				pst.executeQuery();
-				try (ResultSet rs = pst.executeQuery();) {
-					if (rs.next()) {
-						int a = rs.getInt("quantity");
-						if (orderItem.getQuantity() > a) {
-							stockavailable = false;
-						}
-					}
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DbException(ErrorConstants.INVALID_ADD);
-			}
-		}
-		return stockavailable;
-	}
+	
 
 	@Override
-	public int addBillOrder(Order billorder) throws DbException {
+	public int save(Order billorder) throws DbException {
 		int orderId = getNextOrderId();
 		ProductStockImple psi = new ProductStockImple();
 		String sql = "Insert into bill_order (p_id,customer_no,total_amount)values(?,?,?)";
@@ -97,7 +75,7 @@ public class BillOrderImple implements BillOrderDAO {
 	}
 
 	@Override
-	public int updateBillOrder(Order billorder) throws DbException {
+	public int update(Order billorder) throws DbException {
 		String sql = "update bill_order set total_amount =? where customer_no=?";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
@@ -111,7 +89,7 @@ public class BillOrderImple implements BillOrderDAO {
 	}
 
 	@Override
-	public int deleteBillOrder(Order billorder) throws DbException {
+	public int delete(Order billorder) throws DbException {
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection();
 				CallableStatement stmt = con.prepareCall("{call cancel_order(?)}");) {
@@ -126,7 +104,7 @@ public class BillOrderImple implements BillOrderDAO {
 	}
 
 	@Override
-	public List<Order> displayBillOrder() throws DbException {
+	public List<Order> findAll() throws DbException {
 		String sql = "select * from bill_order order by p_id desc";
 		List<Order> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();
@@ -153,7 +131,7 @@ public class BillOrderImple implements BillOrderDAO {
 	}
 
 	@Override
-	public int updateBillStatus(int cusno) throws DbException {
+	public int update(int cusno) throws DbException {
 		String sql = "update bill_order set status ='paid' where customer_no=?";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
@@ -165,7 +143,7 @@ public class BillOrderImple implements BillOrderDAO {
 		return rows;
 	}
 
-	public List<OrderItem> viewBillItems(int billNo) throws DbException {
+	public List<OrderItem> findAllBillItems(int billNo) throws DbException {
 		String sql = "select bill_item_id,bill_no,product_id,quantity,total_amount from bill_items where bill_no=?";
 		List<OrderItem> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {

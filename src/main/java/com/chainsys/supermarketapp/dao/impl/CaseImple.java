@@ -17,13 +17,14 @@ import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.Product;
+import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
 public class CaseImple implements CaseDAO {
 	 private static final Logger logger = LoggerFactory.getLogger(CaseImple.class);
 
 
 	@Override
-	public int employeeCount() throws DbException {
+	public int countEmployee() throws DbException {
 		String sql = "select count(*)  as employee_count from employee";
 		int employeeCount = 0;
 		try (Connection con = ConnectionUtil.getConnection();
@@ -42,7 +43,7 @@ public class CaseImple implements CaseDAO {
 	}
 
 	@Override
-	public int todayIncome(LocalDate date) throws DbException {
+	public int findByTodayIncome(LocalDate date) throws DbException {
 		String sql = "select GET_TOTAL_AMOUNT(?) as total_amount from dual ";
 		int amount = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement st = con.prepareStatement(sql);) {
@@ -59,7 +60,7 @@ public class CaseImple implements CaseDAO {
 	}
 
 	@Override
-	public int totalIncome(OrderItem bills) throws DbException {
+	public int findByTotalIncome(OrderItem bills) throws DbException {
 		String sql = "select sum(total_amount)as daily_income from bill_order where status='paid'";
 		int total = 0;
 		try (Connection con = ConnectionUtil.getConnection();
@@ -76,7 +77,7 @@ public class CaseImple implements CaseDAO {
 	}
 
 	@Override
-	public List<Product> productPriceBetween(int min, int max) throws DbException {
+	public List<Product> findByPrice(int min, int max) throws DbException {
 		String sql = "select * from product where price  between ? and ?";
 		List<Product> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();
@@ -104,7 +105,7 @@ public class CaseImple implements CaseDAO {
 	}
 
 	@Override
-	public List<OrderItem> customerCount(OrderItem bills) throws DbException {
+	public List<OrderItem> countCustomer(OrderItem bills) throws DbException {
 
 		String sql = "select sum(*) as number_of_customer,ordered_date from bill_order group by ordered_date";
 		List<OrderItem> list = new ArrayList<>();

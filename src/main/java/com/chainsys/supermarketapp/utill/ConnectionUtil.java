@@ -1,4 +1,4 @@
-package com.chainsys.supermarketapp.dao.impl;
+package com.chainsys.supermarketapp.utill;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,11 +12,7 @@ import com.chainsys.supermarketapp.exception.ErrorConstants;
 
 @Component
 public class ConnectionUtil {
-	/*
-	 * private ConnectionUtil() {
-	 * 
-	 * }
-	 */	public static Connection getConnection() throws DbException {
+		public static Connection getConnection() throws DbException {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		} catch (ClassNotFoundException e) {

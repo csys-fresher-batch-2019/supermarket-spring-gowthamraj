@@ -9,11 +9,9 @@ import com.chainsys.supermarketapp.model.Product;
 @Repository
 public interface ProductDAO {
 	
-	int addproductDetails(Product product) throws DbException;
-	int deleteproductDetails(Product product) throws DbException;
-	List<Product> displayproduct()throws DbException;
-	int updateproduct(Product product) throws DbException;
-	int getProductPrice(int productId) throws DbException;
-	List<Product> displayproductAvailable() throws DbException;
+	int save(Product product) throws DbException;
+	int delete(Product product) throws DbException;
+	List<Product> findAll()throws DbException;
+	int update(Product product) throws DbException;
 	int deleteproductAll(Product product) throws DbException;
 }

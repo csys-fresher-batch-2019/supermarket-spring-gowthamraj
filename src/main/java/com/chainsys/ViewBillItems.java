@@ -10,10 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.chainsys.supermarketapp.dao.impl.BillOrderImple;
 import com.chainsys.supermarketapp.exception.DbException;
+import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.OrderItem;
+import com.chainsys.supermarketapp.service.BillOrderService;
 
 @WebServlet("/ViewBillItems")
 public class ViewBillItems extends HttpServlet {
@@ -23,20 +23,18 @@ public class ViewBillItems extends HttpServlet {
 			throws ServletException, IOException {
 
 		int cus = Integer.parseInt(request.getParameter("customer_no"));
-		BillOrderImple boi = new BillOrderImple();
-		
-			
-			try {
-				List<OrderItem> list = boi.viewBillItems(cus);
+		BillOrderService boi = new BillOrderService();
 
-				request.setAttribute("billitem", list);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("ViewBillItem.jsp");
-				dispatcher.forward(request, response);
-			} catch (DbException e) {
-				e.printStackTrace();
-			}
+		try {
+			List<OrderItem> list = boi.findAllBillItems(cus);
 
-		
+			request.setAttribute("billitem", list);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewBillItem.jsp");
+			dispatcher.forward(request, response);
+		} catch (ServiceException | DbException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

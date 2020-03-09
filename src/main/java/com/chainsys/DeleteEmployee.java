@@ -10,35 +10,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
-
-import com.chainsys.supermarketapp.dao.impl.EmployeeImpl;
-import com.chainsys.supermarketapp.exception.DbException;
+import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.Employee;
+import com.chainsys.supermarketapp.service.EmployeeService;
+
 @WebServlet("/DeleteEmployee")
 @Service
 public class DeleteEmployee extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String ename=request.getParameter("en");
-		EmployeeImpl ei=new EmployeeImpl();
-		Employee em=new Employee();
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String ename = request.getParameter("en");
+		EmployeeService ei = new EmployeeService();
+		Employee em = new Employee();
 		em.setEmployeename(ename);
-		
+
 		try {
-			ei.deleteEmployeeDetils(em);
+			ei.delete(em);
 			request.setAttribute("updateproduct", "Delete Employee Details Suucesfully");
 
-				RequestDispatcher dispatcher = request.getRequestDispatcher("DeleteEmployee.jsp");
-				dispatcher.forward(request, response);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("DeleteEmployee.jsp");
+			dispatcher.forward(request, response);
 
-			} catch (DbException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-
+		} catch (ServiceException e) {
+			e.printStackTrace();
 		}
 
-
 	}
+
+}

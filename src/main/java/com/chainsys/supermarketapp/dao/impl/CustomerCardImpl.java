@@ -13,12 +13,13 @@ import com.chainsys.supermarketapp.dao.CustomerCardDAO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.CustomerCard;
+import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
 public class CustomerCardImpl implements CustomerCardDAO {
 	private static final Logger logger = LoggerFactory.getLogger(CustomerCardImpl.class);
 
 	@Override
-	public int addCustomerCard(CustomerCard customercard) throws DbException {
+	public int save(CustomerCard customercard) throws DbException {
 
 		String sql = "insert into customer_card (customer_name,mobile_number,address) values(?,?,?)";
 		int rows = 0;
@@ -34,7 +35,7 @@ public class CustomerCardImpl implements CustomerCardDAO {
 	}
 
 	@Override
-	public int deleteCustomerCard(CustomerCard customercard) throws DbException {
+	public int delete(CustomerCard customercard) throws DbException {
 
 		String sql = "delete from customer_card where customer_name=?";
 		int rows = 0;
@@ -48,7 +49,7 @@ public class CustomerCardImpl implements CustomerCardDAO {
 	}
 
 	@Override
-	public void displayCustomerCard(CustomerCard customercard) throws DbException {
+	public void findAll(CustomerCard customercard) throws DbException {
 
 		String sql = "select customer_name,mobile_number,address from customer_card";
 		try (Connection con = ConnectionUtil.getConnection();
@@ -68,7 +69,7 @@ public class CustomerCardImpl implements CustomerCardDAO {
 	}
 
 	@Override
-	public int updateCustomerCard(CustomerCard customercard) throws DbException {
+	public int update(CustomerCard customercard) throws DbException {
 		String sql = "update customer_card set address=? where customer_name=?";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {

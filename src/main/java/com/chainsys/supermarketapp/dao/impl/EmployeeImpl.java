@@ -13,11 +13,12 @@ import com.chainsys.supermarketapp.dao.EmployeeDAO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.Employee;
+import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
 public class EmployeeImpl implements EmployeeDAO {
 	
 	@Override
-	public int addEmployeeDetils(Employee employee) throws DbException {
+	public int save(Employee employee) throws DbException {
 		String sql = "insert into employee(employee_id,employee_name,dob,doj,address) values( emp_idd.nextval,?,?,?,?)";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
@@ -34,7 +35,7 @@ public class EmployeeImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public List<Employee> displayEmployeeDetils() throws DbException {
+	public List<Employee> findAll() throws DbException {
 		String sql = "select employee_id,employee_name,dob,doj,address from employee";
 		List<Employee> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();
@@ -61,7 +62,7 @@ public class EmployeeImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public int deleteEmployeeDetils(Employee employee) throws DbException {
+	public int delete(Employee employee) throws DbException {
 		String ins = "delete from employee where employee_name=?";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(ins);) {
@@ -76,7 +77,7 @@ public class EmployeeImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public int updateEmployeeDetils(Employee employee) throws DbException {
+	public int update(Employee employee) throws DbException {
 
 		String sql = "update employee set address=? where  employee_name=?";
 		int rows = 0;

@@ -10,10 +10,10 @@ import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.Product;
 @Repository
 public interface CaseDAO {
-	public int employeeCount() throws DbException;
-	public int totalIncome(OrderItem bills)throws DbException;
-	public int todayIncome(LocalDate date)throws DbException;
-	public List<Product> productPriceBetween(int min, int max) throws DbException;
-	public List<OrderItem> customerCount(OrderItem bills) throws DbException;
+	public int countEmployee() throws DbException;
+	public int findByTotalIncome(OrderItem bills)throws DbException;
+	public int findByTodayIncome(LocalDate date)throws DbException;
+	public List<Product> findByPrice(int min, int max) throws DbException;
+	public List<OrderItem> countCustomer(OrderItem bills) throws DbException;
 	
 }

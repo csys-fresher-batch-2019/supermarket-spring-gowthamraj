@@ -22,7 +22,7 @@ public class ProductStockController {
 
 	@GetMapping
 	public List<ProductStock> displayProductStock() throws DbException {
-		List<ProductStock> pro = ps.displayProductStock();
+		List<ProductStock> pro = ps.findAll();
 		return pro;
 	}
 
@@ -39,7 +39,7 @@ public class ProductStockController {
 		p.setProductarrival(LocalDate.parse(productarrival));
 		p.setExperydate(LocalDate.parse(experydate));
 
-		int v = ps.addProductStock(p);
+		int v = ps.save(p);
 		if (v == 1) {
 			msg.setInfoMessage("Added succesfully");
 		} else {
@@ -56,7 +56,7 @@ public class ProductStockController {
 		ProductStock p = new ProductStock();
 		p.setProductno(productno);
 		p.setQuantity(quantity);
-		int v = ps.updateProductStock(p);
+		int v = ps.update(p);
 		if (v == 1) {
 			msg.setInfoMessage("updated succesfully");
 		} else {
@@ -73,7 +73,7 @@ public class ProductStockController {
 		ProductStock p = new ProductStock();
 		p.setProductno(productno);
 
-		int v = ps.deleteProductStock(p);
+		int v = ps.delete(p);
 		if (v == 1) {
 			msg.setInfoMessage("updated succesfully");
 		} else {

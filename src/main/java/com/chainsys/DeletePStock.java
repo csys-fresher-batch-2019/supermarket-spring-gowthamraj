@@ -10,30 +10,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
-
-import com.chainsys.supermarketapp.dao.impl.ProductStockImple;
-import com.chainsys.supermarketapp.exception.DbException;
+import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.ProductStock;
+import com.chainsys.supermarketapp.service.productStockService;
+
 @WebServlet("/DeletePStock")
 @Service
 public class DeletePStock extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		int prno=Integer.parseInt(request.getParameter("pno"));
-		ProductStockImple psi=new ProductStockImple();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		int prno = Integer.parseInt(request.getParameter("pno"));
+		productStockService psi = new productStockService();
 		ProductStock ps = new ProductStock();
 		ps.setProductno(prno);
 		try {
-			psi.deleteProductStock(ps);
+			psi.delete(ps);
 			request.setAttribute("updateproduct", "Delete Product Stock Succesfully");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("DeleteProductStock.jsp");
 			dispatcher.forward(request, response);
-		} catch (DbException e1) {
+		} catch (ServiceException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		}
 	}
-
+}

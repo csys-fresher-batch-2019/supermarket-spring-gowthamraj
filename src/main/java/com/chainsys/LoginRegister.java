@@ -2,6 +2,7 @@ package com.chainsys;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
-
-import com.chainsys.supermarketapp.dao.impl.LoginImple;
 import com.chainsys.supermarketapp.model.Login;
+import com.chainsys.supermarketapp.service.LoginService;
+import com.chainsys.supermarketapp.validator.Validation;
 @WebServlet("/LoginRegister")
 @Service
 public class LoginRegister extends HttpServlet {
@@ -23,7 +24,8 @@ public class LoginRegister extends HttpServlet {
 
 		String uname = request.getParameter("username");
 		String pword = request.getParameter("pwd");
-		LoginImple log = new LoginImple();
+		LoginService log=new LoginService();
+		Validation v=new Validation();
 		Login log1 = new Login();
 		log1.setUsername(uname);
 		log1.setPassword(pword);
@@ -31,14 +33,14 @@ public class LoginRegister extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		boolean alreadyRegistered = false;
 		try {
-			alreadyRegistered = log.isUsernameExists(log1.getUsername());
+			alreadyRegistered = v.isUsernameExists(log1.getUsername());
 			System.out.println(alreadyRegistered);
 			if (alreadyRegistered) {
 
 				System.out.println("already");// Username already exists
 
 			} else {
-				log.add(log1);
+				log.save(log1);
 				inserted = true;
 
 			}

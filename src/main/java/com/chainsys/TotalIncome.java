@@ -10,26 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
-
-import com.chainsys.supermarketapp.dao.impl.CaseImple;
-import com.chainsys.supermarketapp.exception.DbException;
+import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.OrderItem;
+import com.chainsys.supermarketapp.service.CaseService;
+
 @WebServlet("/TotalIncome")
 @Service
 public class TotalIncome extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CaseImple ci = new CaseImple();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		CaseService ci = new CaseService();
 		OrderItem b = new OrderItem();
 		try {
-			int tot=ci.totalIncome(b);
+			int tot = ci.findByTotalIncome(b);
 			System.out.println(tot);
 			request.setAttribute("total", tot);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("TotalAmount.jsp");
 			dispatcher.forward(request, response);
-		} catch (DbException e) {
-
+		} 
+		catch (ServiceException e) {
 			e.printStackTrace();
-		}	}
+		}
+	}
 }

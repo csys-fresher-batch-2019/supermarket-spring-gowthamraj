@@ -45,7 +45,7 @@ public class SuperMarketAppController {
 		Login l = new Login();
 		l.setUsername(username);
 		l.setPassword(password);
-		int a = lg.add(l);
+		int a = lg.save(l);
 		if (a == 1) {
 			msg.setInfoMessage("register Success");
 		} else {
@@ -56,7 +56,7 @@ public class SuperMarketAppController {
 
 	@GetMapping("/displayproduct")
 	public List<Product> displayproduct() throws DbException {
-		List<Product> pro = pd.displayproduct();
+		List<Product> pro = pd.findAll();
 		return pro;
 
 	}
@@ -68,7 +68,7 @@ public class SuperMarketAppController {
 		Product p = new Product();
 		p.setProductname(prodcutname);
 		p.setPrice(price);
-		int v = pd.addproductDetails(p);
+		int v = pd.save(p);
 		if (v == 1) {
 			msg.setInfoMessage("Added succesfully");
 		} else {
@@ -85,7 +85,7 @@ public class SuperMarketAppController {
 		Product p = new Product();
 		p.setProductname(prodcutname);
 		p.setPrice(price);
-		int v = pd.updateproduct(p);
+		int v = pd.update(p);
 
 		if (v == 1) {
 			msg.setInfoMessage("updated succesfully");
@@ -100,7 +100,7 @@ public class SuperMarketAppController {
 		Messagedto msg = new Messagedto();
 		Product p = new Product();
 		p.setPid(pid);
-		int v = pd.deleteproductDetails(p);
+		int v = pd.delete(p);
 
 		if (v == 1) {
 			msg.setInfoMessage("updated succesfully");
@@ -113,7 +113,7 @@ public class SuperMarketAppController {
 	
 	@GetMapping("/employeeview")
 	public List<Employee> displayEmployeeDetils() throws DbException {
-		List<Employee> emp = em.displayEmployeeDetils();
+		List<Employee> emp = em.findAll();
 		return emp;
 	}
 
@@ -129,7 +129,7 @@ public class SuperMarketAppController {
 		LocalDate a1 = LocalDate.parse(doj);
 		ee.setDoj(a1);
 		ee.setAddress(address);
-		int v = em.addEmployeeDetils(ee);
+		int v = em.save(ee);
 		if (v == 1) {
 			msg.setInfoMessage("Employee Added succesfully");
 		} else {
@@ -146,7 +146,7 @@ public class SuperMarketAppController {
 		Employee ee = new Employee();
 		ee.setEmployeename(employeename);
 		ee.setAddress(address);
-		int v = em.updateEmployeeDetils(ee);
+		int v = em.update(ee);
 		if (v == 1) {
 			msg.setInfoMessage("updated succesfully");
 		} else {
@@ -160,7 +160,7 @@ public class SuperMarketAppController {
 		Messagedto msg = new Messagedto();
 		Employee ee = new Employee();
 		ee.setEmployeename(employeename);
-		int v = em.deleteEmployeeDetils(ee);
+		int v = em.delete(ee);
 		if (v == 1) {
 			msg.setInfoMessage("delete employee succesfully");
 		} else {
@@ -171,7 +171,7 @@ public class SuperMarketAppController {
 
 	@GetMapping("/displayBillOrder")
 	public List<Order> displayBillOrder() throws DbException {
-		List<Order> pro1 = bo.displayBillOrder();
+		List<Order> pro1 = bo.findAll();
 		return pro1;
 
 	}
@@ -183,7 +183,7 @@ public class SuperMarketAppController {
 		Order oo = new Order();
 		oo.setCustomerno(customerno);
 		oo.setTotalAmount(totalAmount);
-		int v = bo.updateBillOrder(oo);
+		int v = bo.update(oo);
 		if (v == 1) {
 			msg.setInfoMessage("Update bills details succesfully");
 		} else {
@@ -196,7 +196,7 @@ public class SuperMarketAppController {
 	public Messagedto updateBillOrderbystatus(@RequestParam("cusno") int cusno,
 			@RequestParam("totalAmount") int totalAmount) throws DbException {
 		Messagedto msg = new Messagedto();
-		int v = bo.updateBillStatus(cusno);
+		int v = bo.update(cusno);
 		if (v == 1) {
 			msg.setInfoMessage("Update bills details succesfully");
 		} else {
@@ -208,7 +208,7 @@ public class SuperMarketAppController {
 	@GetMapping("/viewBillItems")
 	public List<OrderItem> viewBillItems(@RequestParam("billNo") int billNo) throws DbException {
 
-		List<OrderItem> list = bo.viewBillItems(billNo);
+		List<OrderItem> list = bo.findAllBillItems(billNo);
 		return list;
 
 	}

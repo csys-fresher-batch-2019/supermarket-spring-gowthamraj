@@ -11,11 +11,12 @@ import com.chainsys.supermarketapp.dao.LoginDAO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.Login;
+import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
 public class LoginImple implements LoginDAO {
 	private static final Logger logger = LoggerFactory.getLogger(LoginImple.class);
 
-	public Login check(Login login) throws DbException {
+	public Login findByUsernameAndPassword(Login login) throws DbException {
 		String sql = "select user_name,passwords from login where user_name = ? and passwords = ?";
 		Login log1 = new Login();
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
@@ -34,7 +35,7 @@ public class LoginImple implements LoginDAO {
 		return log1;
 	}
 
-	public boolean isUsernameExists(String username) throws DbException {
+/*	public boolean isUsernameExists(String username) throws DbException {
 		boolean exists = false;
 		String sql1 = "select user_name from login where user_name=?";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql1);) {
@@ -50,9 +51,9 @@ public class LoginImple implements LoginDAO {
 		}
 		return exists;
 	}
-
+*/
 	@Override
-	public int add(Login login) throws DbException {
+	public int save(Login login) throws DbException {
 		String sql = "insert into login (user_name,passwords) values(?,?)";
 		logger.debug(sql);
 		int rows = 0;

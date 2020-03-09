@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
-
-import com.chainsys.supermarketapp.dao.impl.BillOrderImple;
-import com.chainsys.supermarketapp.dao.impl.ProductImple;
 import com.chainsys.supermarketapp.exception.DbException;
+import com.chainsys.supermarketapp.exception.ServiceException;
+import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
+import com.chainsys.supermarketapp.service.BillOrderService;
+import com.chainsys.supermarketapp.validator.Validation;
 
 @WebServlet("/Bill")
 @Service
@@ -33,7 +34,7 @@ public class Bill extends HttpServlet {
 
 		String[] arr = request.getParameterValues("pid");
 		int totalAmount = 0;
-		ProductImple pi = new ProductImple();
+		Validation v = new Validation();
 		Order order = new Order();
 		order.setCustomerno(cusno);
 
@@ -43,7 +44,7 @@ public class Bill extends HttpServlet {
 				int product_id = Integer.parseInt(string);
 				int quantity = Integer.parseInt(request.getParameter("qty_" + string));
 
-				int price = pi.getProductPrice(product_id);
+				int price = v.findOneProductPrice(product_id);
 				int tprice = price * quantity;
 
 				OrderItem item = new OrderItem();
@@ -54,18 +55,18 @@ public class Bill extends HttpServlet {
 
 				// add amount to total
 				totalAmount = totalAmount + tprice;
-				 item.getProductId();
+				item.getProductId();
 			}
 
 			order.setTotalAmount(totalAmount);
 			order.setOrderedDate(LocalDateTime.now());
 			order.setStatus("ORDERED");
 
-			BillOrderImple boi = new BillOrderImple();
-			boolean a = boi.productQuantityValidate(order);
+			BillOrderService boi = new BillOrderService();
+			boolean a = v.productQuantityValidate(order);
 			System.out.println(a);
 			if (a) {
-				int orderId = boi.addBillOrder(order);
+				int orderId = boi.save(order);
 				order.setOrderId(orderId);
 
 				request.setAttribute("ORDER_DETAILS", order);
@@ -79,9 +80,8 @@ public class Bill extends HttpServlet {
 				RequestDispatcher dispatcher2 = request.getRequestDispatcher("orderitem.jsp");
 				dispatcher2.forward(request, response);
 			}
-		} catch (DbException e) {
-			e.printStackTrace();
-
+		} catch (DbException | ValidationException | ServiceException e) {
+			
 			RequestDispatcher dispatcher2 = request.getRequestDispatcher("orderitem.jsp");
 			dispatcher2.forward(request, response);
 		}

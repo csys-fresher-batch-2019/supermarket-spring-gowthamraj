@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
-
-import com.chainsys.supermarketapp.dao.impl.BillOrderImple;
 import com.chainsys.supermarketapp.exception.DbException;
+import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.Order;
+import com.chainsys.supermarketapp.service.BillOrderService;
 @WebServlet("/CancelBill")
 @Service
 public class CancelBill extends HttpServlet {
@@ -20,13 +20,12 @@ public class CancelBill extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int cancel = Integer.parseInt(request.getParameter("cbills"));
-		BillOrderImple boi = new BillOrderImple();
+		BillOrderService boi = new BillOrderService();
 		Order bo = new Order();
 		bo.setOrderId(cancel);
 		try {
-			boi.deleteBillOrder(bo);
-		} catch (DbException e) {
-			// TODO Auto-generated catch block
+			boi.delete(bo);
+		} catch (DbException | ServiceException e) {
 			e.printStackTrace();
 		}
 		HttpSession session = request.getSession();

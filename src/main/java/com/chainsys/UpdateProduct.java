@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
-import com.chainsys.supermarketapp.dao.impl.ProductImple;
-import com.chainsys.supermarketapp.exception.DbException;
+import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.Product;
+import com.chainsys.supermarketapp.service.ProductService;
 @WebServlet("/UpdateProduct")
 @Service
 public class UpdateProduct extends HttpServlet {
@@ -21,7 +21,7 @@ public class UpdateProduct extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		ProductImple pi=new ProductImple();
+		ProductService pi=new ProductService();
 		String pid=(request.getParameter("pid"));
 
 		int price=Integer.parseInt(request.getParameter("pri"));
@@ -29,12 +29,12 @@ public class UpdateProduct extends HttpServlet {
 		p.setProductname(pid);
 		p.setPrice(price);
 	try {
-		pi.updateproduct(p);
+		pi.update(p);
 		request.setAttribute("product", "Update Succesfully");
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateProduct.jsp");
 		dispatcher.forward(request, response);
-	} catch (DbException e) {
+	} catch (ServiceException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}

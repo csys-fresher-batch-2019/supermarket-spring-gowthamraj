@@ -2,6 +2,7 @@ package com.chainsys;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
-import com.chainsys.supermarketapp.dao.impl.LoginImple;
 import com.chainsys.supermarketapp.model.Login;
+import com.chainsys.supermarketapp.service.LoginService;
 @Service
 @WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
@@ -23,14 +24,14 @@ public class LoginServlet extends HttpServlet {
 
 		String uname = request.getParameter("uname");
 		String pword = request.getParameter("pword");
-		LoginImple login = new LoginImple();
+		LoginService login = new LoginService();
 		Login log = new Login();
 		log.setUsername(uname);
 		log.setPassword(pword);
 		System.out.println("Welcome" + uname);
 		Login log1 = null;
 		try {
-			log1 = login.check(log);
+			log1 = login.findByUsernameAndPassword(log);
 			System.out.println("Login :" + log1);
 			
 		} catch (Exception e) {

@@ -9,11 +9,11 @@ import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
 @Repository
 public interface BillOrderDAO {
-	int addBillOrder(Order billorder)throws DbException;
-	 List<Order>displayBillOrder() throws DbException;
-	int updateBillOrder(Order billorder)throws DbException;
-	int deleteBillOrder(Order billorder)throws DbException;
-	int updateBillStatus(int cusno) throws DbException;
-	public List<OrderItem> viewBillItems(int billNo) throws DbException;
+	int save(Order billorder)throws DbException;
+	 List<Order>findAll() throws DbException;
+	int update(Order billorder)throws DbException;
+	int delete(Order billorder)throws DbException;
+	int update(int cusno) throws DbException;
+	public List<OrderItem> findAllBillItems(int billNo) throws DbException;
 
 }
