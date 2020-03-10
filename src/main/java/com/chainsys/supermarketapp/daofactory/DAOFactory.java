@@ -9,51 +9,51 @@ import com.chainsys.supermarketapp.dao.EmployeeDAO;
 import com.chainsys.supermarketapp.dao.LoginDAO;
 import com.chainsys.supermarketapp.dao.ProductDAO;
 import com.chainsys.supermarketapp.dao.ProductStockDAO;
-import com.chainsys.supermarketapp.dao.impl.BillOrderImple;
-import com.chainsys.supermarketapp.dao.impl.CaseImple;
-import com.chainsys.supermarketapp.dao.impl.CustomerCardImpl;
-import com.chainsys.supermarketapp.dao.impl.EmployeeImpl;
-import com.chainsys.supermarketapp.dao.impl.LoginImple;
-import com.chainsys.supermarketapp.dao.impl.ProductImple;
-import com.chainsys.supermarketapp.dao.impl.ProductStockImple;
+import com.chainsys.supermarketapp.dao.impl.BillOrderDAOImpl;
+import com.chainsys.supermarketapp.dao.impl.CaseDAOImpl;
+import com.chainsys.supermarketapp.dao.impl.CustomerCardDAOImpl;
+import com.chainsys.supermarketapp.dao.impl.EmployeeDAOImpl;
+import com.chainsys.supermarketapp.dao.impl.LoginDAOImpl;
+import com.chainsys.supermarketapp.dao.impl.ProductDAOImpl;
+import com.chainsys.supermarketapp.dao.impl.ProductStockDAOImpl;
 
 @Repository
 public class DAOFactory {
 	
 	public static CaseDAO getCaseDAO()
 	{
-		return new CaseImple();
+		return new CaseDAOImpl();
 		
 	}
 
 	public static LoginDAO getLoginDAO()
 	{
-		return new LoginImple();
+		return new LoginDAOImpl();
 		
 	}
 	public static ProductDAO getProductDAO()
 	{
-		return new ProductImple();
+		return new ProductDAOImpl();
 		
 	}
 	public static ProductStockDAO getProductStockDAO()
 	{
-		return new ProductStockImple();
+		return new ProductStockDAOImpl();
 		
 	}
 	public static EmployeeDAO getEmployeeDAO()
 	{
-		return new EmployeeImpl();
+		return new EmployeeDAOImpl();
 		
 	}
 	public static CustomerCardDAO getCustomerCardDAO()
 	{
-		return new CustomerCardImpl();
+		return new CustomerCardDAOImpl();
 		
 	}
 	public static BillOrderDAO getBillOrderDAO()
 	{
-		return new BillOrderImple();
+		return new BillOrderDAOImpl();
 	}
 	
 }

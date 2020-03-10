@@ -9,4 +9,5 @@ public interface LoginDAO {
 	
 	int save(Login login) throws DbException;
 	public Login findByUsernameAndPassword(Login login) throws DbException;
+	public boolean isUsernameExists(String username) throws DbException;
 }

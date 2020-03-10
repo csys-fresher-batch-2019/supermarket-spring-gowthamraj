@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@  page
-	import="com.chainsys.supermarketapp.dao.impl.ProductStockImple"%>
+	import="com.chainsys.supermarketapp.dao.impl.ProductStockDAOImpl"%>
 <%@  page import="com.chainsys.supermarketapp.model.ProductStock"%>
 <%@  page import=" java.util.*"%>
 <%@  page import="javax.servlet.*"%>

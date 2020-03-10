@@ -10,11 +10,12 @@ import org.slf4j.LoggerFactory;
 import com.chainsys.supermarketapp.dao.LoginDAO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
+import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Login;
 import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
-public class LoginImple implements LoginDAO {
-	private static final Logger logger = LoggerFactory.getLogger(LoginImple.class);
+public class LoginDAOImpl implements LoginDAO {
+	private static final Logger logger = LoggerFactory.getLogger(LoginDAOImpl.class);
 
 	public Login findByUsernameAndPassword(Login login) throws DbException {
 		String sql = "select user_name,passwords from login where user_name = ? and passwords = ?";
@@ -33,6 +34,24 @@ public class LoginImple implements LoginDAO {
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
 		return log1;
+	}
+	public boolean isUsernameExists(String username) throws DbException {
+		boolean exists = false;
+		String sql1 = "select user_name from login where user_name=?";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql1);) {
+			pst.setString(1, username);
+			try (ResultSet rs = pst.executeQuery();) {
+				if (rs.next()) {
+					exists = true;
+				}
+			} catch (Exception v) {
+				throw new ValidationException("Username available");
+			}
+		} catch (Exception e) {
+
+			throw new DbException(ErrorConstants.INVALID_SELECT);
+		}
+		return exists;
 	}
 
 /*	public boolean isUsernameExists(String username) throws DbException {

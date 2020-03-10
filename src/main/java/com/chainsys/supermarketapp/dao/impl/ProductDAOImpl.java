@@ -18,8 +18,8 @@ import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.Product;
 import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
-public class ProductImple implements ProductDAO {
-	private static final Logger logger = LoggerFactory.getLogger(ProductImple.class);
+public class ProductDAOImpl implements ProductDAO {
+	private static final Logger logger = LoggerFactory.getLogger(ProductDAOImpl.class);
 	private static final boolean NULL = false;
 
 	@Override
@@ -103,4 +103,60 @@ public class ProductImple implements ProductDAO {
 		return rows;
 
 	}
+	public List<Product> findOneProductAvailable() throws DbException {
+		String sql = "select * FROM product p where active =1 and product_id in ( select  product_no from product_stock pk where pk.product_no=p.product_id and pk.quantity > 0)";
+		List<Product> list = new ArrayList<>();
+		try (Connection con = ConnectionUtil.getConnection(); Statement st1 = con.createStatement()) {
+			try (ResultSet rs = st1.executeQuery(sql);) {
+				while (rs.next() != NULL) {
+					Product p = new Product();
+					p.setProductname(rs.getString("product_name"));
+					p.setPrice(rs.getInt("price"));
+					p.setPid(rs.getInt("product_id"));
+					list.add(p);
+				}
+			}
+		} catch (Exception e) {
+			throw new DbException(ErrorConstants.INVALID_SELECT);
+		}
+		return (list);
+	}
+	
+	public int findOneProductPrice(int productId) throws DbException {
+		String sql = "select price from product where product_id=? ";
+		int price = 0;
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+			ps.setInt(1, productId);
+			try (ResultSet rs = ps.executeQuery();) {
+				while (rs.next()) {
+					price = rs.getInt("price");
+				}
+			} 
+		} catch (Exception e) {
+			throw new DbException(ErrorConstants.INVALID_SELECT);
+		}
+		return (price);
+	}
+
+	@Override
+	public boolean isProductNameExists(String productName) throws DbException {
+		boolean exists = false;
+		String sql1 = "select product_name from product where product_name=?";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql1);) {
+			pst.setString(1,productName );
+			try (ResultSet rs = pst.executeQuery();) {
+				if (rs.next()) {
+					exists = true;
+				}
+			} 
+		} catch (Exception e) {
+
+			throw new DbException(ErrorConstants.INVALID_SELECT);
+		}
+		return exists;
+	}
+
+
+
+	
 }

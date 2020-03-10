@@ -39,18 +39,17 @@ public class AddProductStock extends HttpServlet {
 
 		if (product) {
 
-				try {
-					psi.save(ps);
-				
+			try {
+				psi.save(ps);
 
 				request.setAttribute("addstock", "Adding Stock Details Suucesfully");
 
 				RequestDispatcher dispatcher = request.getRequestDispatcher("AddProductStock.jsp");
 				dispatcher.forward(request, response);
-				} catch (ServiceException e) {
-					
-				}
-			
+			} catch (ServiceException e) {
+
+			}
+
 		} else {
 			request.setAttribute("addstock", "INVALID EXPERY DATE");
 

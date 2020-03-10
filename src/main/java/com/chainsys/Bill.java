@@ -10,14 +10,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
+
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.service.BillOrderService;
-import com.chainsys.supermarketapp.validator.Validation;
+import com.chainsys.supermarketapp.validator.ProductPriceValidation;
+import com.chainsys.supermarketapp.validator.ProductQuantityValidation;
 
 @WebServlet("/Bill")
 @Service
@@ -34,7 +37,8 @@ public class Bill extends HttpServlet {
 
 		String[] arr = request.getParameterValues("pid");
 		int totalAmount = 0;
-		Validation v = new Validation();
+		ProductPriceValidation v = new ProductPriceValidation();
+		ProductQuantityValidation v1=new ProductQuantityValidation(); 
 		Order order = new Order();
 		order.setCustomerno(cusno);
 
@@ -63,7 +67,7 @@ public class Bill extends HttpServlet {
 			order.setStatus("ORDERED");
 
 			BillOrderService boi = new BillOrderService();
-			boolean a = v.productQuantityValidate(order);
+			boolean a = v1.productQuantityValidate(order);
 			System.out.println(a);
 			if (a) {
 				int orderId = boi.save(order);
@@ -81,7 +85,7 @@ public class Bill extends HttpServlet {
 				dispatcher2.forward(request, response);
 			}
 		} catch (DbException | ValidationException | ServiceException e) {
-			
+
 			RequestDispatcher dispatcher2 = request.getRequestDispatcher("orderitem.jsp");
 			dispatcher2.forward(request, response);
 		}

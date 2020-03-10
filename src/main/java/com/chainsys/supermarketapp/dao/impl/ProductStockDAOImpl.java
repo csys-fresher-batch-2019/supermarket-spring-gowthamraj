@@ -13,10 +13,13 @@ import java.util.List;
 import com.chainsys.supermarketapp.dao.ProductStockDAO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
+import com.chainsys.supermarketapp.exception.ValidationException;
+import com.chainsys.supermarketapp.model.Order;
+import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.ProductStock;
 import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
-public class ProductStockImple implements ProductStockDAO {
+public class ProductStockDAOImpl implements ProductStockDAO {
 	
 
 	@Override
@@ -111,4 +114,65 @@ public class ProductStockImple implements ProductStockDAO {
 		}
 		return list;
 	}
+	
+	public boolean isProductExists(int productno) throws DbException {
+		boolean exists = false;
+		String sql1 = "select product_no from product_stock where product_no=?";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql1);) {
+			pst.setInt(1, productno);
+			try (ResultSet rs = pst.executeQuery();) {
+				if (rs.next()) {
+					exists = true;
+				}
+			} catch (Exception v) {
+				throw new ValidationException("Product not available");
+			}
+		} catch (Exception e) {
+
+			throw new DbException(ErrorConstants.INVALID_SELECT);
+		}
+		return exists;
+	}
+	
+	public boolean productQuantityValidate(Order billorder) throws DbException {
+		boolean stockavailable = true;
+		List<OrderItem> items = billorder.getItems();
+		for (OrderItem orderItem : items) {
+			String sql = "select quantity from product_stock where product_no=?";
+			try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+				pst.setInt(1, orderItem.getProductId());
+
+				pst.executeQuery();
+				try (ResultSet rs = pst.executeQuery();) {
+					if (rs.next()) {
+						int a = rs.getInt("quantity");
+						if (orderItem.getQuantity() > a) {
+							stockavailable = false;
+						}
+					}
+				} 
+			} catch (SQLException e) {
+				throw new DbException(ErrorConstants.INVALID_ADD);
+			}
+		}
+		return stockavailable;
+	}
+	
+	public boolean getStockProductNo(int productNo) throws DbException {
+		boolean exists = false;
+		String sql = "select  product_no from product_stock pk where pk.product_no=?";
+
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+			try (ResultSet rs = ps.executeQuery();) {
+				if (rs.next()) {
+					exists = true;
+				}
+			} 
+		} catch (Exception e) {
+			throw new DbException(ErrorConstants.INVALID_DELETE);
+		}
+		return exists;
+	}
+
+
 }

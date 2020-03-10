@@ -15,7 +15,7 @@ import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
-public class EmployeeImpl implements EmployeeDAO {
+public class EmployeeDAOImpl implements EmployeeDAO {
 	
 	@Override
 	public int save(Employee employee) throws DbException {

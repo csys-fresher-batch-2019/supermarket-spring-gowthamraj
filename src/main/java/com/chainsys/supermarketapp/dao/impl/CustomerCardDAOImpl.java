@@ -15,8 +15,8 @@ import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.CustomerCard;
 import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
-public class CustomerCardImpl implements CustomerCardDAO {
-	private static final Logger logger = LoggerFactory.getLogger(CustomerCardImpl.class);
+public class CustomerCardDAOImpl implements CustomerCardDAO {
+	private static final Logger logger = LoggerFactory.getLogger(CustomerCardDAOImpl.class);
 
 	@Override
 	public int save(CustomerCard customercard) throws DbException {

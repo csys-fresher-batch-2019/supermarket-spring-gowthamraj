@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
-
-import com.chainsys.supermarketapp.exception.ServiceConstant;
 import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.service.EmployeeService;

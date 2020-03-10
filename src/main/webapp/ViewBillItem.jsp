@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@  page import="com.chainsys.supermarketapp.dao.impl.BillOrderImple"%>
+<%@  page import="com.chainsys.supermarketapp.dao.impl.BillOrderDAOImpl"%>
 <%@  page import="com.chainsys.supermarketapp.model.OrderItem"%>
 <%@  page import=" java.util.*"%>
 <%@  page import="javax.servlet.*"%>

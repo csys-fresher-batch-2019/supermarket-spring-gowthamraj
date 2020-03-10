@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class WalletAPI {
 
+	@SuppressWarnings("unused")
 	private static final Long COMPANY_MOBILE_NO = 6789012340L; // use your registered wallet mobileno
 	 private static final Logger logger = LoggerFactory.getLogger(WalletAPI.class);
 	public static boolean pay(Long mobileNo, int pin, int amount) {

@@ -19,7 +19,7 @@ import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.ProductStock;
 import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
-public class BillOrderImple implements BillOrderDAO {
+public class BillOrderDAOImpl implements BillOrderDAO {
 
 	public int getNextOrderId() throws DbException {
 		int orderID = 0;
@@ -43,7 +43,7 @@ public class BillOrderImple implements BillOrderDAO {
 	@Override
 	public int save(Order billorder) throws DbException {
 		int orderId = getNextOrderId();
-		ProductStockImple psi = new ProductStockImple();
+		ProductStockDAOImpl psi = new ProductStockDAOImpl();
 		String sql = "Insert into bill_order (p_id,customer_no,total_amount)values(?,?,?)";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
 			pst.setInt(1, orderId);
@@ -68,7 +68,7 @@ public class BillOrderImple implements BillOrderDAO {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+		
 			throw new DbException(ErrorConstants.INVALID_ADD);
 		}
 		return orderId;

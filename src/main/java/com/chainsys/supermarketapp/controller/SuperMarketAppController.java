@@ -1,8 +1,6 @@
 package com.chainsys.supermarketapp.controller;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -17,7 +15,6 @@ import com.chainsys.supermarketapp.dao.EmployeeDAO;
 import com.chainsys.supermarketapp.dao.LoginDAO;
 import com.chainsys.supermarketapp.dao.ProductDAO;
 import com.chainsys.supermarketapp.dao.ProductStockDAO;
-import com.chainsys.supermarketapp.dao.impl.ProductImple;
 import com.chainsys.supermarketapp.daofactory.DAOFactory;
 import com.chainsys.supermarketapp.dto.Messagedto;
 import com.chainsys.supermarketapp.exception.DbException;

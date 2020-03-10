@@ -7,16 +7,24 @@ import com.chainsys.supermarketapp.daofactory.DAOFactory;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ServiceConstant;
 import com.chainsys.supermarketapp.exception.ServiceException;
+import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Product;
+import com.chainsys.supermarketapp.validator.ProductValidation;
 
 public class ProductService {
 	ProductDAO pd=DAOFactory.getProductDAO();
 	
-	public int save(Product product) throws ServiceException
+	ProductValidation productValidation = new ProductValidation();
+	
+	public int save(Product product) throws ServiceException,ValidationException
 	{
 		try {
+			boolean exists = productValidation.isProductNameExists(product.getProductname());
+			if ( exists) {
+				throw new ValidationException("Product name already exists");
+			}
 			return pd.save(product);
-		} catch (DbException e) {
+		} catch (DbException  e) {
 			throw new ServiceException(ServiceConstant.INVALID_SAVE);
 		}
 		

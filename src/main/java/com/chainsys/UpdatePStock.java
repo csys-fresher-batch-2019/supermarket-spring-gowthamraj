@@ -16,7 +16,7 @@ import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.ProductStock;
 import com.chainsys.supermarketapp.service.productStockService;
-import com.chainsys.supermarketapp.validator.Validation;
+import com.chainsys.supermarketapp.validator.ProductValidation;
 @WebServlet("/UpdatePStock")
 @Service
 public class UpdatePStock extends HttpServlet {
@@ -30,7 +30,7 @@ public class UpdatePStock extends HttpServlet {
 		ProductStock ps = new ProductStock();
 		ps.setProductno(prno);
 		ps.setQuantity(qty);
-		Validation v=new Validation();
+		ProductValidation v=new ProductValidation();
 		boolean product;
 		try {
 			product = v.isProductExists(ps.getProductno());

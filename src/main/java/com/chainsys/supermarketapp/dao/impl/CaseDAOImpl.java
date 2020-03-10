@@ -19,8 +19,8 @@ import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.Product;
 import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
-public class CaseImple implements CaseDAO {
-	 private static final Logger logger = LoggerFactory.getLogger(CaseImple.class);
+public class CaseDAOImpl implements CaseDAO {
+	 private static final Logger logger = LoggerFactory.getLogger(CaseDAOImpl.class);
 
 
 	@Override
