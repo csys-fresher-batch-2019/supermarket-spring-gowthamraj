@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 		String pword = request.getParameter("pword");
 		LoginService login = new LoginService();
 		Login log = new Login();
-		log.setUsername(uname);
+		log.setUserName(uname);
 		log.setPassword(pword);
 		System.out.println("Welcome" + uname);
 		Login log1 = null;
@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("Login.jsp?error=Login Failed");
 		} else {
 			HttpSession session = request.getSession();
-			session.setAttribute("LOGGED_IN_USER_ID", log1.getUsername());
+			session.setAttribute("LOGGED_IN_USER_ID", log1.getUserName());
 			response.sendRedirect("report.jsp");
 		}
 	}

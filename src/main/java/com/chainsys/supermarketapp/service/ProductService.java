@@ -19,7 +19,7 @@ public class ProductService {
 	public static int save(Product product) throws ServiceException, ValidationException {
 		try {
 			Validator.validateProductForm(product);
-			boolean exists = productValidation.isProductNameExists(product.getProductname());
+			boolean exists = productValidation.isProductNameExists(product.getProductName());
 			if (exists) {
 				throw new ValidationException("Product name already exists");
 			}

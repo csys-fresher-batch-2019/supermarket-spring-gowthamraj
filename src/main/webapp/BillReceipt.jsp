@@ -61,7 +61,7 @@ td{
 <tbody>
 <tr>
 <td>${ORDER_DETAILS.orderId} </td>
-<td>${ORDER_DETAILS.customerno}</td>
+<td>${ORDER_DETAILS.customerNo}</td>
 <td>Rs.${ORDER_DETAILS.totalAmount} </td>
 <td>${ORDER_DETAILS.orderedDate}</td>
 

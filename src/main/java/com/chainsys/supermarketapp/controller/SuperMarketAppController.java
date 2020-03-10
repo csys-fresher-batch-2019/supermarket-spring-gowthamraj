@@ -39,7 +39,7 @@ public class SuperMarketAppController {
 			@RequestParam("password") String password) throws DbException {
 		Messagedto msg = new Messagedto();
 		Login l = new Login();
-		l.setUsername(username);
+		l.setUserName(username);
 		l.setPassword(password);
 		int a = lg.save(l);
 		if (a == 1) {
@@ -62,7 +62,7 @@ public class SuperMarketAppController {
 			throws DbException {
 		Messagedto msg = new Messagedto();
 		Product p = new Product();
-		p.setProductname(prodcutname);
+		p.setProductName(prodcutname);
 		p.setPrice(price);
 		int v = pd.save(p);
 		if (v == 1) {
@@ -79,7 +79,7 @@ public class SuperMarketAppController {
 			throws DbException {
 		Messagedto msg = new Messagedto();
 		Product p = new Product();
-		p.setProductname(prodcutname);
+		p.setProductName(prodcutname);
 		p.setPrice(price);
 		int v = pd.update(p);
 

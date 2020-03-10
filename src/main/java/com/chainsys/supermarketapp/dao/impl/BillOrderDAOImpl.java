@@ -2,7 +2,6 @@ package com.chainsys.supermarketapp.dao.impl;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,14 +36,6 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 		}
 		return orderID;
 	}
-	
-	public void updateStock(OrderItem orderItem) throws DbException {
-		ProductStock ps = new ProductStock();
-		ps.setProductNo(orderItem.getProductId());
-		ps.setQuantity(orderItem.getQuantity());
-		ProductStockDAOImpl psi = new ProductStockDAOImpl();
-		psi.updateProductStockquantity(ps);
-	}
 
 	public int addItem(int orderId, OrderItem orderItem) throws DbException {
 		int rows = 0;
@@ -64,6 +55,14 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 		}
 		return rows;
 	}
+	
+	public void updateStock(OrderItem orderItem) throws DbException {
+		ProductStock ps = new ProductStock();
+		ps.setProductNo(orderItem.getProductId());
+		ps.setQuantity(orderItem.getQuantity());
+		ProductStockDAOImpl psi = new ProductStockDAOImpl();
+		psi.updateProductStockquantity(ps);
+	}
 
 	@Override
 	public int save(Order billorder) throws DbException {
@@ -82,12 +81,47 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 				updateStock(orderItem);
 			}
 		} catch (SQLException e) {
-
 			throw new DbException(ErrorConstants.INVALID_ADD, e);
 		}
 		return orderId;
 	}
 
+	
+
+//	@Override
+//	public int save(Order billorder) throws DbException {
+//		int orderId = getNextOrderId();
+//		ProductStockDAOImpl psi = new ProductStockDAOImpl();
+//		String sql = "Insert into bill_order (p_id,customer_no,total_amount)values(?,?,?)";
+//		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
+//			pst.setInt(1, orderId);
+//			pst.setInt(2, billorder.getCustomerNo());
+//			pst.setInt(3, billorder.getTotalAmount());
+//			pst.executeUpdate();
+//			List<OrderItem> items = billorder.getItems();
+//			for (OrderItem orderItem : items) {
+//				String sql1 = "insert into bill_items (bill_item_id,bill_no,product_id,quantity,price,total_amount) values (bill_item_id_seq.nextval,?,?,?,?,?)";
+//				try (PreparedStatement pst1 = con.prepareStatement(sql1);) {
+//					pst1.setInt(1, orderId);
+//					pst1.setInt(2, orderItem.getProductId());
+//					pst1.setInt(3, orderItem.getQuantity());
+//					pst1.setInt(4, orderItem.getPrice());
+//					pst1.setInt(5, orderItem.getTotalAmount());
+//					pst1.executeUpdate();
+//
+//					ProductStock ps = new ProductStock();
+//					ps.setProductNo(orderItem.getProductId());
+//					ps.setQuantity(orderItem.getQuantity());
+//					psi.updateProductStockquantity(ps);
+//				}
+//			}
+//		} catch (SQLException e) {
+//
+//			throw new DbException(ErrorConstants.INVALID_ADD, e);
+//		}
+//		return orderId;
+//	}
+//
 	@Override
 	public int update(Order billorder) throws DbException {
 		String sql = "update bill_order set total_amount =? where customer_no=?";

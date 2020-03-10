@@ -26,7 +26,7 @@ public class EmployeeService {
 
 	public int delete(Employee employee) throws ServiceException, ValidationException {
 		try {
-			Validator.validateEmployeeForm(employee);
+			Validator.validateEmployeeDeleteForm(employee);
 			return emp.delete(employee);
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_DELETE);
@@ -35,7 +35,7 @@ public class EmployeeService {
 
 	public int update(Employee employee) throws ServiceException, ValidationException {
 		try {
-			Validator.validateEmployeeForm(employee);
+			Validator.validateEmployeeUpdateForm(employee);
 			return emp.update(employee);
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_UPDATE);

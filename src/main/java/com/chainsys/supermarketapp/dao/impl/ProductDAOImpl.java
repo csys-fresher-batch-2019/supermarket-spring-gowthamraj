@@ -28,7 +28,7 @@ public class ProductDAOImpl implements ProductDAO {
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 			logger.debug(sql);
-			ps.setString(1, product.getProductname());
+			ps.setString(1, product.getProductName());
 			ps.setInt(2, product.getPrice());
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -42,7 +42,7 @@ public class ProductDAOImpl implements ProductDAO {
 		String sql = "Delete from product where product_name=?";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
-			ps.setString(1, product.getProductname());
+			ps.setString(1, product.getProductName());
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_DELETE, e);
@@ -59,7 +59,7 @@ public class ProductDAOImpl implements ProductDAO {
 				ResultSet rs = st1.executeQuery(sql);) {
 			while (rs.next() != NULL) {
 				Product p = new Product();
-				p.setProductname(rs.getString("product_name"));
+				p.setProductName(rs.getString("product_name"));
 				p.setPrice(rs.getInt("price"));
 				p.setPid(rs.getInt("product_id"));
 				p.setActive(rs.getInt("active"));
@@ -76,7 +76,7 @@ public class ProductDAOImpl implements ProductDAO {
 		String sql = "update product set price= ? where product_name= ?  ";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
-			ps.setString(2, product.getProductname());
+			ps.setString(2, product.getProductName());
 			ps.setInt(1, product.getPrice());
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -107,7 +107,7 @@ public class ProductDAOImpl implements ProductDAO {
 			try (ResultSet rs = st1.executeQuery(sql);) {
 				while (rs.next()) {
 					Product p = new Product();
-					p.setProductname(rs.getString("product_name"));
+					p.setProductName(rs.getString("product_name"));
 					p.setPrice(rs.getInt("price"));
 					p.setPid(rs.getInt("product_id"));
 					list.add(p);

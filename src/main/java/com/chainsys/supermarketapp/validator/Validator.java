@@ -3,14 +3,13 @@ package com.chainsys.supermarketapp.validator;
 import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.model.Login;
-import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.Product;
 import com.chainsys.supermarketapp.model.ProductStock;
 
 public class Validator {
 
 	public static void validateLoginForm(Login l) throws ValidationException {
-		if (l.getUsername() == null || "".equals(l.getUsername().trim())) {
+		if (l.getUserName() == null || "".equals(l.getUserName().trim())) {
 			throw new ValidationException("UserName cannot be blank/empty");
 		}
 		if (l.getPassword() == null || "".equals(l.getPassword().trim())) {
@@ -26,6 +25,16 @@ public class Validator {
 			throw new ValidationException("product must not be zero or blank");
 		}
 	}
+	
+
+	public static void validateProductStockQuantityUpdateForm(ProductStock ps) throws ValidationException {
+		if (ps.getProductNo() == 0) {
+			throw new ValidationException("product number must not be zero or blank");
+		}
+		if (ps.getQuantity() == 0) {
+			throw new ValidationException("Product Stock Quantity must not be zero or blank");
+		}
+	}
 
 	public static void validateProductStockForm(ProductStock ps) throws ValidationException {
 		if (ps.getProductNo() == 0) {
@@ -39,6 +48,22 @@ public class Validator {
 		}
 		if (ps.getProductarrival() == null) {
 			throw new ValidationException("product Arrival Date must not be zero or blank");
+		}
+
+	}
+	
+	public static void validateEmployeeDeleteForm(Employee e) throws ValidationException {
+		if (e.getEmployeeName() == null || "".equals(e.getEmployeeName().trim())) {
+			throw new ValidationException("Employee Name must not be zero or blank");
+		}
+	}
+	
+	public static void validateEmployeeUpdateForm(Employee e) throws ValidationException {
+		if (e.getEmployeeName() == null || "".equals(e.getEmployeeName().trim())) {
+			throw new ValidationException("Employee Name must not be zero or blank");
+		}
+		if (e.getAddress() == null) {
+			throw new ValidationException("Address Date must not be zero or blank");
 		}
 
 	}
@@ -58,21 +83,5 @@ public class Validator {
 		}
 	}
 
-	public static void validateBillOrderForm(Order o) throws ValidationException {
-		if (o.getCustomerNo() == 0) {
-			throw new ValidationException("Customer number Item must not be zero or blank");
-		}
-		if (o.getOrderedDate() == null) {
-			throw new ValidationException("Orderdate must not be zero or blank");
-		}
-		if (o.getStatus() == null) {
-			throw new ValidationException("Status must not be zero or blank");
-		}
-		if (o.getOrderId() == 0) {
-			throw new ValidationException("Order Id must not be zero or blank");
-		}
-		if (o.getTotalAmount() == 0) {
-			throw new ValidationException("Total Amount must not be zero or blank");
-		}
-	}
+	
 }

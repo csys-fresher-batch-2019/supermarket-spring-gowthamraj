@@ -28,7 +28,7 @@ public class AddProduct extends HttpServlet {
 		String pn = request.getParameter("pno");
 		int price = Integer.parseInt(request.getParameter("pri"));
 		Product p = new Product();
-		p.setProductname(pn);
+		p.setProductName(pn);
 		p.setPrice(price);
 
 		try {

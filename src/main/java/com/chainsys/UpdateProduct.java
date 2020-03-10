@@ -29,7 +29,7 @@ public class UpdateProduct extends HttpServlet {
 
 		int price = Integer.parseInt(request.getParameter("pri"));
 		Product p = new Product();
-		p.setProductname(pid);
+		p.setProductName(pid);
 		p.setPrice(price);
 		try {
 			pi.update(p);

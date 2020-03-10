@@ -43,7 +43,7 @@
 
 						<tr>
 							<td>${user.pid}</td>
-							<td>${user.productname}</td>
+							<td>${user.productName}</td>
 							<td>Rs.${user.price}</td>
 							<td>${user.active}</td>
 						</tr>

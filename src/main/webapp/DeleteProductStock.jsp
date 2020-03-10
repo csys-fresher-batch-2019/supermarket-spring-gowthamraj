@@ -22,12 +22,11 @@
 		<center>
 			Welcome ${ LOGGED_IN_USER_ID} ( <a href="LogoutServlet">Logout</a> )
 		</center>
-		<br /> <br />
-		<br />
+		<br /> <br /> <br />
 		<center>
 			Enter the Product Id <input type="number" name="pno"
-				placeholder="Product ID" required autofocus /><br>
-			<br> <input type="submit" value="Delete Stock"> <a
+				placeholder="Product ID" required autofocus /><br> <br> <input
+				type="submit" value="Delete Stock"> <a
 				href="ProductStock.jsp">Back</a>
 
 

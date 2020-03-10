@@ -41,7 +41,7 @@
 					<tr>
 				
 						<td>${user.pid}</td>
-						<td>${user.productname}</td>
+						<td>${user.productName}</td>
 						<td>Rs.${user.price}</td>
 						<td><input type="checkbox" id="pid_${user.pid}" name="pid"  value="${user.pid}"></td>
 						<td><input type="text" id="qty_${user.pid}" name="qty_${user.pid}"  onblur="disable(${user.pid}, this.value)" ></td>

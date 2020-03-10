@@ -24,8 +24,8 @@ public class CustomerCardDAOImpl implements CustomerCardDAO {
 		String sql = "insert into customer_card (customer_name,mobile_number,address) values(?,?,?)";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
-			pst.setString(1, customercard.getCustomername());
-			pst.setLong(2, customercard.getContactnumber());
+			pst.setString(1, customercard.getCustomerName());
+			pst.setLong(2, customercard.getContactNumber());
 			pst.setString(3, customercard.getAddress());
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {
@@ -40,7 +40,7 @@ public class CustomerCardDAOImpl implements CustomerCardDAO {
 		String sql = "delete from customer_card where customer_name=?";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
-			pst.setString(1, customercard.getCustomername());
+			pst.setString(1, customercard.getCustomerName());
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_DELETE, e);
@@ -74,7 +74,7 @@ public class CustomerCardDAOImpl implements CustomerCardDAO {
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			pst.setString(1, customercard.getAddress());
-			pst.setString(2, customercard.getCustomername());
+			pst.setString(2, customercard.getCustomerName());
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_UPDATE, e);

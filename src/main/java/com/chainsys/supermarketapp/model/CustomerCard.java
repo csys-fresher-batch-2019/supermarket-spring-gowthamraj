@@ -2,37 +2,32 @@ package com.chainsys.supermarketapp.model;
 
 public class CustomerCard {
 	private String customerName;
-	private long contactNumber;
-	private String address;
-
-	public String getCustomername() {
+	public String getCustomerName() {
 		return customerName;
 	}
-
-	public void setCustomername(String customername) {
-		this.customerName = customername;
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
-
-	public long getContactnumber() {
+	public long getContactNumber() {
 		return contactNumber;
 	}
-
-	public void setContactnumber(long contactnumber) {
-		this.contactNumber = contactnumber;
+	public void setContactNumber(long contactNumber) {
+		this.contactNumber = contactNumber;
 	}
-
 	public String getAddress() {
 		return address;
 	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
+	private long contactNumber;
+	private String address;
 	@Override
 	public String toString() {
-		return "customerCard [customername=" + customerName + ", contactnumber=" + contactNumber + ", address="
+		return "CustomerCard [customerName=" + customerName + ", contactNumber=" + contactNumber + ", address="
 				+ address + "]";
 	}
+
+
 
 }

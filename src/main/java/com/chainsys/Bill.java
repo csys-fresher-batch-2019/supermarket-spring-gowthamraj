@@ -70,8 +70,8 @@ public class Bill extends HttpServlet {
 			boolean a = v1.productQuantityValidate(order);
 			System.out.println(a);
 			if (a) {
-				int orderId = boi.save(order);
-				order.setOrderId(orderId);
+				int aa=boi.save(order);
+				order.setOrderId(aa);
 
 				request.setAttribute("ORDER_DETAILS", order);
 
@@ -81,11 +81,11 @@ public class Bill extends HttpServlet {
 
 				request.setAttribute("ORDER_DETAILS", "Sufficient quantity not available for this product");
 
-				RequestDispatcher dispatcher2 = request.getRequestDispatcher("orderitem.jsp");
+				RequestDispatcher dispatcher2 = request.getRequestDispatcher("Login.jsp");
 				dispatcher2.forward(request, response);
 			}
 		} catch (DbException | ValidationException | ServiceException e) {
-
+			e.printStackTrace();
 			RequestDispatcher dispatcher2 = request.getRequestDispatcher("orderitem.jsp");
 			dispatcher2.forward(request, response);
 		}

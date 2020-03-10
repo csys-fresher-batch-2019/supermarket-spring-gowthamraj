@@ -25,8 +25,7 @@
 			<center>
 				Welcome ${ LOGGED_IN_USER_ID} ( <a href="LogoutServlet">Logout</a> )
 			</center>
-			<br /> <br />
-			<br />
+			<br /> <br /> <br />
 			<pre>		
 
 Enter the Employee Name			<input type="text" name="en"

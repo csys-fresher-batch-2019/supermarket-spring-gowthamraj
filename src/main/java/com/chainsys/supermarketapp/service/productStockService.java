@@ -25,7 +25,7 @@ public class productStockService {
 
 	public int delete(ProductStock productstock) throws ServiceException {
 		try {
-			Validator.validateProductStockForm(productstock);
+			Validator.validateProductStockQuantityUpdateForm(productstock);
 			return ps.delete(productstock);
 		} catch (DbException | ValidationException e) {
 			throw new ServiceException(ServiceConstant.INVALID_DELETE);
@@ -34,7 +34,7 @@ public class productStockService {
 
 	public int update(ProductStock productstock) throws ServiceException, ValidationException {
 		try {
-			Validator.validateProductStockForm(productstock);
+			//Validator.validateProductStockForm(productstock);
 			return ps.update(productstock);
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_UPDATE);

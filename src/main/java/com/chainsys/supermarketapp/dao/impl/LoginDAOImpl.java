@@ -21,13 +21,13 @@ public class LoginDAOImpl implements LoginDAO {
 		String sql = "select user_name,passwords from login where user_name = ? and passwords = ?";
 		Login log1=null;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
-			ps.setString(1, login.getUsername());
+			ps.setString(1, login.getUserName());
 			ps.setString(2, login.getPassword());
 			try (ResultSet rs1 = ps.executeQuery();) {
 				
 				if (rs1.next()) {
 					log1=new Login();
-					log1.setUsername(rs1.getString("user_name"));
+					log1.setUserName(rs1.getString("user_name"));
 					log1.setPassword(rs1.getString("passwords"));
 				}
 			}
@@ -60,7 +60,7 @@ public class LoginDAOImpl implements LoginDAO {
 		logger.debug(sql);
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
-			ps.setString(1, login.getUsername());
+			ps.setString(1, login.getUserName());
 			ps.setString(2, login.getPassword());
 			rows = ps.executeUpdate();
 

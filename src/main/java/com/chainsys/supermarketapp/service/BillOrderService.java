@@ -10,7 +10,7 @@ import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
-import com.chainsys.supermarketapp.validator.Validator;
+
 
 public class BillOrderService {
 
@@ -18,7 +18,7 @@ public class BillOrderService {
 
 	public int save(Order billorder) throws ServiceException, DbException, ValidationException {
 		try {
-			Validator.validateBillOrderForm(billorder);
+			
 			return bo.save(billorder);
 		} catch (DbException e) {
 
@@ -28,7 +28,7 @@ public class BillOrderService {
 
 	public List<Order> findAll() throws ServiceException, DbException {
 		try {
-			
+
 			return bo.findAll();
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_FIND);
@@ -37,7 +37,6 @@ public class BillOrderService {
 
 	public int update(Order billorder) throws ServiceException, DbException, ValidationException {
 		try {
-			Validator.validateBillOrderForm(billorder);
 			return bo.update(billorder);
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_UPDATE);
@@ -46,7 +45,7 @@ public class BillOrderService {
 
 	public int delete(Order billorder) throws ServiceException, DbException, ValidationException {
 		try {
-			Validator.validateBillOrderForm(billorder);
+			
 			return bo.delete(billorder);
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_DELETE);

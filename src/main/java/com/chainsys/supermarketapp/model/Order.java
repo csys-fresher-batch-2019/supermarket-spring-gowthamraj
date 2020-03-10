@@ -11,13 +11,7 @@ public class Order {
 	private int totalAmount;
 	private String status = "pending";
 	private LocalDateTime orderedDate;
-	public int getOrderId() {
-		return orderId;
-	}
 
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
-	}
 
 	public int getCustomerNo() {
 		return customerNo;
@@ -25,6 +19,15 @@ public class Order {
 
 	public void setCustomerNo(int customerNo) {
 		this.customerNo = customerNo;
+	}
+
+	
+	public int getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
 	public int getTotalAmount() {
@@ -51,6 +54,12 @@ public class Order {
 		this.orderedDate = orderedDate;
 	}
 
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", customerNo=" + customerNo + ", totalAmount=" + totalAmount + ", status="
+				+ status + ", orderedDate=" + orderedDate + ", items=" + items + "]";
+	}
+
 	public List<OrderItem> getItems() {
 		return items;
 	}
@@ -61,17 +70,8 @@ public class Order {
 
 	private List<OrderItem> items = new ArrayList<>();
 
-	@Override
-	public String toString() {
-		return "Order [orderId=" + orderId + ", customerNo=" + customerNo + ", totalAmount=" + totalAmount + ", status="
-				+ status + ", orderedDate=" + orderedDate + ", items=" + items + "]";
-	}
-
 	public void addItem(OrderItem item) {
 		items.add(item);
 	}
 
-
-	
-	
 }

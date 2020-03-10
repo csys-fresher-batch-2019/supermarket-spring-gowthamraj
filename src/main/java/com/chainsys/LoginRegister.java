@@ -29,13 +29,13 @@ public class LoginRegister extends HttpServlet {
 		LoginService log = new LoginService();
 		UserValidation v = new UserValidation();
 		Login log1 = new Login();
-		log1.setUsername(uname);
+		log1.setUserName(uname);
 		log1.setPassword(pword);
 		boolean inserted = false;
 		PrintWriter out = response.getWriter();
 		boolean alreadyRegistered = false;
 		try {
-			alreadyRegistered = v.isUsernameExists(log1.getUsername());
+			alreadyRegistered = v.isUsernameExists(log1.getUserName());
 			System.out.println(alreadyRegistered);
 			if (alreadyRegistered) {
 

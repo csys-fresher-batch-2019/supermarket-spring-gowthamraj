@@ -45,8 +45,8 @@
 		<c:forEach items="${order}" var="user">
 		
 					<tr>
-						<td>${user.employeeid}</td>
-						<td>${user.employeename}</td>
+						<td>${user.employeeId}</td>
+						<td>${user.employeeName}</td>
 						<td>${user.dob}</td>
 						<td>${user.doj}</td>
 						<td>${user.address}</td>

@@ -61,7 +61,9 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 			ps.setInt(2, productstock.getProductNo());
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DbException(ErrorConstants.INVALID_UPDATE, e);
+			
 		}
 		return rows;
 	}
@@ -88,7 +90,7 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 		try (Connection con = ConnectionUtil.getConnection();
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);) {
-			while (rs.next()) {
+			while (rs.next() ) {
 				ProductStock ps = new ProductStock();
 				ps.setStockId(rs.getInt("stock_id"));
 				ps.setProductNo(rs.getInt("product_no"));
@@ -116,7 +118,7 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 				if (rs.next()) {
 					exists = true;
 				}
-			} 
+			}
 		} catch (SQLException e) {
 
 			throw new DbException(ErrorConstants.INVALID_SELECT, e);

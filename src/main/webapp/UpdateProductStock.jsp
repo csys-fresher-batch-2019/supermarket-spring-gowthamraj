@@ -26,8 +26,10 @@
 		<center>
 			Enter the Product Id <input type="number" name="pno"
 				placeholder="Product ID" required autofocus /><br>
+			
 			<br> Enter the quantity <input type="number" name="qut" min="1"
 				placeholder="Quantity" required autofocus /><br>
+			
 			<br> <input type="submit" value="Updating Stock"> <a
 				href="ProductStock.jsp">Back</a>
 				
