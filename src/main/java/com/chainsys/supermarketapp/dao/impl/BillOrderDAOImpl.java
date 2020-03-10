@@ -33,41 +33,57 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 
 		} catch (SQLException e) {
 
-			throw new DbException(ErrorConstants.INVALID_SELECT,e);
+			throw new DbException(ErrorConstants.INVALID_SELECT, e);
 		}
 		return orderID;
+	}
+	
+	public void updateStock(OrderItem orderItem) throws DbException {
+		ProductStock ps = new ProductStock();
+		ps.setProductNo(orderItem.getProductId());
+		ps.setQuantity(orderItem.getQuantity());
+		ProductStockDAOImpl psi = new ProductStockDAOImpl();
+		psi.updateProductStockquantity(ps);
+	}
+
+	public int addItem(int orderId, OrderItem orderItem) throws DbException {
+		int rows = 0;
+		String sql = "insert into bill_items (bill_item_id,bill_no,product_id,quantity,price,total_amount) values (bill_item_id_seq.nextval,?,?,?,?,?)";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
+			pst.setInt(1, orderId);
+			pst.setInt(2, orderItem.getProductId());
+			pst.setInt(3, orderItem.getQuantity());
+			pst.setInt(4, orderItem.getPrice());
+			pst.setInt(5, orderItem.getTotalAmount());
+			pst.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+
+			throw new DbException(ErrorConstants.INVALID_ADD, e);
+		}
+		return rows;
 	}
 
 	@Override
 	public int save(Order billorder) throws DbException {
 		int orderId = getNextOrderId();
-		ProductStockDAOImpl psi = new ProductStockDAOImpl();
+
 		String sql = "Insert into bill_order (p_id,customer_no,total_amount)values(?,?,?)";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
 			pst.setInt(1, orderId);
-			pst.setInt(2, billorder.getCustomerno());
+			pst.setInt(2, billorder.getCustomerNo());
 			pst.setInt(3, billorder.getTotalAmount());
 			pst.executeUpdate();
 			List<OrderItem> items = billorder.getItems();
 			for (OrderItem orderItem : items) {
-				String sql1 = "insert into bill_items (bill_item_id,bill_no,product_id,quantity,price,total_amount) values (bill_item_id_seq.nextval,?,?,?,?,?)";
-				try (PreparedStatement pst1 = con.prepareStatement(sql1);) {
-					pst1.setInt(1, orderId);
-					pst1.setInt(2, orderItem.getProductId());
-					pst1.setInt(3, orderItem.getQuantity());
-					pst1.setInt(4, orderItem.getPrice());
-					pst1.setInt(5, orderItem.getTotalAmount());
-					pst1.executeUpdate();
 
-					ProductStock ps = new ProductStock();
-					ps.setProductno(orderItem.getProductId());
-					ps.setQuantity(orderItem.getQuantity());
-					psi.updateProductStockquantity(ps);
-				}
+				addItem(orderId, orderItem);
+				updateStock(orderItem);
 			}
 		} catch (SQLException e) {
 
-			throw new DbException(ErrorConstants.INVALID_ADD,e);
+			throw new DbException(ErrorConstants.INVALID_ADD, e);
 		}
 		return orderId;
 	}
@@ -77,11 +93,11 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 		String sql = "update bill_order set total_amount =? where customer_no=?";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
-			pst.setInt(2, billorder.getCustomerno());
+			pst.setInt(2, billorder.getCustomerNo());
 			pst.setFloat(1, billorder.getTotalAmount());
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_UPDATE,e);
+			throw new DbException(ErrorConstants.INVALID_UPDATE, e);
 		}
 		return rows;
 	}
@@ -96,14 +112,14 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 			rows = stmt.executeUpdate();
 		} catch (SQLException e) {
 
-			throw new DbException(ErrorConstants.INVALID_DELETE,e);
+			throw new DbException(ErrorConstants.INVALID_DELETE, e);
 		}
 		return rows;
 	}
 
 	@Override
 	public List<Order> findAll() throws DbException {
-		String sql = "select p_id,customer_no,total_amount,ordered_date from bill_order order by p_id desc";
+		String sql = "select p_id,customer_no,total_amount,status,ordered_date from bill_order order by p_id desc";
 		List<Order> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();
 				Statement stmt = con.createStatement();
@@ -112,7 +128,7 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 			while (rs.next()) {
 				Order or = new Order();
 				or.setOrderId(rs.getInt("p_id"));
-				or.setCustomerno(rs.getInt("Customer_no"));
+				or.setCustomerNo(rs.getInt("customer_no"));
 				or.setTotalAmount(rs.getInt("total_amount"));
 				or.setStatus(rs.getString("status"));
 				Timestamp ds = rs.getTimestamp("ordered_date");
@@ -120,9 +136,7 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 				list.add(or);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-
-			throw new DbException(ErrorConstants.INVALID_SELECT,e);
+			throw new DbException(ErrorConstants.INVALID_SELECT, e);
 		}
 		return list;
 	}
@@ -135,7 +149,7 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 			pst.setInt(1, cusno);
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_UPDATE,e);
+			throw new DbException(ErrorConstants.INVALID_UPDATE, e);
 		}
 		return rows;
 	}
@@ -158,7 +172,7 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT,e);
+			throw new DbException(ErrorConstants.INVALID_SELECT, e);
 		}
 		return list;
 	}

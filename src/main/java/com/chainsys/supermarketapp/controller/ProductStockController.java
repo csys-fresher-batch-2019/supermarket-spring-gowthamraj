@@ -33,11 +33,11 @@ public class ProductStockController {
 
 		Messagedto msg = new Messagedto();
 		ProductStock p = new ProductStock();
-		p.setProductno(productno);
-		p.setStockid(stockid);
+		p.setProductNo(productno);
+		p.setStockId(stockid);
 		p.setQuantity(quantity);
 		p.setProductarrival(LocalDate.parse(productarrival));
-		p.setExperydate(LocalDate.parse(experydate));
+		p.setExpiryDate(LocalDate.parse(experydate));
 
 		int v = ps.save(p);
 		if (v == 1) {
@@ -54,7 +54,7 @@ public class ProductStockController {
 
 		Messagedto msg = new Messagedto();
 		ProductStock p = new ProductStock();
-		p.setProductno(productno);
+		p.setProductNo(productno);
 		p.setQuantity(quantity);
 		int v = ps.update(p);
 		if (v == 1) {
@@ -71,7 +71,7 @@ public class ProductStockController {
 
 		Messagedto msg = new Messagedto();
 		ProductStock p = new ProductStock();
-		p.setProductno(productno);
+		p.setProductNo(productno);
 
 		int v = ps.delete(p);
 		if (v == 1) {

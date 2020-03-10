@@ -25,7 +25,7 @@ public class DeletePStock extends HttpServlet {
 		int prno = Integer.parseInt(request.getParameter("pno"));
 		productStockService psi = new productStockService();
 		ProductStock ps = new ProductStock();
-		ps.setProductno(prno);
+		ps.setProductNo(prno);
 		try {
 			psi.delete(ps);
 			request.setAttribute("updateproduct", "Delete Product Stock Succesfully");

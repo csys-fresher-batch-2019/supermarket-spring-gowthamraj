@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ServiceException;
+import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.service.BillOrderService;
 
@@ -28,7 +29,7 @@ public class CancelBill extends HttpServlet {
 		bo.setOrderId(cancel);
 		try {
 			boi.delete(bo);
-		} catch (DbException | ServiceException e) {
+		} catch (DbException | ServiceException | ValidationException e) {
 			e.printStackTrace();
 		}
 		HttpSession session = request.getSession();

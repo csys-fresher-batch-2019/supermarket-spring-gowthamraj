@@ -57,7 +57,7 @@
 	</table>
 	<pre>
 		<cen>
-			<a href="ViewBills.jsp">Back</a>
+			<a href="ViewBills">Back</a>
 		</center>
 	</pre>
 

@@ -23,7 +23,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		String sql = "insert into employee(employee_id,employee_name,dob,doj,address) values( emp_idd.nextval,?,?,?,?)";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
-			pst.setString(1, employee.getEmployeename());
+			pst.setString(1, employee.getEmployeeName());
 			pst.setDate(2, Date.valueOf(employee.getDob()));
 			pst.setDate(3, Date.valueOf(employee.getDoj()));
 			pst.setString(4, employee.getAddress());
@@ -44,8 +44,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				ResultSet rs = stmt.executeQuery(sql);) {
 			while (rs.next()) {
 				Employee e = new Employee();
-				e.setEmployeeid(rs.getInt("employee_id"));
-				e.setEmployeename(rs.getString("employee_name"));
+				e.setEmployeeId(rs.getInt("employee_id"));
+				e.setEmployeeName(rs.getString("employee_name"));
 				Date ar = rs.getDate("dob");
 				LocalDate pa1 = ar.toLocalDate();
 				e.setDob(pa1);
@@ -67,7 +67,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		String ins = "delete from employee where employee_name=?";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(ins);) {
-			pst.setString(1, employee.getEmployeename());
+			pst.setString(1, employee.getEmployeeName());
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_DELETE, e);
@@ -81,7 +81,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		String sql = "update employee set address=? where  employee_name=?";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
-			pst.setString(2, employee.getEmployeename());
+			pst.setString(2, employee.getEmployeeName());
 			pst.setString(1, employee.getAddress());
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {

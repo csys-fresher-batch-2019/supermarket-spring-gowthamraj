@@ -118,7 +118,7 @@ public class SuperMarketAppController {
 
 		Messagedto msg = new Messagedto();
 		Employee ee = new Employee();
-		ee.setEmployeename(employeename);
+		ee.setEmployeeName(employeename);
 		LocalDate a = LocalDate.parse(dob);
 		ee.setDob(a);
 		LocalDate a1 = LocalDate.parse(doj);
@@ -139,7 +139,7 @@ public class SuperMarketAppController {
 
 		Messagedto msg = new Messagedto();
 		Employee ee = new Employee();
-		ee.setEmployeename(employeename);
+		ee.setEmployeeName(employeename);
 		ee.setAddress(address);
 		int v = em.update(ee);
 		if (v == 1) {
@@ -154,7 +154,7 @@ public class SuperMarketAppController {
 	public Messagedto deleteemployee(@RequestParam("employeename") String employeename) throws DbException {
 		Messagedto msg = new Messagedto();
 		Employee ee = new Employee();
-		ee.setEmployeename(employeename);
+		ee.setEmployeeName(employeename);
 		int v = em.delete(ee);
 		if (v == 1) {
 			msg.setInfoMessage("delete employee succesfully");
@@ -176,7 +176,7 @@ public class SuperMarketAppController {
 			@RequestParam("totalAmount") int totalAmount) throws DbException {
 		Messagedto msg = new Messagedto();
 		Order oo = new Order();
-		oo.setCustomerno(customerno);
+		oo.setCustomerNo(customerno);
 		oo.setTotalAmount(totalAmount);
 		int v = bo.update(oo);
 		if (v == 1) {

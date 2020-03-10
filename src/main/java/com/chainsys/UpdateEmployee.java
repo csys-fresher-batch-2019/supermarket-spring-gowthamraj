@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 import com.chainsys.supermarketapp.exception.ServiceException;
+import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.service.EmployeeService;
 
@@ -26,7 +27,7 @@ public class UpdateEmployee extends HttpServlet {
 		String add = request.getParameter("ea");
 		EmployeeService ei = new EmployeeService();
 		Employee em = new Employee();
-		em.setEmployeename(ename);
+		em.setEmployeeName(ename);
 		em.setAddress(add);
 		try {
 			ei.update(em);
@@ -34,7 +35,7 @@ public class UpdateEmployee extends HttpServlet {
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateEmployee.jsp");
 			dispatcher.forward(request, response);
-		} catch (ServiceException e) {
+		} catch (ServiceException | ValidationException e) {
 			e.printStackTrace();
 		}
 

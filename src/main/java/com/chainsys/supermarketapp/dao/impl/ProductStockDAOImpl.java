@@ -27,10 +27,10 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 				+ "values(pro_no.nextval,?,?,?,?)";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-			ps.setInt(1, productstock.getProductno());
+			ps.setInt(1, productstock.getProductNo());
 			ps.setInt(2, productstock.getQuantity());
 			ps.setDate(3, Date.valueOf(productstock.getProductarrival()));
-			ps.setDate(4, Date.valueOf(productstock.getExperydate()));
+			ps.setDate(4, Date.valueOf(productstock.getExpiryDate()));
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_ADD, e);
@@ -43,7 +43,7 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 		String sql = "delete from product_stock where product_no=?";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-			ps.setInt(1, productstock.getProductno());
+			ps.setInt(1, productstock.getProductNo());
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_DELETE, e);
@@ -58,7 +58,7 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, productstock.getQuantity());
-			ps.setInt(2, productstock.getProductno());
+			ps.setInt(2, productstock.getProductNo());
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_UPDATE, e);
@@ -72,7 +72,7 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, productstock.getQuantity());
-			ps.setInt(2, productstock.getProductno());
+			ps.setInt(2, productstock.getProductNo());
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_UPDATE, e);
@@ -90,15 +90,15 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 				ResultSet rs = stmt.executeQuery(sql);) {
 			while (rs.next()) {
 				ProductStock ps = new ProductStock();
-				ps.setStockid(rs.getInt("stock_id"));
-				ps.setProductno(rs.getInt("product_no"));
+				ps.setStockId(rs.getInt("stock_id"));
+				ps.setProductNo(rs.getInt("product_no"));
 				ps.setQuantity(rs.getInt("quantity"));
 				Date ar = rs.getDate("product_arrival");
 				LocalDate pa1 = ar.toLocalDate();
 				ps.setProductarrival(pa1);
 				Date ar1 = rs.getDate("expery_date");
 				LocalDate ex = ar1.toLocalDate();
-				ps.setExperydate(ex);
+				ps.setExpiryDate(ex);
 				list.add(ps);
 			}
 		} catch (SQLException e) {

@@ -8,12 +8,12 @@ public class ErrorConstants {
 
 	public static final String INVALID_CON = "connection not establish";
 
-	public static final String INVALID_ADD = "insertion not establish";
+	public static final String INVALID_ADD = "Unable to insert details";
 
-	public static final String INVALID_UPDATE = "update not establish";
+	public static final String INVALID_UPDATE = "Unable to update details";
 
-	public static final String INVALID_DELETE = "delete not establish";
+	public static final String INVALID_DELETE = "Unable to delete record";
 
-	public static final String INVALID_SELECT = "select not establish";
+	public static final String INVALID_SELECT = "Unable to display records";
 
 }

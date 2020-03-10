@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 import com.chainsys.supermarketapp.exception.ServiceException;
+import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.service.EmployeeService;
 
@@ -31,7 +32,7 @@ public class AddEmployee extends HttpServlet {
 		String add = request.getParameter("add");
 		EmployeeService ei = new EmployeeService();
 		Employee em = new Employee();
-		em.setEmployeename(ename);
+		em.setEmployeeName(ename);
 		em.setDob(dob);
 		em.setDoj(doj);
 		em.setAddress(add);
@@ -41,7 +42,7 @@ public class AddEmployee extends HttpServlet {
 			request.setAttribute("AddEmployee", "Adding Employee Record Suucesfully");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("AddEmployee.jsp");
 			dispatcher.forward(request, response);
-		} catch (ServiceException e) {
+		} catch (ServiceException | ValidationException e) {
 
 		}
 	}

@@ -25,7 +25,8 @@ Gender					 <input type="radio"name=gender value="M">Male<input type="radio"name
 		
 				
 				<c:if test="${not empty errmessage}">
-		<h2>	<font color="red"><h1>	${errmessage}</h1></font>	</h2>
+				
+				<font color="red"><h1>	${errmessage}</h1></font>	
 				</c:if>
 					
 

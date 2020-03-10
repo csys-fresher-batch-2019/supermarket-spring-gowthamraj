@@ -21,7 +21,7 @@ td{
 <form action="BillPayment">
 <center><h1>* Gk SuperMarket *</h1></center>
 <center><h2>* Bills *</h2></center>
-${ORDER_DETAILS}
+
 
 
 

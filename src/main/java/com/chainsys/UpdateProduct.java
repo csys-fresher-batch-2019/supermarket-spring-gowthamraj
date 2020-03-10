@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 
 import com.chainsys.supermarketapp.exception.ServiceException;
+import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Product;
 import com.chainsys.supermarketapp.service.ProductService;
 
@@ -36,7 +37,7 @@ public class UpdateProduct extends HttpServlet {
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateProduct.jsp");
 			dispatcher.forward(request, response);
-		} catch (ServiceException e) {
+		} catch (ServiceException | ValidationException e) {
 			e.printStackTrace();
 		}
 

@@ -19,12 +19,13 @@
 		<center>Welcome  ${ LOGGED_IN_USER_ID}(<a
 						href="LogoutServlet">Logout</a> )<br /> <br /><br />
 </center>
-								Enter the date *:<input type="date" name="ibd"
-					placeholder="Date" required></br></br>
-								Amount is       :${billbydate}
-											<input type="submit" value="Check">
+	Enter the date *:<input type="date" name="ibd" placeholder="Date"required></br></br></br>Amount is:${billbydate}
+
+<input type="submit" value="Check">
+
+<a href="report.jsp">Back</a>	
 		
-											<a href="report.jsp">Back</a>	
+		
 		
 		
 		

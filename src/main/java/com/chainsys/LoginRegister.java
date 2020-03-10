@@ -20,6 +20,7 @@ import com.chainsys.supermarketapp.validator.UserValidation;
 public class LoginRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("static-access")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

@@ -11,29 +11,6 @@ public class Order {
 	private int totalAmount;
 	private String status = "pending";
 	private LocalDateTime orderedDate;
-
-	private List<OrderItem> items = new ArrayList<>();
-
-	public int getCustomerNo() {
-		return customerNo;
-	}
-
-	public void setCustomerNo(int customerNo) {
-		this.customerNo = customerNo;
-	}
-
-	public void setItems(List<OrderItem> items) {
-		this.items = items;
-	}
-
-	public void addItem(OrderItem item) {
-		items.add(item);
-	}
-
-	public List<OrderItem> getItems() {
-		return items;
-	}
-
 	public int getOrderId() {
 		return orderId;
 	}
@@ -42,12 +19,12 @@ public class Order {
 		this.orderId = orderId;
 	}
 
-	public int getCustomerno() {
+	public int getCustomerNo() {
 		return customerNo;
 	}
 
-	public void setCustomerno(int customerno) {
-		this.customerNo = customerno;
+	public void setCustomerNo(int customerNo) {
+		this.customerNo = customerNo;
 	}
 
 	public int getTotalAmount() {
@@ -74,10 +51,27 @@ public class Order {
 		this.orderedDate = orderedDate;
 	}
 
+	public List<OrderItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<OrderItem> items) {
+		this.items = items;
+	}
+
+	private List<OrderItem> items = new ArrayList<>();
+
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", customerNo=" + customerNo + ", totalAmount=" + totalAmount + ", status="
 				+ status + ", orderedDate=" + orderedDate + ", items=" + items + "]";
 	}
 
+	public void addItem(OrderItem item) {
+		items.add(item);
+	}
+
+
+	
+	
 }

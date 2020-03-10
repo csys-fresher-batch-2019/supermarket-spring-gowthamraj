@@ -29,12 +29,12 @@ public class UpdatePStock extends HttpServlet {
 		int qty = Integer.parseInt(request.getParameter("qut"));
 		productStockService psi = new productStockService();
 		ProductStock ps = new ProductStock();
-		ps.setProductno(prno);
+		ps.setProductNo(prno);
 		ps.setQuantity(qty);
 		ProductValidation v = new ProductValidation();
 		boolean product;
 		try {
-			product = v.isProductExists(ps.getProductno());
+			product = v.isProductExists(ps.getProductNo());
 			if (product) {
 				psi.update(ps);
 

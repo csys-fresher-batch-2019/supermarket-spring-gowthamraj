@@ -40,7 +40,7 @@ public class Bill extends HttpServlet {
 		ProductPriceValidation v = new ProductPriceValidation();
 		ProductQuantityValidation v1 = new ProductQuantityValidation();
 		Order order = new Order();
-		order.setCustomerno(cusno);
+		order.setCustomerNo(cusno);
 
 		try {
 			for (String string : arr) {
@@ -57,7 +57,7 @@ public class Bill extends HttpServlet {
 				item.setTotalAmount(tprice);
 				order.addItem(item);
 
-				// add amount to total
+				
 				totalAmount = totalAmount + tprice;
 				item.getProductId();
 			}

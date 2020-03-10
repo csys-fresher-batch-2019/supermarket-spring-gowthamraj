@@ -38,6 +38,8 @@ public class Product {
 		this.productName = productname;
 	}
 
+	
+
 	public int getPrice() {
 		return price;
 	}

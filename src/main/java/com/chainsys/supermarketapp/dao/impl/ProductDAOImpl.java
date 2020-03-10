@@ -105,7 +105,7 @@ public class ProductDAOImpl implements ProductDAO {
 		List<Product> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection(); Statement st1 = con.createStatement()) {
 			try (ResultSet rs = st1.executeQuery(sql);) {
-				if (rs.next()) {
+				while (rs.next()) {
 					Product p = new Product();
 					p.setProductname(rs.getString("product_name"));
 					p.setPrice(rs.getInt("price"));

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.chainsys.supermarketapp.exception.ServiceException;
+import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.ProductStock;
 import com.chainsys.supermarketapp.service.productStockService;
 
@@ -29,11 +30,11 @@ public class AddProductStock extends HttpServlet {
 		LocalDate ex = LocalDate.parse(ed);
 		productStockService psi = new productStockService();
 		ProductStock ps = new ProductStock();
-		ps.setProductno(prno);
+		ps.setProductNo(prno);
 		ps.setQuantity(qty);
 		ps.setProductarrival(a);
-		ps.setExperydate(ex);
-		boolean product = ps.getExperydate().isAfter(ps.getProductarrival());
+		ps.setExpiryDate(ex);
+		boolean product = ps.getExpiryDate().isAfter(ps.getProductarrival());
 		System.out.println(product);
 
 		if (product) {
@@ -45,7 +46,7 @@ public class AddProductStock extends HttpServlet {
 
 				RequestDispatcher dispatcher = request.getRequestDispatcher("AddProductStock.jsp");
 				dispatcher.forward(request, response);
-			} catch (ServiceException e) {
+			} catch (ServiceException | ValidationException e) {
 
 			}
 
