@@ -28,19 +28,14 @@ public class IncomeByDate extends HttpServlet {
 		try {
 			int amount = ci.findByTodayIncome(d);
 			System.out.println(amount);
-
 			request.setAttribute("billbydate", amount);
-
 			RequestDispatcher dispatcher = request.getRequestDispatcher("IncomeByDate.jsp");
 			dispatcher.forward(request, response);
-
 		} catch (ServiceException e) {
 			throw new ValidationException("There is some issue while getting the 'TODAY INCOME'");
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 
 	}
 

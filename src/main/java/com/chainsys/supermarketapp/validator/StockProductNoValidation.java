@@ -6,10 +6,9 @@ import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ValidationException;
 
 public class StockProductNoValidation {
-	
-	public boolean getStockProductNo(int productNo) throws DbException,ValidationException
-	{
-		ProductStockDAO pss=DAOFactory.getProductStockDAO();
+
+	public boolean getStockProductNo(int productNo) throws DbException, ValidationException {
+		ProductStockDAO pss = DAOFactory.getProductStockDAO();
 		return pss.getStockProductNo(productNo);
 	}
 

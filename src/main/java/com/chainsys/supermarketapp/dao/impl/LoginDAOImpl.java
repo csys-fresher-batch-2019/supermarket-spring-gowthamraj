@@ -35,6 +35,7 @@ public class LoginDAOImpl implements LoginDAO {
 		}
 		return log1;
 	}
+
 	public boolean isUsernameExists(String username) throws DbException {
 		boolean exists = false;
 		String sql1 = "select user_name from login where user_name=?";
@@ -54,23 +55,17 @@ public class LoginDAOImpl implements LoginDAO {
 		return exists;
 	}
 
-/*	public boolean isUsernameExists(String username) throws DbException {
-		boolean exists = false;
-		String sql1 = "select user_name from login where user_name=?";
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql1);) {
-			pst.setString(1, username);
-			try (ResultSet rs = pst.executeQuery();) {
-				if (rs.next()) {
-					exists = true;
-				}
-			}
-		} catch (Exception e) {
-
-			throw new DbException(ErrorConstants.INVALID_SELECT);
-		}
-		return exists;
-	}
-*/
+	/*
+	 * public boolean isUsernameExists(String username) throws DbException { boolean
+	 * exists = false; String sql1 =
+	 * "select user_name from login where user_name=?"; try (Connection con =
+	 * ConnectionUtil.getConnection(); PreparedStatement pst =
+	 * con.prepareStatement(sql1);) { pst.setString(1, username); try (ResultSet rs
+	 * = pst.executeQuery();) { if (rs.next()) { exists = true; } } } catch
+	 * (Exception e) {
+	 * 
+	 * throw new DbException(ErrorConstants.INVALID_SELECT); } return exists; }
+	 */
 	@Override
 	public int save(Login login) throws DbException {
 		String sql = "insert into login (user_name,passwords) values(?,?)";
@@ -80,7 +75,7 @@ public class LoginDAOImpl implements LoginDAO {
 			ps.setString(1, login.getUsername());
 			ps.setString(2, login.getPassword());
 			rows = ps.executeUpdate();
-		
+
 		} catch (Exception e) {
 
 			throw new DbException(ErrorConstants.INVALID_ADD);

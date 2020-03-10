@@ -18,7 +18,6 @@ public class productStockService {
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_SAVE);
 		}
-
 	}
 
 	public int delete(ProductStock productstock) throws ServiceException {
@@ -27,7 +26,6 @@ public class productStockService {
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_DELETE);
 		}
-
 	}
 
 	public int update(ProductStock productstock) throws ServiceException {
@@ -36,7 +34,6 @@ public class productStockService {
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_UPDATE);
 		}
-
 	}
 
 	public List<ProductStock> findAll() throws ServiceException {
@@ -45,7 +42,6 @@ public class productStockService {
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_FIND);
 		}
-
 	}
 
 	public int updateProductStock1(ProductStock productstock) throws ServiceException {
@@ -54,6 +50,5 @@ public class productStockService {
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_UPDATE);
 		}
-
 	}
 }

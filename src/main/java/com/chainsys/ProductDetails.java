@@ -26,7 +26,7 @@ public class ProductDetails extends HttpServlet {
 			request.setAttribute("order", list);
 			RequestDispatcher dis = request.getRequestDispatcher("ProductDetails.jsp");
 			dis.forward(request, response);
-		} catch ( ServiceException e) {
+		} catch (ServiceException e) {
 
 			e.printStackTrace();
 		}

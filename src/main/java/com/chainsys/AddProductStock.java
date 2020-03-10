@@ -29,7 +29,6 @@ public class AddProductStock extends HttpServlet {
 		LocalDate ex = LocalDate.parse(ed);
 		productStockService psi = new productStockService();
 		ProductStock ps = new ProductStock();
-
 		ps.setProductno(prno);
 		ps.setQuantity(qty);
 		ps.setProductarrival(a);

@@ -9,7 +9,7 @@ public class Employee {
 	private LocalDate doj;
 	private int mobileno;
 	private String address;
-	
+
 	public int getEmployeeid() {
 		return employeeid;
 	}
@@ -64,4 +64,3 @@ public class Employee {
 				+ ", mobileno=" + mobileno + ", address=" + address + "]";
 	}
 }
-

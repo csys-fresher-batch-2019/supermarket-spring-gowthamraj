@@ -16,7 +16,7 @@ public class ProductValidation {
 
 	public boolean isProductExists(int productno) throws DbException, ValidationException {
 		ProductStockDAO product = DAOFactory.getProductStockDAO();
-	
+
 		return product.isProductExists(productno);
 	}
 }

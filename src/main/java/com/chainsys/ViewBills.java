@@ -17,20 +17,20 @@ import com.chainsys.supermarketapp.model.Order;
 @WebServlet("/ViewBills")
 public class ViewBills extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		BillOrderDAO boi =DAOFactory.getBillOrderDAO();
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		BillOrderDAO boi = DAOFactory.getBillOrderDAO();
 		try {
 			List<Order> list = boi.findAll();
 			System.out.println(list.size());
 			request.setAttribute("View", list);
-			RequestDispatcher dis=request.getRequestDispatcher("ViewBills.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("ViewBills.jsp");
 			dis.forward(request, response);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
-		 	
-		
-	
+
 	}
 }

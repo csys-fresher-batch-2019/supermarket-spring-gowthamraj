@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.chainsys.supermarketapp.model.Login;
 import com.chainsys.supermarketapp.service.LoginService;
 import com.chainsys.supermarketapp.validator.UserValidation;
+
 @WebServlet("/LoginRegister")
 @Service
 public class LoginRegister extends HttpServlet {
@@ -24,8 +25,8 @@ public class LoginRegister extends HttpServlet {
 
 		String uname = request.getParameter("username");
 		String pword = request.getParameter("pwd");
-		LoginService log=new LoginService();
-		UserValidation v=new UserValidation();
+		LoginService log = new LoginService();
+		UserValidation v = new UserValidation();
 		Login log1 = new Login();
 		log1.setUsername(uname);
 		log1.setPassword(pword);

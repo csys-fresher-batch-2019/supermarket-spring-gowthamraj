@@ -14,7 +14,7 @@ public class BillOrderService {
 
 	BillOrderDAO bo = DAOFactory.getBillOrderDAO();
 
-	public int save(Order billorder) throws ServiceException,DbException {
+	public int save(Order billorder) throws ServiceException, DbException {
 		try {
 			return bo.save(billorder);
 		} catch (DbException e) {
@@ -23,7 +23,7 @@ public class BillOrderService {
 		}
 	}
 
-	public List<Order> findAll() throws ServiceException,DbException {
+	public List<Order> findAll() throws ServiceException, DbException {
 		try {
 			return bo.findAll();
 		} catch (DbException e) {
@@ -31,7 +31,7 @@ public class BillOrderService {
 		}
 	}
 
-	public int update(Order billorder) throws ServiceException,DbException {
+	public int update(Order billorder) throws ServiceException, DbException {
 		try {
 			return bo.update(billorder);
 		} catch (DbException e) {
@@ -39,7 +39,7 @@ public class BillOrderService {
 		}
 	}
 
-	public int delete(Order billorder) throws ServiceException,DbException {
+	public int delete(Order billorder) throws ServiceException, DbException {
 		try {
 			return bo.delete(billorder);
 		} catch (DbException e) {
@@ -47,7 +47,7 @@ public class BillOrderService {
 		}
 	}
 
-	public int update(int cusno) throws ServiceException,DbException {
+	public int update(int cusno) throws ServiceException, DbException {
 		try {
 			return bo.update(cusno);
 		} catch (DbException e) {
@@ -55,7 +55,7 @@ public class BillOrderService {
 		}
 	}
 
-	public List<OrderItem> findAllBillItems(int billNo) throws ServiceException,DbException {
+	public List<OrderItem> findAllBillItems(int billNo) throws ServiceException, DbException {
 		try {
 			return bo.findAllBillItems(billNo);
 		} catch (DbException e) {

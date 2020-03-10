@@ -38,7 +38,7 @@ public class Bill extends HttpServlet {
 		String[] arr = request.getParameterValues("pid");
 		int totalAmount = 0;
 		ProductPriceValidation v = new ProductPriceValidation();
-		ProductQuantityValidation v1=new ProductQuantityValidation(); 
+		ProductQuantityValidation v1 = new ProductQuantityValidation();
 		Order order = new Order();
 		order.setCustomerno(cusno);
 

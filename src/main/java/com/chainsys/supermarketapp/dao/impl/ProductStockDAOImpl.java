@@ -20,7 +20,6 @@ import com.chainsys.supermarketapp.model.ProductStock;
 import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
 public class ProductStockDAOImpl implements ProductStockDAO {
-	
 
 	@Override
 	public int save(ProductStock productstock) throws DbException {
@@ -114,7 +113,7 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 		}
 		return list;
 	}
-	
+
 	public boolean isProductExists(int productno) throws DbException {
 		boolean exists = false;
 		String sql1 = "select product_no from product_stock where product_no=?";
@@ -133,7 +132,7 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 		}
 		return exists;
 	}
-	
+
 	public boolean productQuantityValidate(Order billorder) throws DbException {
 		boolean stockavailable = true;
 		List<OrderItem> items = billorder.getItems();
@@ -150,14 +149,14 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 							stockavailable = false;
 						}
 					}
-				} 
+				}
 			} catch (SQLException e) {
 				throw new DbException(ErrorConstants.INVALID_ADD);
 			}
 		}
 		return stockavailable;
 	}
-	
+
 	public boolean getStockProductNo(int productNo) throws DbException {
 		boolean exists = false;
 		String sql = "select  product_no from product_stock pk where pk.product_no=?";
@@ -167,12 +166,11 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 				if (rs.next()) {
 					exists = true;
 				}
-			} 
+			}
 		} catch (Exception e) {
 			throw new DbException(ErrorConstants.INVALID_DELETE);
 		}
 		return exists;
 	}
-
 
 }

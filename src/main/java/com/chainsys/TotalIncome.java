@@ -29,8 +29,7 @@ public class TotalIncome extends HttpServlet {
 			request.setAttribute("total", tot);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("TotalAmount.jsp");
 			dispatcher.forward(request, response);
-		} 
-		catch (ServiceException e) {
+		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
 	}

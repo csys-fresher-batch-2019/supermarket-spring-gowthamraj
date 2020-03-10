@@ -2,13 +2,12 @@ package com.chainsys.supermarketapp.exception;
 
 public class ValidationConstant {
 
-private  ValidationConstant(){
-		
+	private ValidationConstant() {
+
 	}
-	
-	public static final String INVALID_CON
-	= "connection not establish";
-	
+
+	public static final String INVALID_CON = "connection not establish";
+
 //	public static final String INVALID_ADD
 //	= "insertion not establish";
 //

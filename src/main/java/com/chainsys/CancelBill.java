@@ -13,11 +13,14 @@ import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.service.BillOrderService;
+
 @WebServlet("/CancelBill")
 @Service
 public class CancelBill extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		int cancel = Integer.parseInt(request.getParameter("cbills"));
 		BillOrderService boi = new BillOrderService();
@@ -33,5 +36,4 @@ public class CancelBill extends HttpServlet {
 		response.sendRedirect("CancelBill.jsp");
 	}
 
-	
 }

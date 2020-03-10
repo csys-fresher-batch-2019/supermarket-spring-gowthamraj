@@ -38,8 +38,6 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 		return orderID;
 	}
 
-	
-
 	@Override
 	public int save(Order billorder) throws DbException {
 		int orderId = getNextOrderId();
@@ -68,7 +66,7 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 				}
 			}
 		} catch (SQLException e) {
-		
+
 			throw new DbException(ErrorConstants.INVALID_ADD);
 		}
 		return orderId;

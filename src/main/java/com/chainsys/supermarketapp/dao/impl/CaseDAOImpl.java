@@ -20,8 +20,7 @@ import com.chainsys.supermarketapp.model.Product;
 import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
 public class CaseDAOImpl implements CaseDAO {
-	 private static final Logger logger = LoggerFactory.getLogger(CaseDAOImpl.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(CaseDAOImpl.class);
 
 	@Override
 	public int countEmployee() throws DbException {

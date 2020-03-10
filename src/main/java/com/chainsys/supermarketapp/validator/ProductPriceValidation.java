@@ -6,12 +6,11 @@ import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ValidationException;
 
 public class ProductPriceValidation {
-	
-	public int findOneProductPrice(int productId) throws DbException, ValidationException
-	{
-		ProductDAO pro=DAOFactory.getProductDAO();
+
+	public int findOneProductPrice(int productId) throws DbException, ValidationException {
+		ProductDAO pro = DAOFactory.getProductDAO();
 		return pro.findOneProductPrice(productId);
-		
+
 	}
 
 }

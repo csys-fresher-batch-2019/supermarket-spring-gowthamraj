@@ -22,19 +22,13 @@ public class EmployeeCount extends HttpServlet {
 			throws ServletException, IOException {
 
 		CaseService ci = new CaseService();
-
 		try {
 			int total = ci.countEmployee();
-
 			request.setAttribute("Total", total);
-
 			RequestDispatcher dispatcher = request.getRequestDispatcher("EmployeeCount.jsp");
 			dispatcher.forward(request, response);
-
 		} catch (ServiceException e1) {
 			e1.printStackTrace();
 		}
-
 	}
-
 }

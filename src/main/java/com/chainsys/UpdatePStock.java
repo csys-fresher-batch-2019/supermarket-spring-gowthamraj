@@ -17,6 +17,7 @@ import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.ProductStock;
 import com.chainsys.supermarketapp.service.productStockService;
 import com.chainsys.supermarketapp.validator.ProductValidation;
+
 @WebServlet("/UpdatePStock")
 @Service
 public class UpdatePStock extends HttpServlet {
@@ -30,25 +31,24 @@ public class UpdatePStock extends HttpServlet {
 		ProductStock ps = new ProductStock();
 		ps.setProductno(prno);
 		ps.setQuantity(qty);
-		ProductValidation v=new ProductValidation();
+		ProductValidation v = new ProductValidation();
 		boolean product;
 		try {
 			product = v.isProductExists(ps.getProductno());
-			if (product){
+			if (product) {
 				psi.update(ps);
 
 				request.setAttribute("updateproduct", "Update Product Stock Suucesfully");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateProductStock.jsp");
 				dispatcher.forward(request, response);
-			} else{
+			} else {
 				psi.update(ps);
-			
-			request.setAttribute("updateproduct", "Update Product Stock Suucesfully");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateProductStock.jsp");
-			dispatcher.forward(request, response);
+
+				request.setAttribute("updateproduct", "Update Product Stock Suucesfully");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateProductStock.jsp");
+				dispatcher.forward(request, response);
 			}
 		} catch (DbException | ValidationException | ServiceException e) {
-
 
 		}
 	}

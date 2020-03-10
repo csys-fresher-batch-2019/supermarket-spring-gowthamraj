@@ -16,7 +16,7 @@ import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
-	
+
 	@Override
 	public int save(Employee employee) throws DbException {
 		String sql = "insert into employee(employee_id,employee_name,dob,doj,address) values( emp_idd.nextval,?,?,?,?)";

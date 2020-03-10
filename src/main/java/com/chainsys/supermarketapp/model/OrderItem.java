@@ -3,15 +3,16 @@ package com.chainsys.supermarketapp.model;
 import java.time.LocalDate;
 
 public class OrderItem {
-	
+
 	private int id;
 	private int orderId;
-	
+
 	private int productId;
-	
+
 	private int quantity;
 
 	private String customername;
+
 	public String getCustomername() {
 		return customername;
 	}
@@ -37,11 +38,10 @@ public class OrderItem {
 	}
 
 	private int customerno;
-	private	LocalDate billdate;
-
+	private LocalDate billdate;
 
 	private String paymentStatus;
-	
+
 	public String getPaymentStatus() {
 		return paymentStatus;
 	}
@@ -51,6 +51,7 @@ public class OrderItem {
 	}
 
 	private int price;
+
 	public int getPrice() {
 		return price;
 	}
@@ -60,7 +61,7 @@ public class OrderItem {
 	}
 
 	private int totalAmount;
-	
+
 	private String status = "PENDING";
 
 	@Override
@@ -119,5 +120,4 @@ public class OrderItem {
 		this.status = status;
 	}
 
-	
 }

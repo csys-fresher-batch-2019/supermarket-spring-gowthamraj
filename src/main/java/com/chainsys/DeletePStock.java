@@ -32,7 +32,7 @@ public class DeletePStock extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("DeleteProductStock.jsp");
 			dispatcher.forward(request, response);
 		} catch (ServiceException e1) {
-			// TODO Auto-generated catch block
+
 			e1.printStackTrace();
 		}
 	}

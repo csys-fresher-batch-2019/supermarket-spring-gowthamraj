@@ -7,12 +7,10 @@ import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Order;
 
 public class ProductQuantityValidation {
-	
-	public boolean productQuantityValidate(Order billorder) throws DbException,ValidationException
-	{
-		ProductStockDAO ps=DAOFactory.getProductStockDAO();
+
+	public boolean productQuantityValidate(Order billorder) throws DbException, ValidationException {
+		ProductStockDAO ps = DAOFactory.getProductStockDAO();
 		return ps.productQuantityValidate(billorder);
 	}
-
 
 }

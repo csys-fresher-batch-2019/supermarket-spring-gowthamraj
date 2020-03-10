@@ -9,10 +9,9 @@ import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Product;
 
 public class ProductAvailableValidation {
-	
-	public List<Product> findOneProductAvailable() throws DbException, ValidationException 
-	{
-		ProductDAO pro=DAOFactory.getProductDAO();
+
+	public List<Product> findOneProductAvailable() throws DbException, ValidationException {
+		ProductDAO pro = DAOFactory.getProductDAO();
 		return pro.findOneProductAvailable();
 	}
 

@@ -9,20 +9,21 @@ public class WalletAPI {
 
 	@SuppressWarnings("unused")
 	private static final Long COMPANY_MOBILE_NO = 6789012340L; // use your registered wallet mobileno
-	 private static final Logger logger = LoggerFactory.getLogger(WalletAPI.class);
+	private static final Logger logger = LoggerFactory.getLogger(WalletAPI.class);
+
 	public static boolean pay(Long mobileNo, int pin, int amount) {
 
 		boolean status = false;
-		
-		 try {
-		// UserService userService = new UserService(); status =
-		 //userService.walletTransfer(mobileNo, COMPANY_MOBILE_NO, pin, amount);
-		 System.out.println(status); }
-		 catch (Exception e) 
-		 {
+
+		try {
+			// UserService userService = new UserService(); status =
+			// userService.walletTransfer(mobileNo, COMPANY_MOBILE_NO, pin, amount);
+			System.out.println(status);
+		} catch (Exception e) {
 			logger.debug(e.getMessage());
-		 status = false; }
-		
+			status = false;
+		}
+
 		return status;
 	}
 

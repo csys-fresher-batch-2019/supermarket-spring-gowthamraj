@@ -8,25 +8,23 @@ import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.Login;
 
 public class LoginService {
-	LoginDAO log=DAOFactory.getLoginDAO();
-	public int save(Login login) throws ServiceException
-	{
+	LoginDAO log = DAOFactory.getLoginDAO();
+
+	public int save(Login login) throws ServiceException {
 		try {
 			return log.save(login);
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_SAVE);
 		}
-		
+
 	}
-	
-	
-	public Login findByUsernameAndPassword(Login login) throws ServiceException
-	{
+
+	public Login findByUsernameAndPassword(Login login) throws ServiceException {
 		try {
 			return log.findByUsernameAndPassword(login);
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_FIND);
 		}
-		
+
 	}
 }

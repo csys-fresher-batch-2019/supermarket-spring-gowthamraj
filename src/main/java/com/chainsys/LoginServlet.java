@@ -14,13 +14,14 @@ import org.springframework.stereotype.Service;
 
 import com.chainsys.supermarketapp.model.Login;
 import com.chainsys.supermarketapp.service.LoginService;
+
 @Service
 @WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String uname = request.getParameter("uname");
 		String pword = request.getParameter("pword");
@@ -33,22 +34,20 @@ public class LoginServlet extends HttpServlet {
 		try {
 			log1 = login.findByUsernameAndPassword(log);
 			System.out.println("Login :" + log1);
-			
+
 		} catch (Exception e) {
-		e.printStackTrace();
-		System.out.println("Exception :" + e.getMessage());
+			e.printStackTrace();
+			System.out.println("Exception :" + e.getMessage());
 		}
-		
+
 		PrintWriter out = response.getWriter();
 		out.println(log1);
-		if ( log1 ==null) {
+		if (log1 == null) {
 			response.sendRedirect("Login.jsp?error=Login Failed");
-		}
-		else {
+		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("LOGGED_IN_USER_ID", log1.getUsername());
 			response.sendRedirect("report.jsp");
 		}
 	}
 }
-

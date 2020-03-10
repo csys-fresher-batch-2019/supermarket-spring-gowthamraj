@@ -28,16 +28,13 @@ public class UpdateEmployee extends HttpServlet {
 		Employee em = new Employee();
 		em.setEmployeename(ename);
 		em.setAddress(add);
-
 		try {
 			ei.update(em);
 			request.setAttribute("updateproduct", "Update Employee Details Suucesfully");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateEmployee.jsp");
 			dispatcher.forward(request, response);
-
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

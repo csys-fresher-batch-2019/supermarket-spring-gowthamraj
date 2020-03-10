@@ -19,41 +19,39 @@ import com.chainsys.supermarketapp.dao.impl.ProductStockDAOImpl;
 
 @Repository
 public class DAOFactory {
-	
-	public static CaseDAO getCaseDAO()
-	{
+
+	public static CaseDAO getCaseDAO() {
 		return new CaseDAOImpl();
-		
+
 	}
 
-	public static LoginDAO getLoginDAO()
-	{
+	public static LoginDAO getLoginDAO() {
 		return new LoginDAOImpl();
-		
+
 	}
-	public static ProductDAO getProductDAO()
-	{
+
+	public static ProductDAO getProductDAO() {
 		return new ProductDAOImpl();
-		
+
 	}
-	public static ProductStockDAO getProductStockDAO()
-	{
+
+	public static ProductStockDAO getProductStockDAO() {
 		return new ProductStockDAOImpl();
-		
+
 	}
-	public static EmployeeDAO getEmployeeDAO()
-	{
+
+	public static EmployeeDAO getEmployeeDAO() {
 		return new EmployeeDAOImpl();
-		
+
 	}
-	public static CustomerCardDAO getCustomerCardDAO()
-	{
+
+	public static CustomerCardDAO getCustomerCardDAO() {
 		return new CustomerCardDAOImpl();
-		
+
 	}
-	public static BillOrderDAO getBillOrderDAO()
-	{
+
+	public static BillOrderDAO getBillOrderDAO() {
 		return new BillOrderDAOImpl();
 	}
-	
+
 }

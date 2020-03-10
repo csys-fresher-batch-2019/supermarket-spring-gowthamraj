@@ -21,18 +21,13 @@ public class EmployeeView extends HttpServlet {
 			throws ServletException, IOException {
 
 		EmployeeService ei = new EmployeeService();
-
 		try {
 			List<Employee> list = ei.findAll();
 			request.setAttribute("order", list);
 			RequestDispatcher dis = request.getRequestDispatcher("EmployeeView.jsp");
 			dis.forward(request, response);
-
 		} catch (ServiceException e) {
-
 			e.printStackTrace();
 		}
-
 	}
-
 }

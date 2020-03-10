@@ -3,7 +3,7 @@ package com.chainsys.supermarketapp.model;
 public class CustomerBill {
 
 	private String customerName;
-	
+
 	private int totalAmount;
 
 	@Override

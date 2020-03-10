@@ -13,19 +13,21 @@ import org.springframework.stereotype.Service;
 import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.model.Product;
 import com.chainsys.supermarketapp.service.ProductService;
+
 @WebServlet("/DeleteProduct")
 @Service
 public class DeleteProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		ProductService pi=new ProductService();
-		Product p=new Product();
-		
-		int d=Integer.parseInt(request.getParameter("pid"));
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		ProductService pi = new ProductService();
+		Product p = new Product();
+
+		int d = Integer.parseInt(request.getParameter("pid"));
 		p.setPid(d);
-				try {
+		try {
 			pi.deleteproductAll(p);
 			request.setAttribute("order", "Deleted Succesfully");
 
@@ -35,8 +37,7 @@ public class DeleteProduct extends HttpServlet {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
 }

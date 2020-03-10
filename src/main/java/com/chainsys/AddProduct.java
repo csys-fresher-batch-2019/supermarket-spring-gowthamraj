@@ -20,25 +20,24 @@ import com.chainsys.supermarketapp.service.ProductService;
 public class AddProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ProductService pi=new ProductService();
-		String pn=request.getParameter("pno");
-		int price=Integer.parseInt(request.getParameter("pri"));
-		Product p=new Product();
-			p.setProductname(pn);
-			p.setPrice(price);
-			
-			
-					try {
-						pi.save(p);
-						request.setAttribute("addproduct", "Adding Product Suucesfully");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-						RequestDispatcher dispatcher = request.getRequestDispatcher("AddProduct.jsp");
-						dispatcher.forward(request, response);
-					} catch (ServiceException | ValidationException e) {
-					}
-				
+		ProductService pi = new ProductService();
+		String pn = request.getParameter("pno");
+		int price = Integer.parseInt(request.getParameter("pri"));
+		Product p = new Product();
+		p.setProductname(pn);
+		p.setPrice(price);
 
-}
+		try {
+			pi.save(p);
+			request.setAttribute("addproduct", "Adding Product Suucesfully");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("AddProduct.jsp");
+			dispatcher.forward(request, response);
+		} catch (ServiceException | ValidationException e) {
+		}
+
+	}
 }

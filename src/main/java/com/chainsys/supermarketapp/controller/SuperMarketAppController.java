@@ -24,7 +24,6 @@ import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.Product;
 
-
 @Controller
 @RestController
 @RequestMapping("api")
@@ -107,7 +106,6 @@ public class SuperMarketAppController {
 		return msg;
 	}
 
-	
 	@GetMapping("/employeeview")
 	public List<Employee> displayEmployeeDetils() throws DbException {
 		List<Employee> emp = em.findAll();

@@ -72,7 +72,6 @@ public class ProductDAOImpl implements ProductDAO {
 		return (list);
 	}
 
-
 	@Override
 	public int update(Product product) throws DbException {
 		String sql = "update product set price= ? where product_name= ?  ";
@@ -86,8 +85,6 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return rows;
 	}
-
-
 
 	@Override
 	public int deleteproductAll(Product product) throws DbException {
@@ -103,6 +100,7 @@ public class ProductDAOImpl implements ProductDAO {
 		return rows;
 
 	}
+
 	public List<Product> findOneProductAvailable() throws DbException {
 		String sql = "select * FROM product p where active =1 and product_id in ( select  product_no from product_stock pk where pk.product_no=p.product_id and pk.quantity > 0)";
 		List<Product> list = new ArrayList<>();
@@ -121,7 +119,7 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return (list);
 	}
-	
+
 	public int findOneProductPrice(int productId) throws DbException {
 		String sql = "select price from product where product_id=? ";
 		int price = 0;
@@ -131,7 +129,7 @@ public class ProductDAOImpl implements ProductDAO {
 				while (rs.next()) {
 					price = rs.getInt("price");
 				}
-			} 
+			}
 		} catch (Exception e) {
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
@@ -143,12 +141,12 @@ public class ProductDAOImpl implements ProductDAO {
 		boolean exists = false;
 		String sql1 = "select product_name from product where product_name=?";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql1);) {
-			pst.setString(1,productName );
+			pst.setString(1, productName);
 			try (ResultSet rs = pst.executeQuery();) {
 				if (rs.next()) {
 					exists = true;
 				}
-			} 
+			}
 		} catch (Exception e) {
 
 			throw new DbException(ErrorConstants.INVALID_SELECT);
@@ -156,7 +154,4 @@ public class ProductDAOImpl implements ProductDAO {
 		return exists;
 	}
 
-
-
-	
 }

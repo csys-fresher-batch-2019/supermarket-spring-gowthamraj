@@ -25,7 +25,7 @@ public class BillItem extends HttpServlet {
 		try {
 			int cus = Integer.parseInt(request.getParameter("customer_no"));
 			List<OrderItem> list = boi.findAllBillItems(cus);
-						request.setAttribute("billitem", list);
+			request.setAttribute("billitem", list);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewBillItem.jsp");
 			dispatcher.forward(request, response);
 		} catch (ServiceException e) {

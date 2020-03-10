@@ -21,13 +21,10 @@ public class BillPayment extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		BillOrderService boi = new BillOrderService();
-
 		HttpSession sess = request.getSession(false);
 		String cusno = (String) sess.getAttribute("cusno");
 		int cus = Integer.valueOf(cusno);
-
 		try {
 			boi.update(cus);
 
