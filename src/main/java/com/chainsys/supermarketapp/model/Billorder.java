@@ -1,36 +1,60 @@
 package com.chainsys.supermarketapp.model;
 
 public class Billorder {
-	private int proid;
-	private int productid;
-	private int customerno;
+	private int proId;
+	private int productId;
+	private int customerNo;
 	private float price;
 	private int quantity;
 	private int billItemId;
 	private int billNo;
 
+	public int getProId() {
+		return proId;
+	}
+
+	public void setProId(int proId) {
+		this.proId = proId;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+	public int getCustomerNo() {
+		return customerNo;
+	}
+
+	public void setCustomerNo(int customerNo) {
+		this.customerNo = customerNo;
+	}
+
 	public int getProid() {
-		return proid;
+		return proId;
 	}
 
 	public void setProid(int proid) {
-		this.proid = proid;
+		this.proId = proid;
 	}
 
 	public int getProductid() {
-		return productid;
+		return productId;
 	}
 
 	public void setProductid(int productid) {
-		this.productid = productid;
+		this.productId = productid;
 	}
 
 	public int getCustomerno() {
-		return customerno;
+		return customerNo;
 	}
 
 	public void setCustomerno(int customerno) {
-		this.customerno = customerno;
+		this.customerNo = customerno;
 	}
 
 	public float getPrice() {
@@ -75,7 +99,7 @@ public class Billorder {
 
 	@Override
 	public String toString() {
-		return "Billorder [proid=" + proid + ", productid=" + productid + ", customerno=" + customerno + ", price="
+		return "Billorder [proId=" + proId + ", productId=" + productId + ", customerNo=" + customerNo + ", price="
 				+ price + ", quantity=" + quantity + ", billItemId=" + billItemId + ", billNo=" + billNo
 				+ ", totalAmount=" + totalAmount + "]";
 	}

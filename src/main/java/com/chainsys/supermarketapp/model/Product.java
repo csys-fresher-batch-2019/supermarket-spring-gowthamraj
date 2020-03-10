@@ -2,7 +2,15 @@ package com.chainsys.supermarketapp.model;
 
 public class Product {
 	private int pid;
-	private String productname;
+	private String productName;
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
 	private int price;
 	private int active;
 
@@ -23,11 +31,11 @@ public class Product {
 	}
 
 	public String getProductname() {
-		return productname;
+		return productName;
 	}
 
 	public void setProductname(String productname) {
-		this.productname = productname;
+		this.productName = productname;
 	}
 
 	public int getPrice() {
@@ -40,6 +48,6 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [pid=" + pid + ", productname=" + productname + ", price=" + price + ", active=" + active + "]";
+		return "Product [pid=" + pid + ", productName=" + productName + ", price=" + price + ", active=" + active + "]";
 	}
 }

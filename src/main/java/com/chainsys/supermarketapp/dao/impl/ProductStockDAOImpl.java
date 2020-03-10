@@ -13,7 +13,6 @@ import java.util.List;
 import com.chainsys.supermarketapp.dao.ProductStockDAO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
-import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.ProductStock;
@@ -32,13 +31,9 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 			ps.setInt(2, productstock.getQuantity());
 			ps.setDate(3, Date.valueOf(productstock.getProductarrival()));
 			ps.setDate(4, Date.valueOf(productstock.getExperydate()));
-
 			rows = ps.executeUpdate();
-
 		} catch (SQLException e) {
-
-			throw new DbException(ErrorConstants.INVALID_ADD);
-
+			throw new DbException(ErrorConstants.INVALID_ADD, e);
 		}
 		return rows;
 	}
@@ -50,8 +45,8 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, productstock.getProductno());
 			rows = ps.executeUpdate();
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_DELETE);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_DELETE, e);
 		}
 		return rows;
 	}
@@ -65,24 +60,22 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 			ps.setInt(1, productstock.getQuantity());
 			ps.setInt(2, productstock.getProductno());
 			rows = ps.executeUpdate();
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_UPDATE);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_UPDATE, e);
 		}
 		return rows;
 	}
 
 	@Override
-	public int updateProductStock1(ProductStock productstock) throws DbException {
-
+	public int updateProductStockquantity(ProductStock productstock) throws DbException {
 		String sql = "update product_stock set quantity=quantity- ? where product_no=?";
 		int rows = 0;
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, productstock.getQuantity());
 			ps.setInt(2, productstock.getProductno());
 			rows = ps.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new DbException(ErrorConstants.INVALID_UPDATE);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_UPDATE, e);
 		}
 		return rows;
 	}
@@ -108,8 +101,8 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 				ps.setExperydate(ex);
 				list.add(ps);
 			}
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_SELECT, e);
 		}
 		return list;
 	}
@@ -123,17 +116,15 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 				if (rs.next()) {
 					exists = true;
 				}
-			} catch (Exception v) {
-				throw new ValidationException("Product not available");
-			}
-		} catch (Exception e) {
+			} 
+		} catch (SQLException e) {
 
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+			throw new DbException(ErrorConstants.INVALID_SELECT, e);
 		}
 		return exists;
 	}
 
-	public boolean productQuantityValidate(Order billorder) throws DbException {
+	public boolean productQuantity(Order billorder) throws DbException {
 		boolean stockavailable = true;
 		List<OrderItem> items = billorder.getItems();
 		for (OrderItem orderItem : items) {
@@ -151,7 +142,7 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 					}
 				}
 			} catch (SQLException e) {
-				throw new DbException(ErrorConstants.INVALID_ADD);
+				throw new DbException(ErrorConstants.INVALID_ADD, e);
 			}
 		}
 		return stockavailable;
@@ -167,10 +158,9 @@ public class ProductStockDAOImpl implements ProductStockDAO {
 					exists = true;
 				}
 			}
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_DELETE);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_DELETE, e);
 		}
 		return exists;
 	}
-
 }

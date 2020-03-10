@@ -7,12 +7,24 @@ import java.util.List;
 public class Order {
 
 	private int orderId;
-	private int customerno;
+	private int customerNo;
 	private int totalAmount;
 	private String status = "pending";
 	private LocalDateTime orderedDate;
 
 	private List<OrderItem> items = new ArrayList<>();
+
+	public int getCustomerNo() {
+		return customerNo;
+	}
+
+	public void setCustomerNo(int customerNo) {
+		this.customerNo = customerNo;
+	}
+
+	public void setItems(List<OrderItem> items) {
+		this.items = items;
+	}
 
 	public void addItem(OrderItem item) {
 		items.add(item);
@@ -31,11 +43,11 @@ public class Order {
 	}
 
 	public int getCustomerno() {
-		return customerno;
+		return customerNo;
 	}
 
 	public void setCustomerno(int customerno) {
-		this.customerno = customerno;
+		this.customerNo = customerno;
 	}
 
 	public int getTotalAmount() {
@@ -64,8 +76,8 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", customerno=" + customerno + ", totalAmount=" + totalAmount + ", status="
-				+ status + ", orderedDate=" + orderedDate + "]";
+		return "Order [orderId=" + orderId + ", customerNo=" + customerNo + ", totalAmount=" + totalAmount + ", status="
+				+ status + ", orderedDate=" + orderedDate + ", items=" + items + "]";
 	}
 
 }

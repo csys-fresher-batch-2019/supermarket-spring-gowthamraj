@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +14,6 @@ import com.chainsys.supermarketapp.dao.CaseDAO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.OrderItem;
-import com.chainsys.supermarketapp.model.Product;
 import com.chainsys.supermarketapp.utill.ConnectionUtil;
 
 public class CaseDAOImpl implements CaseDAO {
@@ -35,7 +32,7 @@ public class CaseDAOImpl implements CaseDAO {
 
 			}
 		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+			throw new DbException(ErrorConstants.INVALID_SELECT,e);
 		}
 		return employeeCount;
 
@@ -48,12 +45,12 @@ public class CaseDAOImpl implements CaseDAO {
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement st = con.prepareStatement(sql);) {
 			st.setDate(1, Date.valueOf(date));
 			try (ResultSet rs = st.executeQuery();) {
-				while (rs.next()) {
+				if (rs.next()) {
 					amount = rs.getInt("total_amount");
 				}
 			}
 		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+			throw new DbException(ErrorConstants.INVALID_SELECT,e);
 		}
 		return amount;
 	}
@@ -70,61 +67,9 @@ public class CaseDAOImpl implements CaseDAO {
 			}
 		} catch (SQLException e) {
 
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+			throw new DbException(ErrorConstants.INVALID_SELECT,e);
 		}
 		return total;
 	}
 
-	@Override
-	public List<Product> findByPrice(int min, int max) throws DbException {
-		String sql = "select * from product where price  between ? and ?";
-		List<Product> list = new ArrayList<>();
-		try (Connection con = ConnectionUtil.getConnection();
-				PreparedStatement ps = con.prepareStatement(sql);
-				ResultSet rs = ps.executeQuery();) {
-			ps.setInt(1, min);
-			ps.setInt(2, max);
-			try (ResultSet rss = ps.executeQuery();) {
-				while (rss.next()) {
-					int id = rss.getInt("product_id");
-					String name = rss.getString("product_name");
-					int cost = rss.getInt("price");
-					logger.debug("product_id =" + id + "\t Product name =" + name + "\t price =" + cost);
-					Product p = new Product();
-					p.setPid(id);
-					p.setProductname(name);
-					p.setPrice(cost);
-					list.add(p);
-				}
-			}
-		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT);
-		}
-		return list;
-	}
-
-	@Override
-	public List<OrderItem> countCustomer(OrderItem bills) throws DbException {
-
-		String sql = "select sum(*) as number_of_customer,ordered_date from bill_order group by ordered_date";
-		List<OrderItem> list = new ArrayList<>();
-		try (Connection con = ConnectionUtil.getConnection();
-				Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery(sql);) {
-			while (rs.next()) {
-				int customercount = rs.getInt("number_of_customer");
-				Date ar = rs.getDate("ordered_date");
-				LocalDate pa1 = ar.toLocalDate();
-				logger.debug("Number of customer =" + customercount + "\t Date =" + pa1);
-				OrderItem b = new OrderItem();
-				b.setCustomerno(customercount);
-				b.setBilldate(pa1);
-				list.add(b);
-			}
-		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT);
-		}
-
-		return list;
-	}
 }

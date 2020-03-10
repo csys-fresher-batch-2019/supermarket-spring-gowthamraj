@@ -32,8 +32,7 @@ public class ProductDAOImpl implements ProductDAO {
 			ps.setInt(2, product.getPrice());
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DbException(ErrorConstants.INVALID_ADD);
+			throw new DbException(ErrorConstants.INVALID_ADD, e);
 		}
 		return rows;
 	}
@@ -46,7 +45,7 @@ public class ProductDAOImpl implements ProductDAO {
 			ps.setString(1, product.getProductname());
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_DELETE);
+			throw new DbException(ErrorConstants.INVALID_DELETE, e);
 		}
 		return rows;
 	}
@@ -66,8 +65,8 @@ public class ProductDAOImpl implements ProductDAO {
 				p.setActive(rs.getInt("active"));
 				list.add(p);
 			}
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_SELECT, e);
 		}
 		return (list);
 	}
@@ -80,8 +79,8 @@ public class ProductDAOImpl implements ProductDAO {
 			ps.setString(2, product.getProductname());
 			ps.setInt(1, product.getPrice());
 			rows = ps.executeUpdate();
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_UPDATE);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_UPDATE, e);
 		}
 		return rows;
 	}
@@ -95,7 +94,7 @@ public class ProductDAOImpl implements ProductDAO {
 			stmt.setInt(1, product.getPid());
 			rows = stmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_DELETE);
+			throw new DbException(ErrorConstants.INVALID_DELETE, e);
 		}
 		return rows;
 
@@ -106,7 +105,7 @@ public class ProductDAOImpl implements ProductDAO {
 		List<Product> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection(); Statement st1 = con.createStatement()) {
 			try (ResultSet rs = st1.executeQuery(sql);) {
-				while (rs.next() != NULL) {
+				if (rs.next()) {
 					Product p = new Product();
 					p.setProductname(rs.getString("product_name"));
 					p.setPrice(rs.getInt("price"));
@@ -114,10 +113,10 @@ public class ProductDAOImpl implements ProductDAO {
 					list.add(p);
 				}
 			}
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_SELECT, e);
 		}
-		return (list);
+		return list;
 	}
 
 	public int findOneProductPrice(int productId) throws DbException {
@@ -130,10 +129,10 @@ public class ProductDAOImpl implements ProductDAO {
 					price = rs.getInt("price");
 				}
 			}
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_SELECT, e);
 		}
-		return (price);
+		return price;
 	}
 
 	@Override
@@ -147,9 +146,9 @@ public class ProductDAOImpl implements ProductDAO {
 					exists = true;
 				}
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+			throw new DbException(ErrorConstants.INVALID_SELECT, e);
 		}
 		return exists;
 	}

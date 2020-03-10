@@ -1,15 +1,23 @@
 package com.chainsys.supermarketapp.model;
 
 public class Login {
-	private String username;
+	private String userName;
 	private String password;
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public String getUsername() {
-		return username;
+		return userName;
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.userName = username;
 	}
 
 	public String getPassword() {
@@ -22,7 +30,7 @@ public class Login {
 
 	@Override
 	public String toString() {
-		return "Login [username=" + username + ", password=" + password + "]";
+		return "Login [userName=" + userName + ", password=" + password + "]";
 	}
 
 }

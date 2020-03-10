@@ -28,8 +28,8 @@ public class CustomerCardDAOImpl implements CustomerCardDAO {
 			pst.setLong(2, customercard.getContactnumber());
 			pst.setString(3, customercard.getAddress());
 			rows = pst.executeUpdate();
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_ADD);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_ADD,e);
 		}
 		return rows;
 	}
@@ -42,8 +42,8 @@ public class CustomerCardDAOImpl implements CustomerCardDAO {
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 			pst.setString(1, customercard.getCustomername());
 			rows = pst.executeUpdate();
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_DELETE);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_DELETE,e);
 		}
 		return rows;
 	}
@@ -63,8 +63,8 @@ public class CustomerCardDAOImpl implements CustomerCardDAO {
 
 				logger.debug("customer name = " + name + "\t contact = " + contact + "\t Address =" + address);
 			}
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_SELECT,e);
 		}
 	}
 
@@ -77,7 +77,7 @@ public class CustomerCardDAOImpl implements CustomerCardDAO {
 			pst.setString(2, customercard.getCustomername());
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_UPDATE);
+			throw new DbException(ErrorConstants.INVALID_UPDATE,e);
 		}
 		return rows;
 	}

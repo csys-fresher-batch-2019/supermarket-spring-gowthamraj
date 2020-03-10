@@ -3,27 +3,51 @@ package com.chainsys.supermarketapp.model;
 import java.time.LocalDate;
 
 public class Employee {
-	private int employeeid;
-	private String employeename;
+	private int employeeId;
+	private String employeeName;
 	private LocalDate dob;
 	private LocalDate doj;
-	private int mobileno;
+	private int mobileNo;
+	public int getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
+	public int getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(int mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
 	private String address;
 
 	public int getEmployeeid() {
-		return employeeid;
+		return employeeId;
 	}
 
 	public void setEmployeeid(int employeeid) {
-		this.employeeid = employeeid;
+		this.employeeId = employeeid;
 	}
 
 	public String getEmployeename() {
-		return employeename;
+		return employeeName;
 	}
 
 	public void setEmployeename(String employeename) {
-		this.employeename = employeename;
+		this.employeeName = employeename;
 	}
 
 	public LocalDate getDob() {
@@ -43,11 +67,11 @@ public class Employee {
 	}
 
 	public int getMobileno() {
-		return mobileno;
+		return mobileNo;
 	}
 
 	public void setMobileno(int mobileno) {
-		this.mobileno = mobileno;
+		this.mobileNo = mobileno;
 	}
 
 	public String getAddress() {
@@ -60,7 +84,7 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "employee [employeeid=" + employeeid + ", employeename=" + employeename + ", dob=" + dob + ", doj=" + doj
-				+ ", mobileno=" + mobileno + ", address=" + address + "]";
+		return "Employee [employeeId=" + employeeId + ", employeeName=" + employeeName + ", dob=" + dob + ", doj=" + doj
+				+ ", mobileNo=" + mobileNo + ", address=" + address + "]";
 	}
 }

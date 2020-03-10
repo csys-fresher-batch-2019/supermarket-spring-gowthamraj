@@ -4,10 +4,35 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public class ProductStock {
-	private int productno;
-	private int stockid;
+	private int productNo;
+	private int stockId;
 	private int quantity;
 	private LocalDate productarrival;
+	private LocalDate expiryDate;
+	public int getProductNo() {
+		return productNo;
+	}
+
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+
+	public int getStockId() {
+		return stockId;
+	}
+
+	public void setStockId(int stockId) {
+		this.stockId = stockId;
+	}
+
+	public LocalDate getExpiryDate() {
+		return expiryDate;
+	}
+
+	public void setExpiryDate(LocalDate expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+
 	private Date productarrival1;
 	private Date experydate1;
 
@@ -30,19 +55,19 @@ public class ProductStock {
 	}
 
 	public int getProductno() {
-		return productno;
+		return productNo;
 	}
 
 	public void setProductno(int productno) {
-		this.productno = productno;
+		this.productNo = productno;
 	}
 
 	public int getStockid() {
-		return stockid;
+		return stockId;
 	}
 
 	public void setStockid(int stockid) {
-		this.stockid = stockid;
+		this.stockId = stockid;
 	}
 
 	public int getQuantity() {
@@ -71,9 +96,9 @@ public class ProductStock {
 
 	@Override
 	public String toString() {
-		return "ProductStock [productno=" + productno + ", stockid=" + stockid + ", quantity=" + quantity
-				+ ", productarrival=" + productarrival + ", productarrival1=" + productarrival1 + ", experydate1="
-				+ experydate1 + ", experydate=" + experydate + "]";
+		return "ProductStock [productNo=" + productNo + ", stockId=" + stockId + ", quantity=" + quantity
+				+ ", productarrival=" + productarrival + ", expiryDate=" + expiryDate + ", productarrival1="
+				+ productarrival1 + ", experydate1=" + experydate1 + ", experydate=" + experydate + "]";
 	}
 
 }

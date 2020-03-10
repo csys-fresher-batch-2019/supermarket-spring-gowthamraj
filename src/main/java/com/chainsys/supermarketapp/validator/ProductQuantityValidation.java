@@ -10,7 +10,7 @@ public class ProductQuantityValidation {
 
 	public boolean productQuantityValidate(Order billorder) throws DbException, ValidationException {
 		ProductStockDAO ps = DAOFactory.getProductStockDAO();
-		return ps.productQuantityValidate(billorder);
+		return ps.productQuantity(billorder);
 	}
 
 }

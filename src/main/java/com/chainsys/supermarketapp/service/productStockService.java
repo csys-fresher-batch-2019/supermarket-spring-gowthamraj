@@ -46,7 +46,7 @@ public class productStockService {
 
 	public int updateProductStock1(ProductStock productstock) throws ServiceException {
 		try {
-			return ps.updateProductStock1(productstock);
+			return ps.updateProductStockquantity(productstock);
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_UPDATE);
 		}

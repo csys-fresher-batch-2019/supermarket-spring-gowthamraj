@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,8 +28,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			pst.setDate(3, Date.valueOf(employee.getDoj()));
 			pst.setString(4, employee.getAddress());
 			rows = pst.executeUpdate();
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_ADD);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_ADD, e);
 		}
 		return rows;
 
@@ -55,8 +56,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				e.setAddress(rs.getString("address"));
 				list.add(e);
 			}
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_SELECT, e);
 		}
 		return list;
 	}
@@ -68,10 +69,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(ins);) {
 			pst.setString(1, employee.getEmployeename());
 			rows = pst.executeUpdate();
-		}
-
-		catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_DELETE);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_DELETE, e);
 		}
 		return rows;
 	}
@@ -85,10 +84,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			pst.setString(2, employee.getEmployeename());
 			pst.setString(1, employee.getAddress());
 			rows = pst.executeUpdate();
-		} catch (Exception e) {
-			throw new DbException(ErrorConstants.INVALID_UPDATE);
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_UPDATE, e);
 		}
 		return rows;
 	}
-
 }

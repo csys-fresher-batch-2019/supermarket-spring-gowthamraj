@@ -11,14 +11,22 @@ public class OrderItem {
 
 	private int quantity;
 
-	private String customername;
+	private String customerName;
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
 
 	public String getCustomername() {
-		return customername;
+		return customerName;
 	}
 
 	public void setCustomername(String customername) {
-		this.customername = customername;
+		this.customerName = customername;
 	}
 
 	public int getCustomerno() {
@@ -67,7 +75,7 @@ public class OrderItem {
 	@Override
 	public String toString() {
 		return "OrderItem [id=" + id + ", orderId=" + orderId + ", productId=" + productId + ", quantity=" + quantity
-				+ ", customername=" + customername + ", customerno=" + customerno + ", billdate=" + billdate
+				+ ", customerName=" + customerName + ", customerno=" + customerno + ", billdate=" + billdate
 				+ ", paymentStatus=" + paymentStatus + ", price=" + price + ", totalAmount=" + totalAmount + ", status="
 				+ status + "]";
 	}

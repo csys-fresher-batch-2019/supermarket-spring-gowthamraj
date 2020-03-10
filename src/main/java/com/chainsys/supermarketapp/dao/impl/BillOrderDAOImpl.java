@@ -27,13 +27,13 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 		try (Connection con = ConnectionUtil.getConnection();
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);) {
-			while (rs.next()) {
+			if (rs.next()) {
 				orderID = rs.getInt("order_id");
 			}
 
 		} catch (SQLException e) {
 
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+			throw new DbException(ErrorConstants.INVALID_SELECT,e);
 		}
 		return orderID;
 	}
@@ -62,12 +62,12 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 					ProductStock ps = new ProductStock();
 					ps.setProductno(orderItem.getProductId());
 					ps.setQuantity(orderItem.getQuantity());
-					psi.updateProductStock1(ps);
+					psi.updateProductStockquantity(ps);
 				}
 			}
 		} catch (SQLException e) {
 
-			throw new DbException(ErrorConstants.INVALID_ADD);
+			throw new DbException(ErrorConstants.INVALID_ADD,e);
 		}
 		return orderId;
 	}
@@ -81,7 +81,7 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 			pst.setFloat(1, billorder.getTotalAmount());
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_UPDATE);
+			throw new DbException(ErrorConstants.INVALID_UPDATE,e);
 		}
 		return rows;
 	}
@@ -96,14 +96,14 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 			rows = stmt.executeUpdate();
 		} catch (SQLException e) {
 
-			throw new DbException(ErrorConstants.INVALID_DELETE);
+			throw new DbException(ErrorConstants.INVALID_DELETE,e);
 		}
 		return rows;
 	}
 
 	@Override
 	public List<Order> findAll() throws DbException {
-		String sql = "select * from bill_order order by p_id desc";
+		String sql = "select p_id,customer_no,total_amount,ordered_date from bill_order order by p_id desc";
 		List<Order> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();
 				Statement stmt = con.createStatement();
@@ -116,14 +116,13 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 				or.setTotalAmount(rs.getInt("total_amount"));
 				or.setStatus(rs.getString("status"));
 				Timestamp ds = rs.getTimestamp("ordered_date");
-
 				or.setOrderedDate(ds.toLocalDateTime());
 				list.add(or);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+			throw new DbException(ErrorConstants.INVALID_SELECT,e);
 		}
 		return list;
 	}
@@ -136,7 +135,7 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 			pst.setInt(1, cusno);
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_UPDATE);
+			throw new DbException(ErrorConstants.INVALID_UPDATE,e);
 		}
 		return rows;
 	}
@@ -159,7 +158,7 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+			throw new DbException(ErrorConstants.INVALID_SELECT,e);
 		}
 		return list;
 	}

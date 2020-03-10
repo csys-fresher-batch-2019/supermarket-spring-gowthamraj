@@ -18,11 +18,11 @@ public interface ProductStockDAO {
 
 	List<ProductStock> findAll() throws DbException;
 
-	int updateProductStock1(ProductStock productstock) throws DbException;
+	int updateProductStockquantity(ProductStock productstock) throws DbException;
 
 	public boolean isProductExists(int productno) throws DbException;
 
-	public boolean productQuantityValidate(Order billorder) throws DbException;
+	public boolean productQuantity(Order billorder) throws DbException;
 
 	public boolean getStockProductNo(int productNo) throws DbException;
 
