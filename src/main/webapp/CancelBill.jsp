@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Cancel Bills</title>
 </head>
-<body bgcolor="">
+<body >
 <form action="CancelBill">
 <center><input type="text" name="cbills" required autofocus>
 <pre>
