@@ -13,14 +13,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import com.chainsys.supermarketapp.dao.ProductDAO;
+import com.chainsys.supermarketapp.dao.ProductStockDAO;
+import com.chainsys.supermarketapp.daofactory.DAOFactory;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ServiceException;
 import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.service.BillOrderService;
-import com.chainsys.supermarketapp.validator.ProductPriceValidation;
-import com.chainsys.supermarketapp.validator.ProductQuantityValidation;
 
 @WebServlet("/Bill")
 @Service
@@ -34,15 +35,13 @@ public class Bill extends HttpServlet {
 		HttpSession sess = request.getSession();
 		sess.setAttribute("cusno", cus);
 		int cusno = Integer.valueOf(cus);
-
 		String[] arr = request.getParameterValues("pid");
 		int totalAmount = 0;
-		ProductPriceValidation v = new ProductPriceValidation();
-		ProductQuantityValidation v1 = new ProductQuantityValidation();
 		Order order = new Order();
 		order.setCustomerNo(cusno);
 
 		try {
+			ProductDAO v = DAOFactory.getProductDAO();
 			for (String string : arr) {
 
 				int product_id = Integer.parseInt(string);
@@ -57,7 +56,6 @@ public class Bill extends HttpServlet {
 				item.setTotalAmount(tprice);
 				order.addItem(item);
 
-				
 				totalAmount = totalAmount + tprice;
 				item.getProductId();
 			}
@@ -67,10 +65,11 @@ public class Bill extends HttpServlet {
 			order.setStatus("ORDERED");
 
 			BillOrderService boi = new BillOrderService();
-			boolean a = v1.productQuantityValidate(order);
+			ProductStockDAO v1 = DAOFactory.getProductStockDAO();
+			boolean a = v1.productQuantity(order);
 			System.out.println(a);
 			if (a) {
-				int aa=boi.save(order);
+				int aa = boi.save(order);
 				order.setOrderId(aa);
 
 				request.setAttribute("ORDER_DETAILS", order);

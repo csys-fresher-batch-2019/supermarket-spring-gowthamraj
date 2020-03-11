@@ -9,10 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.chainsys.supermarketapp.dao.ProductDAO;
+import com.chainsys.supermarketapp.daofactory.DAOFactory;
 import com.chainsys.supermarketapp.exception.DbException;
-import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Product;
-import com.chainsys.supermarketapp.validator.ProductAvailableValidation;
 
 @WebServlet("/DisplayProduct")
 public class DisplayProduct extends HttpServlet {
@@ -21,14 +22,14 @@ public class DisplayProduct extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		ProductAvailableValidation v = new ProductAvailableValidation();
-
+		// ProductAvailableValidation v = new ProductAvailableValidation();
+		ProductDAO v = DAOFactory.getProductDAO();
 		try {
 			List<Product> list = v.findOneProductAvailable();
 			request.setAttribute("order", list);
 			RequestDispatcher dis = request.getRequestDispatcher("orderitem.jsp");
 			dis.forward(request, response);
-		} catch (ValidationException | DbException e) {
+		} catch (DbException e) {
 			e.printStackTrace();
 		}
 
