@@ -29,7 +29,11 @@ public class ViewBills extends HttpServlet {
 			RequestDispatcher dis = request.getRequestDispatcher("ViewBills.jsp");
 			dis.forward(request, response);
 		} catch (DbException e) {
-			e.printStackTrace();
+			request.setAttribute("View", e.getMessage());
+			RequestDispatcher dis = request.getRequestDispatcher("ViewBills.jsp");
+			dis.forward(request, response);
+
+			
 		}
 
 	}

@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html >
@@ -19,6 +21,7 @@
 					Enter the PassWord    <Input type="password" name="pword" pattern=".{5,}"  placeholder ="Five or more characters" required autofocus/><br/>
 								<Input type="submit" value="login">
 								<a href ="NewUserRegistration.jsp"> Sign-in..</a>
+								<h1>${LOGGED_IN_USER_ID}</h1>
 								
 </pre>			
 

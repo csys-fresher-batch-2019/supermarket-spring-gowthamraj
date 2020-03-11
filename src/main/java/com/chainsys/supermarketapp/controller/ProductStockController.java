@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chainsys.supermarketapp.dao.ProductStockDAO;
 import com.chainsys.supermarketapp.daofactory.DAOFactory;
-import com.chainsys.supermarketapp.dto.Messagedto;
+import com.chainsys.supermarketapp.dto.MessagedTO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.model.ProductStock;
 
@@ -27,11 +27,11 @@ public class ProductStockController {
 	}
 
 	@PostMapping("/addproductstock")
-	public Messagedto addproductstock(@RequestParam("productno") int productno, @RequestParam("stockid") int stockid,
+	public MessagedTO addproductstock(@RequestParam("productno") int productno, @RequestParam("stockid") int stockid,
 			@RequestParam("quantity") int quantity, @RequestParam("productarrival") String productarrival,
 			@RequestParam("experydate") String experydate) throws DbException {
 
-		Messagedto msg = new Messagedto();
+		MessagedTO msg = new MessagedTO();
 		ProductStock p = new ProductStock();
 		p.setProductNo(productno);
 		p.setStockId(stockid);
@@ -49,10 +49,10 @@ public class ProductStockController {
 	}
 
 	@GetMapping("/updateproductstock")
-	public Messagedto updateproductstock(@RequestParam("productno") int productno,
+	public MessagedTO updateproductstock(@RequestParam("productno") int productno,
 			@RequestParam("quantity") int quantity) throws DbException {
 
-		Messagedto msg = new Messagedto();
+		MessagedTO msg = new MessagedTO();
 		ProductStock p = new ProductStock();
 		p.setProductNo(productno);
 		p.setQuantity(quantity);
@@ -67,9 +67,9 @@ public class ProductStockController {
 	}
 
 	@GetMapping("/deleteproductstock")
-	public Messagedto deleteproductstock(@RequestParam("productno") int productno) throws DbException {
+	public MessagedTO deleteproductstock(@RequestParam("productno") int productno) throws DbException {
 
-		Messagedto msg = new Messagedto();
+		MessagedTO msg = new MessagedTO();
 		ProductStock p = new ProductStock();
 		p.setProductNo(productno);
 

@@ -33,10 +33,13 @@ public class BillPayment extends HttpServlet {
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("BillPay.jsp");
 			dispatcher.forward(request, response);
-		} catch (ServiceException e) {
-		} catch (DbException e) {
-			e.printStackTrace();
-		}
+		} catch (ServiceException | DbException e) {
+			request.setAttribute("ORDER_DETAILS", e.getMessage());
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("BillPay.jsp");
+			dispatcher.forward(request, response);
+
+		} 
 	}
 
 }

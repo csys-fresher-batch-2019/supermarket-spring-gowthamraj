@@ -32,11 +32,14 @@ public class UpdateEmployee extends HttpServlet {
 		try {
 			ei.update(em);
 			request.setAttribute("updateproduct", "Update Employee Details Suucesfully");
-
 			RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateEmployee.jsp");
 			dispatcher.forward(request, response);
 		} catch (ServiceException | ValidationException e) {
-			e.printStackTrace();
+			request.setAttribute("updateproduct", e.getMessage());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateEmployee.jsp");
+			dispatcher.forward(request, response);
+
+			
 		}
 
 	}

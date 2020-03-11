@@ -38,7 +38,12 @@ public class AddProduct extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("AddProduct.jsp");
 			dispatcher.forward(request, response);
 		} catch (ServiceException | ValidationException e) {
+			request.setAttribute("addproduct",e.getMessage());
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("AddProduct.jsp");
+			dispatcher.forward(request, response);
 		}
+		
 
 	}
 }

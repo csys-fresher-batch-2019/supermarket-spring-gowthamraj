@@ -34,7 +34,6 @@ public class UpdatePStock extends HttpServlet {
 		ProductStock ps = new ProductStock();
 		ps.setProductNo(prno);
 		ps.setQuantity(qty);
-		// ProductValidation v = new ProductValidation();
 		boolean product;
 		try {
 			product = v.isProductExists(ps.getProductNo());
@@ -52,6 +51,11 @@ public class UpdatePStock extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		} catch (DbException | ValidationException | ServiceException e) {
+
+			request.setAttribute("updateproduct", e.getMessage());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateProductStock.jsp");
+			dispatcher.forward(request, response);
+
 
 		}
 	}

@@ -42,7 +42,7 @@ public class LoginRegister extends HttpServlet {
 			System.out.println(alreadyRegistered);
 			if (alreadyRegistered) {
 
-				System.out.println("already");// Username already exists
+				System.out.println("already");
 
 			} else {
 				log.save(log1);
@@ -50,11 +50,7 @@ public class LoginRegister extends HttpServlet {
 
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			inserted = false;
-		}
-
+		
 		out.println(inserted);
 
 		if (alreadyRegistered) {
@@ -67,6 +63,14 @@ public class LoginRegister extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 
+	
+	}
+	catch (Exception e) {
+		request.setAttribute("errmessage", e.getMessage());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("NewUserRegistration.jsp");
+		dispatcher.forward(request, response);
+		inserted = false;
 	}
 
+	}
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @JsonInclude(Include.NON_NULL)
-public class Messagedto {
+public class MessagedTO {
 	private String infoMessage;
 
 	public String getInfoMessage() {

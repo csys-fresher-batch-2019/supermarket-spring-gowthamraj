@@ -35,7 +35,11 @@ public class DeleteEmployee extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} catch (ServiceException | ValidationException e) {
-			e.printStackTrace();
+			request.setAttribute("updateproduct", e.getMessage());
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("DeleteEmployee.jsp");
+			dispatcher.forward(request, response);
+
 		}
 
 	}

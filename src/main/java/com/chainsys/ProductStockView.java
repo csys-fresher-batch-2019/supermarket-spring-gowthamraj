@@ -27,7 +27,11 @@ public class ProductStockView extends HttpServlet {
 			RequestDispatcher dis = request.getRequestDispatcher("ProductStockView.jsp");
 			dis.forward(request, response);
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			request.setAttribute("order", e.getMessage());
+			RequestDispatcher dis = request.getRequestDispatcher("ProductStockView.jsp");
+			dis.forward(request, response);
+
+			
 		}
 	}
 

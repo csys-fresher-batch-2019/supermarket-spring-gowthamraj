@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +15,7 @@ import com.chainsys.supermarketapp.dao.LoginDAO;
 import com.chainsys.supermarketapp.dao.ProductDAO;
 import com.chainsys.supermarketapp.dao.ProductStockDAO;
 import com.chainsys.supermarketapp.daofactory.DAOFactory;
-import com.chainsys.supermarketapp.dto.Messagedto;
+import com.chainsys.supermarketapp.dto.MessagedTO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.model.Login;
@@ -35,9 +34,9 @@ public class SuperMarketAppController {
 	ProductStockDAO ps = DAOFactory.getProductStockDAO();
 
 	@GetMapping("/addloginregister")
-	public Messagedto addloginregister(@RequestParam("username") String username,
+	public MessagedTO addloginregister(@RequestParam("username") String username,
 			@RequestParam("password") String password) throws DbException {
-		Messagedto msg = new Messagedto();
+		MessagedTO msg = new MessagedTO();
 		Login l = new Login();
 		l.setUserName(username);
 		l.setPassword(password);
@@ -49,6 +48,25 @@ public class SuperMarketAppController {
 		}
 		return msg;
 	}
+	
+
+	@GetMapping("/login")
+	public MessagedTO login(@RequestParam("username") String username,
+			@RequestParam("password") String password) throws DbException {
+		MessagedTO msg = new MessagedTO();
+		Login l = new Login();
+		l.setUserName(username);
+		l.setPassword(password);
+		System.out.println(l);
+		Login user = lg.findByUsernameAndPassword(l);
+		if (user != null) {
+			msg.setInfoMessage("Login Success");
+		} else {
+			msg.setErrorMessage("Login Failed");
+		}
+		return msg;
+	}
+
 
 	@GetMapping("/displayproduct")
 	public List<Product> displayproduct() throws DbException {
@@ -58,9 +76,9 @@ public class SuperMarketAppController {
 	}
 
 	@GetMapping("/addproduct")
-	public Messagedto addproduct(@RequestParam("product name") String prodcutname, @RequestParam("price") int price)
+	public MessagedTO addproduct(@RequestParam("product name") String prodcutname, @RequestParam("price") int price)
 			throws DbException {
-		Messagedto msg = new Messagedto();
+		MessagedTO msg = new MessagedTO();
 		Product p = new Product();
 		p.setProductName(prodcutname);
 		p.setPrice(price);
@@ -75,9 +93,9 @@ public class SuperMarketAppController {
 	}
 
 	@GetMapping("/updateproduct")
-	public Messagedto updateproduct(@RequestParam("product name") String prodcutname, @RequestParam("price") int price)
+	public MessagedTO updateproduct(@RequestParam("product name") String prodcutname, @RequestParam("price") int price)
 			throws DbException {
-		Messagedto msg = new Messagedto();
+		MessagedTO msg = new MessagedTO();
 		Product p = new Product();
 		p.setProductName(prodcutname);
 		p.setPrice(price);
@@ -92,8 +110,8 @@ public class SuperMarketAppController {
 	}
 
 	@GetMapping("/deleteproduct")
-	public Messagedto deleteproduct(@RequestParam("product id") int pid) throws DbException {
-		Messagedto msg = new Messagedto();
+	public MessagedTO deleteproduct(@RequestParam("product id") int pid) throws DbException {
+		MessagedTO msg = new MessagedTO();
 		Product p = new Product();
 		p.setPid(pid);
 		int v = pd.delete(p);
@@ -113,10 +131,10 @@ public class SuperMarketAppController {
 	}
 
 	@GetMapping("/addemployee")
-	public Messagedto addemployee(@RequestParam("employeename") String employeename, @RequestParam("dob") String dob,
+	public MessagedTO addemployee(@RequestParam("employeename") String employeename, @RequestParam("dob") String dob,
 			@RequestParam("doj") String doj, @RequestParam("address") String address) throws DbException {
 
-		Messagedto msg = new Messagedto();
+		MessagedTO msg = new MessagedTO();
 		Employee ee = new Employee();
 		ee.setEmployeeName(employeename);
 		LocalDate a = LocalDate.parse(dob);
@@ -133,11 +151,11 @@ public class SuperMarketAppController {
 		return msg;
 	}
 
-	@PostMapping("/updateemployee")
-	public Messagedto updateemployee(@RequestParam("employeename") String employeename,
+	@GetMapping("/updateemployee")
+	public MessagedTO updateemployee(@RequestParam("employeename") String employeename,
 			@RequestParam("address") String address) throws DbException {
 
-		Messagedto msg = new Messagedto();
+		MessagedTO msg = new MessagedTO();
 		Employee ee = new Employee();
 		ee.setEmployeeName(employeename);
 		ee.setAddress(address);
@@ -151,8 +169,8 @@ public class SuperMarketAppController {
 	}
 
 	@GetMapping("/deleteemployee")
-	public Messagedto deleteemployee(@RequestParam("employeename") String employeename) throws DbException {
-		Messagedto msg = new Messagedto();
+	public MessagedTO deleteemployee(@RequestParam("employeename") String employeename) throws DbException {
+		MessagedTO msg = new MessagedTO();
 		Employee ee = new Employee();
 		ee.setEmployeeName(employeename);
 		int v = em.delete(ee);
@@ -172,9 +190,9 @@ public class SuperMarketAppController {
 	}
 
 	@GetMapping("/updateBillOrderbyamount")
-	public Messagedto updateBillOrderbyamount(@RequestParam("customerno") int customerno,
+	public MessagedTO updateBillOrderbyamount(@RequestParam("customerno") int customerno,
 			@RequestParam("totalAmount") int totalAmount) throws DbException {
-		Messagedto msg = new Messagedto();
+		MessagedTO msg = new MessagedTO();
 		Order oo = new Order();
 		oo.setCustomerNo(customerno);
 		oo.setTotalAmount(totalAmount);
@@ -188,9 +206,9 @@ public class SuperMarketAppController {
 	}
 
 	@GetMapping("/updateBillOrderbystatus")
-	public Messagedto updateBillOrderbystatus(@RequestParam("cusno") int cusno,
+	public MessagedTO updateBillOrderbystatus(@RequestParam("cusno") int cusno,
 			@RequestParam("totalAmount") int totalAmount) throws DbException {
-		Messagedto msg = new Messagedto();
+		MessagedTO msg = new MessagedTO();
 		int v = bo.update(cusno);
 		if (v == 1) {
 			msg.setInfoMessage("Update bills details succesfully");

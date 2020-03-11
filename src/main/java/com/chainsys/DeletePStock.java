@@ -31,9 +31,13 @@ public class DeletePStock extends HttpServlet {
 			request.setAttribute("updateproduct", "Delete Product Stock Succesfully");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("DeleteProductStock.jsp");
 			dispatcher.forward(request, response);
-		} catch (ServiceException e1) {
+		} catch (ServiceException e) {
+			request.setAttribute("updateproduct", e.getMessage());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("DeleteProductStock.jsp");
+			dispatcher.forward(request, response);
 
-			e1.printStackTrace();
+
+		
 		}
 	}
 }

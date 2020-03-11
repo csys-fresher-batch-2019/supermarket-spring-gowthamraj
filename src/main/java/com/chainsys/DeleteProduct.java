@@ -36,7 +36,12 @@ public class DeleteProduct extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} catch (ServiceException | ValidationException e) {
-			e.printStackTrace();
+			request.setAttribute("order",e.getMessage());
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("DeleteProduct.jsp");
+			dispatcher.forward(request, response);
+
+			
 		}
 
 	}

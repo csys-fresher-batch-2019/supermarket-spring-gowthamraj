@@ -31,7 +31,10 @@ public class ViewBillItems extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewBillItem.jsp");
 			dispatcher.forward(request, response);
 		} catch (ServiceException | DbException e) {
-			e.printStackTrace();
+			request.setAttribute("billitem", e.getMessage());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewBillItem.jsp");
+			dispatcher.forward(request, response);
+	
 		}
 
 	}

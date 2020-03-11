@@ -47,6 +47,11 @@ public class AddProductStock extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("AddProductStock.jsp");
 				dispatcher.forward(request, response);
 			} catch (ServiceException | ValidationException e) {
+				request.setAttribute("addstock", "Adding Stock Details Suucesfully");
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("AddProductStock.jsp");
+				dispatcher.forward(request, response);
+
 
 			}
 

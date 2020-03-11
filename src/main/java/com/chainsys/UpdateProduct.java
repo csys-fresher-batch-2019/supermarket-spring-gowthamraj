@@ -38,7 +38,11 @@ public class UpdateProduct extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateProduct.jsp");
 			dispatcher.forward(request, response);
 		} catch (ServiceException | ValidationException e) {
-			e.printStackTrace();
+			request.setAttribute("product", e.getMessage());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateProduct.jsp");
+			dispatcher.forward(request, response);
+
+			
 		}
 
 	}

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import com.chainsys.supermarketapp.exception.ServiceException;
+import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Login;
 import com.chainsys.supermarketapp.service.LoginService;
 
@@ -31,15 +33,15 @@ public class LoginServlet extends HttpServlet {
 		log.setPassword(pword);
 		System.out.println("Welcome" + uname);
 		Login log1 = null;
+
 		try {
 			log1 = login.findByUsernameAndPassword(log);
-			System.out.println("Login :" + log1);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Exception :" + e.getMessage());
+		} catch (ServiceException | ValidationException e) {
+			HttpSession session = request.getSession();
+			session.setAttribute("LOGGED_IN_USER_ID", e.getMessage());
+			response.sendRedirect("Login.jsp");
 		}
-
+		System.out.println("Login :" + log1);
 		PrintWriter out = response.getWriter();
 		out.println(log1);
 		if (log1 == null) {

@@ -43,6 +43,9 @@ public class AddEmployee extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("AddEmployee.jsp");
 			dispatcher.forward(request, response);
 		} catch (ServiceException | ValidationException e) {
+			request.setAttribute("AddEmployee", e.getMessage());
+			RequestDispatcher dispatcher = request.getRequestDispatcher("AddEmployee.jsp");
+			dispatcher.forward(request, response);
 
 		}
 	}

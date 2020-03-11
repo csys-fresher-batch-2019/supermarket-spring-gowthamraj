@@ -84,7 +84,7 @@ public class Bill extends HttpServlet {
 				dispatcher2.forward(request, response);
 			}
 		} catch (DbException | ValidationException | ServiceException e) {
-			e.printStackTrace();
+			request.setAttribute("ORDER_DETAILS", e.getMessage());
 			RequestDispatcher dispatcher2 = request.getRequestDispatcher("orderitem.jsp");
 			dispatcher2.forward(request, response);
 		}

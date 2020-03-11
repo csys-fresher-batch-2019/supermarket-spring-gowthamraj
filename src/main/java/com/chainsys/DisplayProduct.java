@@ -22,7 +22,7 @@ public class DisplayProduct extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// ProductAvailableValidation v = new ProductAvailableValidation();
+		
 		ProductDAO v = DAOFactory.getProductDAO();
 		try {
 			List<Product> list = v.findOneProductAvailable();
@@ -30,7 +30,11 @@ public class DisplayProduct extends HttpServlet {
 			RequestDispatcher dis = request.getRequestDispatcher("orderitem.jsp");
 			dis.forward(request, response);
 		} catch (DbException e) {
-			e.printStackTrace();
+			request.setAttribute("order", e.getMessage());
+			RequestDispatcher dis = request.getRequestDispatcher("orderitem.jsp");
+			dis.forward(request, response);
+
+		
 		}
 
 	}

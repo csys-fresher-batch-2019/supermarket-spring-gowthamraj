@@ -33,9 +33,7 @@ public class IncomeByDate extends HttpServlet {
 			dispatcher.forward(request, response);
 		} catch (ServiceException e) {
 			throw new ValidationException("There is some issue while getting the 'TODAY INCOME'");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 
 	}
 
