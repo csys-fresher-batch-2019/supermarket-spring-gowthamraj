@@ -2,10 +2,14 @@ package com.chainsys.supermarketapp.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Employee {
 	private int employeeId;
 	private String employeeName;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate dob;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate doj;
 	private int mobileNo;
 	private String address;

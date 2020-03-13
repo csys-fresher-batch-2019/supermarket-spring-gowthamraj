@@ -69,6 +69,7 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 		int orderId = getNextOrderId();
 
 		String sql = "Insert into bill_order (p_id,customer_no,total_amount)values(?,?,?)";
+		System.out.println(billorder.getTotalAmount());
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
 			pst.setInt(1, orderId);
 			pst.setInt(2, billorder.getCustomerNo());

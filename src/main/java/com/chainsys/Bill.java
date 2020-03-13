@@ -44,14 +44,14 @@ public class Bill extends HttpServlet {
 			ProductDAO v = DAOFactory.getProductDAO();
 			for (String string : arr) {
 
-				int product_id = Integer.parseInt(string);
+				int produid = Integer.parseInt(string);
 				int quantity = Integer.parseInt(request.getParameter("qty_" + string));
 
-				int price = v.findOneProductPrice(product_id);
+				int price = v.findOneProductPrice(produid);
 				int tprice = price * quantity;
 
 				OrderItem item = new OrderItem();
-				item.setProductId(product_id);
+				item.setProductId(produid);
 				item.setQuantity(quantity);
 				item.setTotalAmount(tprice);
 				order.addItem(item);

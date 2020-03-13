@@ -3,6 +3,7 @@ package com.chainsys.supermarketapp.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.model.ProductStock;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("api/productstock")
 public class ProductStockController {
 	ProductStockDAO ps = DAOFactory.getProductStockDAO();
@@ -48,7 +50,7 @@ public class ProductStockController {
 		return msg;
 	}
 
-	@GetMapping("/updateproductstock")
+	@PostMapping("/updateproductstock")
 	public MessagedTO updateproductstock(@RequestParam("productno") int productno,
 			@RequestParam("quantity") int quantity) throws DbException {
 
@@ -66,7 +68,7 @@ public class ProductStockController {
 
 	}
 
-	@GetMapping("/deleteproductstock")
+	@PostMapping("/deleteproductstock")
 	public MessagedTO deleteproductstock(@RequestParam("productno") int productno) throws DbException {
 
 		MessagedTO msg = new MessagedTO();

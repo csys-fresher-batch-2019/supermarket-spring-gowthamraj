@@ -71,6 +71,13 @@
 				ch.checked = true;
 			}
 		}
+		
+		function submitOrder(){
+			var formData = { "customerId":1, 
+					"items": [ { "itemId": 1, "quantity": 2 },
+					{ "itemId": 2, "quantity": 2 }]
+					};
+		}
 	</script>
 </body>
 </html>
