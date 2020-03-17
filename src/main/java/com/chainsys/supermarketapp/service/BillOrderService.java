@@ -11,17 +11,16 @@ import com.chainsys.supermarketapp.exception.ValidationException;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
 
-
 public class BillOrderService {
 
 	BillOrderDAO bo = DAOFactory.getBillOrderDAO();
 
 	public int save(Order billorder) throws ServiceException, DbException, ValidationException {
 		try {
-			
+
 			return bo.save(billorder);
 		} catch (DbException e) {
-
+			e.printStackTrace();
 			throw new ServiceException(ServiceConstant.INVALID_SAVE);
 		}
 	}
@@ -45,7 +44,7 @@ public class BillOrderService {
 
 	public int delete(Order billorder) throws ServiceException, DbException, ValidationException {
 		try {
-			
+
 			return bo.delete(billorder);
 		} catch (DbException e) {
 			throw new ServiceException(ServiceConstant.INVALID_DELETE);

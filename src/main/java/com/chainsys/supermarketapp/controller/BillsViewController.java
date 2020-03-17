@@ -47,9 +47,21 @@ public class BillsViewController {
 
 	}
 
+	@GetMapping("/updatebills")
+	public void updatebills(@RequestParam("cusno") int cusno) throws DbException {
+		bo.update(cusno);
+
+	}
+
+	@GetMapping("/findByCustomerNumber")
+	public List<Order> findByCustomerNumber(@RequestParam("customerNumber") int customerNumber) throws DbException {
+		List<Order> list = bo.findByCustomerNumber(customerNumber);
+		return list;
+	}
+
 	@PostMapping("addOrder")
 	public void addOrder(@RequestBody OrderDTO orderDTO) {
-		System.out.println(orderDTO);
+
 		save(orderDTO);
 	}
 
@@ -87,12 +99,12 @@ public class BillsViewController {
 			BillOrderService boi = new BillOrderService();
 			ProductStockDAO v1 = DAOFactory.getProductStockDAO();
 			boolean a = v1.productQuantity(order);
-			
+
 			if (a) {
 				int aa = boi.save(order);
 				order.setOrderId(aa);
-			} 
-			} catch (DbException | ValidationException | ServiceException e) {
+			}
+		} catch (DbException | ValidationException | ServiceException e) {
 			e.printStackTrace();
 		}
 	}

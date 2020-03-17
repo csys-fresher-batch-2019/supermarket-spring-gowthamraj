@@ -47,15 +47,14 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 			pst.setInt(4, orderItem.getPrice());
 			pst.setInt(5, orderItem.getTotalAmount());
 			pst.executeUpdate();
-			
-			
+
 		} catch (SQLException e) {
 
 			throw new DbException(ErrorConstants.INVALID_ADD, e);
 		}
 		return rows;
 	}
-	
+
 	public void updateStock(OrderItem orderItem) throws DbException {
 		ProductStock ps = new ProductStock();
 		ps.setProductNo(orderItem.getProductId());
@@ -69,7 +68,7 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 		int orderId = getNextOrderId();
 
 		String sql = "Insert into bill_order (p_id,customer_no,total_amount)values(?,?,?)";
-		System.out.println(billorder.getTotalAmount());
+
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
 			pst.setInt(1, orderId);
 			pst.setInt(2, billorder.getCustomerNo());
@@ -86,8 +85,6 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 		}
 		return orderId;
 	}
-
-	
 
 //	@Override
 //	public int save(Order billorder) throws DbException {
@@ -169,6 +166,31 @@ public class BillOrderDAOImpl implements BillOrderDAO {
 				Timestamp ds = rs.getTimestamp("ordered_date");
 				or.setOrderedDate(ds.toLocalDateTime());
 				list.add(or);
+			}
+		} catch (SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_SELECT, e);
+		}
+		return list;
+	}
+
+	@Override
+	public List<Order> findByCustomerNumber(int customerNumber) throws DbException {
+		String sql = "select p_id,customer_no,total_amount,status,ordered_date from bill_order where customer_no=?";
+		List<Order> list = new ArrayList<>();
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+			stmt.setInt(1, customerNumber);
+			try (ResultSet rs = stmt.executeQuery();) {
+
+				while (rs.next()) {
+					Order or = new Order();
+					or.setOrderId(rs.getInt("p_id"));
+					or.setCustomerNo(rs.getInt("customer_no"));
+					or.setTotalAmount(rs.getInt("total_amount"));
+					or.setStatus(rs.getString("status"));
+					Timestamp ds = rs.getTimestamp("ordered_date");
+					or.setOrderedDate(ds.toLocalDateTime());
+					list.add(or);
+				}
 			}
 		} catch (SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_SELECT, e);

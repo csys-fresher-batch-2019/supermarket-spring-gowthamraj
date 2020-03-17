@@ -22,4 +22,6 @@ public interface BillOrderDAO {
 
 	public List<OrderItem> findAllBillItems(int billNo) throws DbException;
 
+	public List<Order> findByCustomerNumber(int customerNumber) throws DbException;
+
 }
